@@ -1,0 +1,79 @@
+<div class="lg:flex" data-controller="users--new">
+  <div class="lg:w-1/2 xl:max-w-screen-sm">
+    <div class="mt-10 px-12 sm:px-24 md:px-48 lg:px-12 lg:mt-16 xl:px-24 xl:max-w-2xl">
+      <h2 class="text-center text-4xl text-indigo-900 font-display font-semibold lg:text-left xl:text-5xl xl:text-bold">
+        Sign up
+      </h2>
+      <div class="mt-12">
+        <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+          <div class="mt-8">
+            <div class="col-span-6 ml-2 sm:col-span-4 md:mr-3">
+              <%= f.file_field :avatar, class: 'hidden',
+                data: {
+                  'users--new-target': 'fileUpload',
+                  action: 'change->users--new#preview'
+                }
+              %>
+
+              <label class="block text-gray-700 text-sm font-bold mb-2 text-center" for="photo">
+                Profile Avatar <span class="text-red-600"> </span>
+              </label>
+
+              <div class="text-center">
+                <div class="mt-2">
+                  <img src="" class="w-40 h-40 m-auto rounded-full shadow" alt="avatar-preview" data-users--new-target="imgPreview">
+                </div>
+                <button type="button" class="inline-flex items-center px-4 py-2 bg-white border border-gray-300
+                  rounded-md font-semibold text-xs text-gray-700 uppercase tracking-widest shadow-sm hover:text-gray-500
+                  focus:outline-none focus:border-blue-400 focus:shadow-outline-blue active:text-gray-800
+                  active:bg-gray-50 transition ease-in-out duration-150 mt-2 ml-3"
+                        data-action="click->users--new#selectFile">
+                  Select New Avatar
+                </button>
+              </div>
+            </div>
+          </div>
+          <div class="mt-8">
+            <div class="text-sm font-bold text-gray-700 tracking-wide">Email Address</div>
+            <%= f.email_field :email,
+                              class: 'w-full text-lg py-2 border-b border-gray-300 focus:outline-none
+                                focus:border-indigo-500',
+                              autofocus: true,
+                              placeholder: 'dat@gmail.com'
+            %>
+          </div>
+          <div class="mt-8">
+            <div class="text-sm font-bold text-gray-700 tracking-wide">Password</div>
+            <%= f.password_field :password,
+                              class: 'w-full text-lg py-2 border-b border-gray-300 focus:outline-none
+                                focus:border-indigo-500',
+                              autofocus: true,
+                              placeholder: 'Enter your password'
+            %>
+          </div>
+          <div class="mt-8">
+            <div class="text-sm font-bold text-gray-700 tracking-wide">Password confirmation</div>
+            <%= f.password_field :password_confirmation,
+                                 class: 'w-full text-lg py-2 border-b border-gray-300 focus:outline-none
+                                focus:border-indigo-500',
+                                 autofocus: true,
+                                 placeholder: 'Enter your password'
+            %>
+          </div>
+          <div class="mt-10">
+            <button type="submit" class="bg-indigo-500 text-gray-100 p-4 w-full rounded-full tracking-wide
+                                font-semibold font-display focus:outline-none focus:shadow-outline hover:bg-indigo-600
+                                shadow-lg">
+              Sign Up
+            </button>
+          </div>
+        <% end %>
+        <div class="mt-12 text-sm font-display font-semibold text-gray-700 text-center">
+          Do have an account ?
+          <%= link_to 'Log in', new_user_session_path, class: 'cursor-pointer text-indigo-600 hover:text-indigo-800' %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <%= render partial: 'users/shared/right_screen' %>
+</div>

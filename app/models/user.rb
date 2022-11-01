@@ -6,5 +6,6 @@ class User < ApplicationRecord
 
   has_one_attached :avatar, dependent: :destroy
 
-  validates :avatar, attached: true, content_type: %w[image/png image/jpeg image/gif]
+  validates :avatar, attached: true, content_type: %w[image/png image/jpeg image/gif image/jpg]
+  validates :name, presence: true
 end

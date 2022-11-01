@@ -1,6 +1,10 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!, unless: :devise_controller?
 
+  def current_user
+    UserDecorator.decorate(super) unless super.nil?
+  end
+
   protected
 
   def devise_parameter_sanitizer

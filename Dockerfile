@@ -5,6 +5,7 @@ RUN apt-get update -qq && apt-get install -yq --no-install-recommends \
     gnupg2 \
     less \
     git \
+    vim \
     libpq-dev \
     postgresql-client \
     libvips42 \

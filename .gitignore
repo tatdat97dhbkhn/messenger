@@ -34,3 +34,7 @@
 !/app/assets/builds/.keep
 
 .env
+
+/config/credentials/development.key
+
+.idea

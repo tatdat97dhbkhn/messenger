@@ -1,0 +1,22 @@
+<%= turbo_frame_tag "user_#{user.id}" do %>
+  <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative">
+    <div class="w-16 h-16 relative flex flex-shrink-0">
+      <%= image_tag user.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "user_#{user.id}_avatar" %>
+      <%= turbo_stream_from user, 'status' %>
+      <%= render partial: 'users/status', locals: { user: user } %>
+    </div>
+    <div class="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
+      <p><%= user.name %></p>
+      <div class="flex items-center text-sm text-gray-600">
+        <div class="min-w-0">
+          <p class="truncate">You sent a video.
+          </p>
+        </div>
+        <p class="ml-2 whitespace-no-wrap">11 Feb</p>
+      </div>
+    </div>
+    <div class="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+      <%= image_tag user.avatar, class: 'rounded-full w-full h-full object-cover', alt: "user_#{user.id}_avatar" %>
+    </div>
+  </div>
+<% end %>

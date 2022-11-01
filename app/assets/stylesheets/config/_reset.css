@@ -47,3 +47,12 @@
 ::-webkit-scrollbar-corner {
   background: transparent;
 }
+
+.bg-stone-500 {
+  background-color: rgb(120 113 108);
+}
+
+.bg-orange-500 {
+  background-color: rgb(249 115 22);
+}
+

@@ -9,7 +9,7 @@ module Users
       end
 
       permit(:sign_up) do |user_params|
-        user_params.permit(:avatar, :email, :password, :password_confirmation)
+        user_params.permit(:avatar, :email, :name, :password, :password_confirmation)
       end
     end
   end

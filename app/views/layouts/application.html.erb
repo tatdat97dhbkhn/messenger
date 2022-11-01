@@ -13,6 +13,16 @@
 
   <body>
     <%= render partial: 'shared/flash_messages' %>
-    <%= yield %>
+    <% unless devise_controller? %>
+      <div class="h-screen w-full flex flex-col antialiased text-gray-200 bg-gray-900 overflow-hidden">
+        <%= render partial: 'shared/application/menu_top' %>
+        <div class="flex h-full">
+          <%= render partial: 'shared/application/sidebar' %>
+          <%= yield %>
+        </div>
+      </div>
+    <% else %>
+      <%= yield %>
+    <% end %>
   </body>
 </html>

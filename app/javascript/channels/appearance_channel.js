@@ -47,12 +47,12 @@ consumer.subscriptions.create("AppearanceChannel", {
   },
   install() {
     console.log("Install");
-    // window.removeEventListener("load", resetFunc);
+    window.removeEventListener("load", resetFunc);
     window.removeEventListener("DOMContentLoaded", resetFunc);
     window.removeEventListener("click", resetFunc);
     window.removeEventListener("keydown", resetFunc);
 
-    // window.addEventListener("load", resetFunc);
+    window.addEventListener("load", resetFunc);
     window.addEventListener("DOMContentLoaded", resetFunc);
     window.addEventListener("click", resetFunc);
     window.addEventListener("keydown", resetFunc);

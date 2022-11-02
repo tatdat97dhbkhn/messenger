@@ -11,7 +11,7 @@ debug: dev
 	docker attach --detach-keys="ctrl-c" $(shell docker-compose ps -q web)
 
 bundle:
-	docker-compose exec web bash -c "bundle install"
+	docker-compose exec web bash -c "bin/bundle install"
 
 sidekiq:
 	docker-compose exec web bash -c "bundle exec sidekiq"

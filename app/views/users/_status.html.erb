@@ -1,0 +1,5 @@
+<% user = user.decorate if user.class.to_s == 'User' %>
+
+<div class="absolute bg-red-900 p-1 rounded-full bottom-0 right-0" id="user_<%= user.id %>_status">
+  <div class="<%= user.status_to_css %> rounded-full w-3 h-3"></div>
+</div>

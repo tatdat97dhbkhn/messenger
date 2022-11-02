@@ -2,9 +2,8 @@
   <div class="header p-4 flex flex-row justify-between items-center flex-none">
     <div class="w-16 h-16 relative flex flex-shrink-0">
       <%= image_tag current_user.avatar, class: 'rounded-full w-full h-full object-cover', alt: 'user-avatar' %>
-      <div class="absolute bg-gray-900 p-1 rounded-full bottom-0 right-0">
-        <div class="bg-green-500 rounded-full w-3 h-3"></div>
-      </div>
+      <%= turbo_stream_from current_user, 'status' %>
+      <%= render partial: 'users/status', locals: { user: current_user } %>
     </div>
     <p class="text-md font-bold hidden md:block group-hover:block">Chat</p>
     <a href="#" class="block rounded-full hover:bg-gray-700 bg-gray-800 w-10 h-10 p-2 hidden md:block group-hover:block">
@@ -17,6 +16,15 @@
   <%= render partial: 'chat/sidebar/search' %>
   <%#= render partial: 'chat/stories' %>
   <div class="contacts p-2 flex-1 overflow-y-scroll">
-    <%= render partial: 'chat/sidebar/room' %>
+    <%= turbo_stream_from 'users' %>
+    <%= turbo_frame_tag 'users' do %>
+      <%= render partial: 'chat/sidebar/user', collection: users, as: :user %>
+    <% end %>
+  </div>
+  <div class="p-2 flex-none text-center">
+    <p class="text-md font-bold hidden md:block group-hover:block">Channels</p>
+  </div>
+  <div class="contacts p-2 flex-1 overflow-y-scroll">
+    <%= render partial: 'chat/sidebar/channel' %>
   </div>
 </section>

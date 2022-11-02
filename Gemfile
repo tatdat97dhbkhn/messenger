@@ -73,6 +73,9 @@ group :development do
   # Use Pry as your rails console
   gem 'pry-rails'
 
+  # Add a comment summarizing the current schema to the top or bottom of each of your ActiveRecord models...
+  gem 'annotate'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

@@ -1,6 +1,8 @@
 module ApplicationHelper
+  include Pagy::Frontend
+
   def render_turbo_stream_flash_messages
-    turbo_stream.prepend "flash", partial: "shared/flash_messages"
+    turbo_stream.prepend "flash-messages", partial: "shared/flash_messages"
   end
 
   def active_class_if_url(url)

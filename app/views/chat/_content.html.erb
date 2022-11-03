@@ -1,3 +1,4 @@
-<%= render partial: 'chat/content/top' %>
-<%= render partial: 'chat/content/messages' %>
-<%= render partial: 'chat/content/footer' %>
+<%= render partial: 'chat/content/top', locals: { friend: friend } %>
+<%= render partial: 'chat/content/conversations',
+           locals: { conversations: conversations, pagy: pagy, channel: channel } %>
+<%= render partial: 'chat/content/footer', locals: { channel: channel, message_form: message_form } %>

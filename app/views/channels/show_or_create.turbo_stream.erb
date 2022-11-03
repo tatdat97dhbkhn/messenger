@@ -1,5 +1,11 @@
 <%= turbo_stream_action_tag(
-  "replace",
+  "update",
   target: "channel_detail",
-  template: %(#{render partial: "chat/content"})
+  template: %(#{render partial: "chat/content", locals: {
+    friend: @friend,
+    channel: @channel,
+    message_form: @message_form,
+    conversations: @conversations,
+    pagy: @pagy,
+  }})
 ) %>

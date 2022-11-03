@@ -8,4 +8,11 @@ Rails.application.routes.draw do
   }
 
   resources :chat, only: :index
+  scope :chat do
+    resources :channels, only: %i[] do
+      collection do
+        get :show_or_create
+      end
+    end
+  end
 end

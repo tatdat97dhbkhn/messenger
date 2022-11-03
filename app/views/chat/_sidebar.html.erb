@@ -15,14 +15,14 @@
   </div>
   <%= render partial: 'chat/sidebar/search' %>
   <%#= render partial: 'chat/stories' %>
-  <div class="contacts p-2 flex-1 overflow-y-scroll">
+  <div class="contacts p-2 flex-1 overflow-y-scroll" data-controller="channels--show-or-create">
     <%= turbo_stream_from 'users' %>
     <%= turbo_frame_tag 'users' do %>
       <%= render partial: 'chat/sidebar/user', collection: users, as: :user %>
     <% end %>
   </div>
   <div class="p-2 flex-none text-center">
-    <p class="text-md font-bold hidden md:block group-hover:block">Channels</p>
+    <p class="text-md font-bold group-hover:block">Channels</p>
   </div>
   <div class="contacts p-2 flex-1 overflow-y-scroll">
     <%= render partial: 'chat/sidebar/channel' %>

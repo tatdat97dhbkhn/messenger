@@ -90,4 +90,7 @@ Rails.application.configure do
     authentication: :plain,
     enable_starttls_auto: true
   }
+
+  # support ngrok
+  config.hosts << /\S+\.ngrok\.io/
 end

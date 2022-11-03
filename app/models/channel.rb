@@ -10,6 +10,8 @@
 #  updated_at           :datetime         not null
 #
 class Channel < ApplicationRecord
+  self.inheritance_column = :_sti_disabled
+
   enum type: { public: 'public', private: 'private', just_two_people: 'just_two_people' }, _suffix: true
 
   has_many :messages, dependent: :destroy

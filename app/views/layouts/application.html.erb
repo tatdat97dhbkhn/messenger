@@ -12,12 +12,11 @@
   </head>
 
   <body>
-    <%= turbo_frame_tag "appearance_channel" %>
-    <div id="appearance_channel"></div>
-
     <%= render partial: 'shared/flash_messages' %>
 
     <% unless devise_controller? %>
+      <%= turbo_frame_tag "appearance_channel" %>
+      <div id="appearance_channel" data-controller="components--appearance"></div>
       <div class="h-screen w-full flex flex-col antialiased text-gray-200 bg-gray-900 overflow-hidden">
         <%= render partial: 'shared/application/menu_top' %>
         <div class="flex h-full">

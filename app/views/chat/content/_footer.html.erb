@@ -2,7 +2,9 @@
   <%= form_with(model: message_form, url: channel_messages_path(channel_id: channel.id),
                 method: :post,
                 data: {
-                  controller: "components--reset-form",
+                  controller: "components--reset-form channels--show-or-create components--reset-form",
+                  "channels--show-or-create-sender-id-value": current_user.id,
+                  "channels--show-or-create-channel-id-value": channel.id,
                   action: "turbo:submit-end->components--reset-form#reset"
                 }) do |f| %>
     <%= f.hidden_field :channel_type, value: Channel.types[:just_two_people] %>

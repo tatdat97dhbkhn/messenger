@@ -1,20 +1,40 @@
 import BaseController from "../base_controller";
+import consumer from "../../channels/consumer";
 
 export default class extends BaseController {
-  static targets = ['userItemLinkHidden', 'userItem']
+  static values = {
+    channelId: Number,
+    senderId: Number
+  }
 
-  activeUser(event) {
-    const currentTarget = event.currentTarget
-
-    this.userItemTargets.forEach(userItemTarget => {
-      userItemTarget.classList.remove('bg-gray-800')
-      userItemTarget.classList.add('hover:bg-gray-800')
+  connect() {
+    this.subscription = consumer.subscriptions.create({ channel: "ChannelChatChannel", channel_id: this.channelIdValue }, {
+      connected: this._connected.bind(this),
+      disconnected: this._disconnected.bind(this),
+      received: this._received.bind(this),
     })
+  }
 
-    currentTarget.classList.add('bg-gray-800')
-    currentTarget.classList.remove('hover:bg-gray-800')
+  disconnect() {
+    console.log("Disconnected to the channel " + this.channelIdValue + "!");
+    consumer.subscriptions.remove(this.subscription)
+  }
 
-    const userItemLinkHidden = document.getElementById(this.targetPrefix(event))
-    userItemLinkHidden.click()
+  _connected() {
+    console.log("Connected to the channel " + this.channelIdValue + "!");
+  }
+
+  _disconnected() {
+    console.log("Disconnected to the channel " + this.channelIdValue + "!");
+  }
+
+  _received(data) {
+    const listConversationsTarget = document.getElementById('list-conversations')
+
+    if (data.sender_id === this.senderIdValue) {
+      listConversationsTarget.insertAdjacentHTML('beforeend', data.sender_message)
+    } else {
+      listConversationsTarget.insertAdjacentHTML('beforeend', data.recipient_message)
+    }
   }
 }

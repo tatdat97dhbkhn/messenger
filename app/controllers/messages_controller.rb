@@ -5,9 +5,19 @@ class MessagesController < ApplicationController
   def create
     @form = MessageForm.new(params: params, messages: @conversation.messages)
 
-    return if @form.submit
-
-    flash.now[:error] = @form.errors.full_messages
+    if @form.submit
+      ActionCable.server.broadcast "channel:#{@channel.id}", {
+        sender_message: ApplicationController.render(partial: 'chat/content/sender/message',
+                                                     locals: { conversation: @conversation,
+                                                               message: @form.message }),
+        recipient_message: ApplicationController.render(partial: 'chat/content/receiver/message',
+                                                        locals: { conversation: @conversation,
+                                                                  message: @form.message }),
+        sender_id: current_user.id
+      }
+    else
+      flash.now[:error] = @form.errors.full_messages
+    end
   end
 
   private

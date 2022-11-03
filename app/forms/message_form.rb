@@ -10,7 +10,7 @@ class MessageForm < ApplicationForm
     return false if invalid?
 
     self.message = messages.build(message_params)
-    self.message.save
+    message.save
   end
 
   private

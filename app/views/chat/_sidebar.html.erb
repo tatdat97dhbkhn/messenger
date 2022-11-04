@@ -1,4 +1,4 @@
-<section class="hidden lg:flex  flex flex-col flex-none overflow-auto w-24 hover:w-64 group lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out" id="chat-sidebar">
+<section class="lg:flex flex flex-col flex-none overflow-auto w-24 hover:w-64 group lg:max-w-sm md:w-2/5 transition-all duration-300 ease-in-out" id="chat-sidebar">
   <div class="header p-4 flex flex-row justify-between items-center flex-none">
     <div class="w-16 h-16 relative flex flex-shrink-0">
       <%= image_tag current_user.avatar, class: 'rounded-full w-full h-full object-cover', alt: 'user-avatar' %>
@@ -15,7 +15,7 @@
   </div>
   <%= render partial: 'chat/sidebar/search' %>
   <%#= render partial: 'chat/stories' %>
-  <div class="contacts p-2 flex-1 overflow-y-scroll" data-controller="channels--show-or-create">
+  <div class="contacts p-2 flex-1 overflow-y-scroll" data-controller="channels--index">
     <%= turbo_stream_from 'users' %>
     <%= turbo_frame_tag 'users' do %>
       <%= render partial: 'chat/sidebar/user', collection: users, as: :user %>

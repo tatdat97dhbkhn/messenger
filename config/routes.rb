@@ -13,6 +13,8 @@ Rails.application.routes.draw do
       collection do
         get :show_or_create
       end
+
+      resources :messages
     end
   end
 end

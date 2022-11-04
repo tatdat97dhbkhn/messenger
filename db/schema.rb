@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_02_070247) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_03_092444) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -50,6 +50,14 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_070247) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "conversations", force: :cascade do |t|
+    t.bigint "channel_id", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.datetime "end_time"
+    t.index ["channel_id"], name: "index_conversations_on_channel_id"
+  end
+
   create_table "joinables", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "channel_id", null: false
@@ -66,7 +74,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_070247) do
     t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.bigint "conversation_id"
+    t.boolean "is_msg_sent_immediately_after_last_message_from_same_user", default: false
     t.index ["channel_id"], name: "index_messages_on_channel_id"
+    t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
   end
 
@@ -90,8 +101,10 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_02_070247) do
 
   add_foreign_key "active_storage_attachments", "active_storage_blobs", column: "blob_id"
   add_foreign_key "active_storage_variant_records", "active_storage_blobs", column: "blob_id"
+  add_foreign_key "conversations", "channels"
   add_foreign_key "joinables", "channels"
   add_foreign_key "joinables", "users"
   add_foreign_key "messages", "channels"
+  add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"
 end

@@ -14,6 +14,7 @@ class Channel < ApplicationRecord
 
   enum type: { public: 'public', private: 'private', just_two_people: 'just_two_people' }, _suffix: true
 
+  has_many :conversations, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_users, through: :joinables, source: :user

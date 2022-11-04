@@ -61,6 +61,11 @@ gem 'devise'
 # Draper adds an object-oriented layer of presentation logic to your Rails application.
 gem 'draper'
 
+# Agnostic pagination in plain ruby: it works with any framework, ORM and DB type, with all kinds of collections,
+# even pre-paginated, scopes, Arrays, JSON data... and just whatever you can count.
+# Easy to use and customize, very fast and very light.
+gem 'pagy'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

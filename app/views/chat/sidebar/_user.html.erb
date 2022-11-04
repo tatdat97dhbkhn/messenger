@@ -1,15 +1,15 @@
 <%= turbo_frame_tag "user_#{user.id}" do %>
   <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative"
        id="user-item-<%= user.id %>"
-       data-channels--show-or-create-target="userItem"
-       data-action="click->channels--show-or-create#activeUser">
+       data-channels--index-target="userItem"
+       data-action="click->channels--index#activeUser">
     <%= link_to "channel detail",
                 show_or_create_channels_path(friend_id: user.id),
                 class: 'hidden',
                 id: "userItem#{user.id}",
                 data: {
                   turbo_stream: '',
-                  'channels--show-or-create-target': 'linkHidden'
+                  'channels--index-target': 'linkHidden'
                 } %>
     <div class="w-16 h-16 relative flex flex-shrink-0">
       <%= image_tag user.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "user_#{user.id}_avatar" %>

@@ -1,6 +1,6 @@
 <%= turbo_stream_from channel %>
 
-<div class="chat-body p-4 flex-1 overflow-y-scroll" id="list-conversations">
+<div class="chat-body p-4 flex-1 overflow-y-scroll" id="list-conversations" data-controller="components--scroll">
   <% conversations.each do |conversation| %>
     <% messages = conversation.messages %>
     <%= render(partial: 'chat/content/conversation',

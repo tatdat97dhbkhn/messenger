@@ -11,7 +11,7 @@ class ChannelsController < ApplicationController
 
     conversations = @channel.conversations.includes(messages: :user)
                             .order('conversations.created_at desc', 'messages.created_at asc')
-    @pagy, conversations = pagy(conversations, items: 10)
+    @pagy, conversations = pagy_array(conversations, items: 10)
     @conversations = conversations.reverse
   end
 

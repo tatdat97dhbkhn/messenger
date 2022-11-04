@@ -20,4 +20,10 @@ export default class BaseController extends Controller {
   linkHiddenTarget(event, idSuffix = '') {
     return `${this.targetPrefix(event, idSuffix)}LinkHiddenTarget`
   }
+
+  setAttributes(el, attrs) {
+    for(const key in attrs) {
+      el.setAttribute(key, attrs[key]);
+    }
+  }
 }

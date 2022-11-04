@@ -1,0 +1,8 @@
+<div class="flex flex-row justify-end mb-2">
+  <div class="messages text-sm text-white grid grid-flow-row gap-2">
+    <div class="flex items-center flex-row-reverse group">
+      <p class="<%= message_body_class %>"><%= message.body %></p>
+      <%= render partial: 'chat/content/sender/message_actions' %>
+    </div>
+  </div>
+</div>

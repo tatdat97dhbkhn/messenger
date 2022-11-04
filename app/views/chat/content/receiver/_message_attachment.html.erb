@@ -1,0 +1,11 @@
+<div class="flex flex-row justify-start mb-2">
+  <div class="w-8 h-8 relative flex flex-shrink-0 mr-4">
+    <%= image_tag message.user.avatar, class: "shadow-md rounded-full w-full h-full object-cover #{hidden_avatar ? 'hidden' : ''}" %>
+  </div>
+  <div class="messages text-sm text-gray-700 grid grid-flow-row gap-2">
+    <div class="flex items-center group">
+      <%= render partial: 'chat/content/concerns/message_attachment', locals: { attachment: attachment } %>
+      <%= render partial: 'chat/content/sender/message_actions' %>
+    </div>
+  </div>
+</div>

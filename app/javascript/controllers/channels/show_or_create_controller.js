@@ -7,6 +7,10 @@ export default class extends BaseController {
     senderId: Number
   }
 
+  get scrollController() {
+    return this.findController("list-conversations", "components--scroll")
+  }
+
   connect() {
     this.subscription = consumer.subscriptions.create({ channel: "ChannelChatChannel", channel_id: this.channelIdValue }, {
       connected: this._connected.bind(this),
@@ -33,6 +37,7 @@ export default class extends BaseController {
 
     if (data.sender_id === this.senderIdValue) {
       listConversationsTarget.insertAdjacentHTML('beforeend', data.sender_message)
+      this.scrollController.toBottom()
     } else {
       listConversationsTarget.insertAdjacentHTML('beforeend', data.recipient_message)
     }

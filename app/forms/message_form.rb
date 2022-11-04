@@ -10,6 +10,8 @@ class MessageForm < ApplicationForm
     return false if invalid?
 
     self.message = messages.build(message_params)
+    self.message.is_msg_sent_immediately_after_last_message_from_same_user =
+      message.is_message_sent_immediately_after_last_message_from_the_same_user?
     message.save
   end
 

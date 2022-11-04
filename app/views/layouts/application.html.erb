@@ -18,7 +18,7 @@
       <%= turbo_frame_tag "appearance_channel" %>
       <div id="appearance_channel" data-controller="components--appearance"></div>
       <div class="h-screen w-full flex flex-col antialiased text-gray-200 bg-gray-900 overflow-hidden">
-        <%= render partial: 'shared/application/menu_top' %>
+        <%= render partial: 'shared/application/toggle_sidebar' %>
         <div class="flex h-full">
           <%= render partial: 'shared/application/sidebar' %>
           <%= yield %>

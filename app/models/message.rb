@@ -30,18 +30,14 @@ class Message < ApplicationRecord
   belongs_to :conversation
   has_many_attached :attachments, dependent: :destroy
 
-  after_create_commit :set_is_message_sent_immediately_after_last_message_from_the_same_user
-
   scope :previous_from_the_same_user, ->(id, user_id) {
     where('id < ?', id).where(user_id: user_id).order("id DESC").first || last
   }
 
-  def set_is_message_sent_immediately_after_last_message_from_the_same_user
-    message_previous = Message.previous_from_the_same_user(id, user_id)
+  def is_message_sent_immediately_after_last_message_from_the_same_user?
+    message_previous = channel.messages.order("id DESC").first
+    return if message_previous.blank?
 
-    return false if message_previous.blank?
-
-    self.is_msg_sent_immediately_after_last_message_from_same_user = message_previous.created_at >= Time.current - 3.minutes
-    self.save
+    message_previous.user_id == self.user_id && message_previous.created_at >= Time.current - 3.minutes
   end
 end

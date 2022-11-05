@@ -30,6 +30,8 @@ class Message < ApplicationRecord
   belongs_to :conversation
   has_many_attached :attachments, dependent: :destroy
 
+  after_create_commit :update_channel_last_message_sent_at
+
   scope :previous_from_the_same_user, ->(id, user_id) {
     where('id < ?', id).where(user_id: user_id).order("id DESC").first || last
   }
@@ -39,5 +41,11 @@ class Message < ApplicationRecord
     return if message_previous.blank?
 
     message_previous.user_id == self.user_id && message_previous.created_at >= Time.current - 3.minutes
+  end
+
+  private
+
+  def update_channel_last_message_sent_at
+    channel.update(last_message_sent_at: Time.current)
   end
 end

@@ -18,4 +18,20 @@ class Channel < ApplicationRecord
   has_many :messages, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_users, through: :joinables, source: :user
+
+  class << self
+    def find_or_create_just_two_people_channel(users, channel_name)
+      channel = Channel.just_two_people_type.find_or_initialize_by(name: channel_name)
+
+      if channel.new_record?
+        channel.save
+
+        users.each do |user|
+          channel.joinables.create(user_id: user.id)
+        end
+      end
+
+      channel
+    end
+  end
 end

@@ -1,11 +1,11 @@
 <% if attachment.image? %>
-  <a class="block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md" href="#">
+  <%= link_to url_for(attachment), class: 'block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md', target: '_blank' do %>
     <%= image_tag(url_for(attachment), class: "absolute shadow-md w-full h-full rounded-l-lg object-cover") %>
-  </a>
+  <% end %>
 <% elsif attachment.video? %>
-  <a class="block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md items-center" href="#">
+  <%= link_to url_for(attachment), class: 'block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md items-center', target: '_blank' do %>
     <%= video_tag(url_for(attachment), class:'message-video', controls:'') %>
-  </a>
+  <% end %>
 <% elsif attachment.audio? %>
   <div class="min-h-screen bg-gray-50 py-6 flex flex-col justify-center items-center relative overflow-hidden sm:py-12" data-controller="components--audio">
     <div class="h-20 w-64">
@@ -41,5 +41,5 @@
     </div>
   </div>
 <% else %>
-  <%= link_to attachment.filename, url_for(attachment), class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
+  <%= link_to attachment.filename, url_for(attachment), target: '_blank', class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
 <% end %>

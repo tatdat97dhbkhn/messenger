@@ -39,3 +39,6 @@ routes:
 
 routes_grep:
 	docker-compose exec web bash -c "bin/rails rails routes" | grep $(name)
+
+seed:
+	docker-compose exec web bash -c "bin/rails db:seed"

@@ -7,6 +7,7 @@ cp .env.example .env
 make build
 make db-setup
 make migrate
+make seed
 ```
 
 ## Running the Rails app

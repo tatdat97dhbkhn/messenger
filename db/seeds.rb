@@ -1,7 +1,21 @@
-# This file should contain all the record creation needed to seed the database with its default values.
-# The data can then be loaded with the bin/rails db:seed command (or created alongside the database with db:setup).
-#
-# Examples:
-#
-#   movies = Movie.create([{ name: "Star Wars" }, { name: "Lord of the Rings" }])
-#   Character.create(name: "Luke", movie: movies.first)
+# frozen_string_literal: true
+
+return if User.first.present?
+
+users_avatar_paths = Dir.glob(Rails.root.join('app', 'assets', 'images', 'users', '*'))
+
+users_avatar_paths.each do |path|
+  file_name = File.basename(path)
+  name = file_name.split('.').first
+
+  user = User.new(name: name.titleize, password: '12345678', email: "#{name}@gmail.com")
+
+  user.avatar.attach(
+    io: File.open(path),
+    filename: file_name,
+    content_type: 'image/gif'
+  )
+
+  user.save
+  user.confirm
+end

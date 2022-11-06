@@ -34,4 +34,8 @@ class Channel < ApplicationRecord
       channel
     end
   end
+
+  def latest_message
+    messages.eager_load(:user).order(created_at: :desc).first
+  end
 end

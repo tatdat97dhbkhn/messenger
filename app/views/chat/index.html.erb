@@ -1,6 +1,6 @@
 <div class="flex-1 flex flex-col">
   <main class="flex-grow flex flex-row min-h-0">
-    <%= render partial: 'chat/sidebar', locals: { users: @users } %>
+    <%= render partial: 'chat/sidebar', locals: { users: @users, channel_just_two_peoples: @channel_just_two_peoples } %>
     <section class="flex flex-col flex-auto border-l border-gray-800" id="channel_detail"></section>
   </main>
 </div>

@@ -6,11 +6,13 @@ class ApplicationController < ActionController::Base
 
   def current_user
     UserDecorator.decorate(super) unless super.nil?
+  rescue StandardError
+    nil
   end
 
   def set_current_user
     Current.user ||= current_user
-  rescue
+  rescue StandardError
     Current.user = nil
   end
 

@@ -1,0 +1,7 @@
+<div class="flex items-center text-sm text-gray-600" id="channel_<%= channel_name %>_user_last_message">
+  <div class="min-w-0">
+    <p class="truncate"><%= channel&.last_message_body(sender) %>
+    </p>
+  </div>
+  <p class="ml-2 whitespace-no-wrap sort-column" data-time="<%= channel&.latest_message&.created_at.to_i %>"><%= send_message_at_format(channel.latest_message.created_at) if channel.present? %></p>
+</div>

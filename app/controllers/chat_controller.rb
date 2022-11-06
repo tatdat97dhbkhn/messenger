@@ -4,6 +4,7 @@ class ChatController < ApplicationController
                                  .users
                                  .order('channels.last_message_sent_at DESC')
                                  .decorate
+    @channel_just_two_peoples = Channel.just_two_people_type
   end
 
   private

@@ -46,16 +46,21 @@ class User < ApplicationRecord
   scope :confirmed, -> { where.not(confirmed_at: nil) }
 
   def broadcast_update_user_status
-    broadcast_replace_later_to [self, 'status'], partial: 'users/status', locals: { user: self.decorate },
-                               target: "user_#{id}_status"
+    broadcast_replace_later_to [self, 'status'], partial: 'users/status', locals: { user: decorate },
+                                                 target: "user_#{id}_status"
   end
 
   def broadcast_append_users
-    broadcast_append_later_to "users", partial: "chat/sidebar/user", locals: { user: self.decorate }, target: "users"
+    broadcast_append_later_to 'users', partial: 'chat/sidebar/user',
+                                       locals: {
+                                         user: decorate,
+                                         channel_just_two_peoples: Channel.just_two_people_type.to_json
+                                       },
+                                       target: 'users'
   end
 
   def broadcast_remove_user
-    broadcast_remove_to "users", target: "user_#{self.id}"
+    broadcast_remove_to 'users', target: "user_#{id}"
   end
 
   private

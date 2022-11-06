@@ -5,7 +5,7 @@ module Users
 
     def call
       @users = if params[:filter].present?
-                 users.filter_records(params[:filter].slice({}))
+                 users.filter_records(params[:filter].slice(:name_cont))
                else
                  users
                end

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
     passwords: 'users/passwords'
   }
 
+  resources :users, only: :index
   resources :chat, only: :index
   scope :chat do
     resources :channels, only: %i[] do
@@ -14,7 +15,7 @@ Rails.application.routes.draw do
         get :show_or_create
       end
 
-      resources :messages
+      resources :messages, only: :create
     end
   end
 end

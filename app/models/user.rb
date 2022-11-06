@@ -23,6 +23,8 @@
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
 class User < ApplicationRecord
+  include Filterable
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -44,6 +46,7 @@ class User < ApplicationRecord
 
   scope :all_except, ->(ids) { where.not(id: ids) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }
+  scope :name_cont, ->(string) { where('users.name LIKE ?', "%#{string}%") }
 
   def broadcast_update_user_status
     broadcast_replace_later_to [self, 'status'], partial: 'users/status', locals: { user: decorate },

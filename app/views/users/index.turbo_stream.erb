@@ -1,0 +1,8 @@
+<%= turbo_stream_action_tag(
+  "update",
+  target: "users",
+  template: %(#{render partial: 'chat/sidebar/user',
+                       collection: @users, as: :user,
+                       locals: { channel_just_two_peoples: @channel_just_two_peoples }
+  })
+) %>

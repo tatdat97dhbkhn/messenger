@@ -1,5 +1,5 @@
 <%= turbo_frame_tag "user_#{user.id}" do %>
-  <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative"
+  <div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative sort-item"
        id="user-item-<%= user.id %>"
        data-channels--index-target="userItem"
        data-action="click->channels--index#activeUser">
@@ -16,18 +16,23 @@
       <%= turbo_stream_from user, 'status' %>
       <%= render partial: 'users/status', locals: { user: user } %>
     </div>
+    <% is_channel_present = false %>
     <div class="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
       <p><%= user.name %></p>
-      <div class="flex items-center text-sm text-gray-600">
-        <div class="min-w-0">
-          <p class="truncate">You sent a video.
-          </p>
-        </div>
-        <p class="ml-2 whitespace-no-wrap">11 Feb</p>
+      <!-- when a new user is created we have a broadcast to channel users, but then current_user won't work,
+           so we need to check defined?(current_user)-->
+      <% if defined?(current_user) && current_user.present? %>
+        <% channel_name = generate_just_two_people_channel_name(user, current_user) %>
+        <% channel = Channel.includes(messages: :user).where(name: channel_name).first %>
+
+        <% is_channel_present = channel.present? %>
+        <%= render partial: "chat/sidebar/last_message", locals: { channel: channel&.decorate, sender: current_user, channel_name: channel_name } %>
+      <% end %>
+    </div>
+    <% if is_channel_present %>
+      <div class="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
+        <%= image_tag user.avatar, class: 'rounded-full w-full h-full object-cover', alt: "user_#{user.id}_avatar" %>
       </div>
-    </div>
-    <div class="w-4 h-4 flex flex-shrink-0 hidden md:block group-hover:block">
-      <%= image_tag user.avatar, class: 'rounded-full w-full h-full object-cover', alt: "user_#{user.id}_avatar" %>
-    </div>
+    <% end %>
   </div>
 <% end %>

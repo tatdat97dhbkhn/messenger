@@ -33,11 +33,11 @@ class Message < ApplicationRecord
   after_create_commit :update_channel_last_message_sent_at
 
   scope :previous_from_the_same_user, ->(id, user_id) {
-    where('id < ?', id).where(user_id: user_id).order("id DESC").first || last
+    where('id < ?', id).where(user_id: user_id).order('id DESC').first || last
   }
 
   def is_message_sent_immediately_after_last_message_from_the_same_user?
-    message_previous = channel.messages.order("id DESC").first
+    message_previous = channel.messages.order('id DESC').first
     return if message_previous.blank?
 
     message_previous.user_id == self.user_id && message_previous.created_at >= Time.current - 3.minutes
@@ -47,5 +47,16 @@ class Message < ApplicationRecord
 
   def update_channel_last_message_sent_at
     channel.update(last_message_sent_at: Time.current)
+
+    channel_name = channel.name.presence || channel.id
+
+    broadcast_replace_to('users',
+                         target: "channel_#{channel_name}_user_last_message",
+                         partial: 'chat/sidebar/last_message',
+                         locals: {
+                           channel_name: channel_name,
+                           channel: channel.decorate,
+                           sender: Current.user.id == user.id ? Current.user : message.user
+                         })
   end
 end

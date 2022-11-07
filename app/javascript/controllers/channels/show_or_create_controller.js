@@ -35,7 +35,9 @@ export default class extends BaseController {
   _received(data) {
     const listConversationsTarget = document.getElementById('list-conversations')
 
-    if (data.sender_id === this.senderIdValue) {
+    if(data.conversation) {
+      listConversationsTarget.insertAdjacentHTML('beforeend', data.conversation)
+    } else if (data.sender_id === this.senderIdValue) {
       listConversationsTarget.insertAdjacentHTML('beforeend', data.sender_message)
       this.scrollController.toBottom()
     } else {

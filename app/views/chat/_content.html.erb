@@ -1,4 +1,10 @@
 <%= render partial: 'chat/content/top', locals: { friend: friend } %>
-<%= render partial: 'chat/content/conversations',
-           locals: { conversations: conversations, pagy: pagy, channel: channel } %>
+
+<%= turbo_stream_from channel %>
+<div class="chat-body p-4 flex-1 overflow-y-scroll" id="list-conversations" data-controller="components--scroll">
+  <%= render partial: "chat/content/conversations/pager", locals: { pagy: pagy, friend: friend } %>
+  <%= render partial: 'chat/content/conversations',
+             locals: { conversations: conversations, pagy: pagy, channel: channel, friend: friend } %>
+</div>
+
 <%= render partial: 'chat/content/footer', locals: { channel: channel, message_form: message_form } %>

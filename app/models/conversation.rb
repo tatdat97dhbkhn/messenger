@@ -19,13 +19,4 @@
 class Conversation < ApplicationRecord
   belongs_to :channel
   has_many :messages, dependent: :destroy
-
-  after_create_commit :broadcast_append_conversations
-
-  def broadcast_append_conversations
-    broadcast_append_later_to channel,
-                              partial: "chat/content/conversation",
-                              locals: { conversation: self },
-                              target: "list-conversations"
-  end
 end

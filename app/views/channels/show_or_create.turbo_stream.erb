@@ -1,11 +1,27 @@
-<%= turbo_stream_action_tag(
-  "update",
-  target: "channel_detail",
-  template: %(#{render partial: "chat/content", locals: {
-    friend: @friend,
-    channel: @channel,
-    message_form: @message_form,
-    conversations: @conversations,
-    pagy: @pagy,
-  }})
-) %>
+<% if params[:infinite_scroll] %>
+  <%= turbo_stream_action_tag(
+        "prepend",
+        target: "list-conversations",
+        template: %(#{render partial: 'chat/content/conversations',
+                             locals: { conversations: @conversations, pagy: @pagy, channel: @channel, friend: @friend }})
+      ) %>
+  <%= turbo_stream.update("conversations-pager", "") %>
+  <%= turbo_stream_action_tag(
+        "prepend",
+        target: "list-conversations",
+        template: %(#{render partial: 'chat/content/conversations/pager',
+                             locals: { pagy: @pagy, friend: @friend }})
+      ) %>
+<% else %>
+  <%= turbo_stream_action_tag(
+    "update",
+    target: "channel_detail",
+    template: %(#{render partial: "chat/content", locals: {
+      friend: @friend,
+      channel: @channel,
+      message_form: @message_form,
+      conversations: @conversations,
+      pagy: @pagy,
+    }})
+  ) %>
+<% end %>

@@ -1,0 +1,15 @@
+<div id="conversations-pager" class="min-w-full my-8 flex justify-center">
+  <div>
+    <% if pagy.next %>
+      <%= link_to(
+            "Load more conversations",
+            show_or_create_channels_path(friend_id: friend.id, infinite_scroll: true, page: pagy.next),
+            class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800",
+            data: {
+              turbo_stream: "",
+              controller: "components--infinite-scroll"
+            }
+          ) %>
+    <% end %>
+  </div>
+</div>

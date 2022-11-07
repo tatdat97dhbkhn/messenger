@@ -1,18 +1,14 @@
-<%= turbo_stream_from channel %>
-
-<div class="chat-body p-4 flex-1 overflow-y-scroll" id="list-conversations" data-controller="components--scroll">
-  <% conversations.each do |conversation| %>
-    <% messages = conversation.messages %>
-    <%= render(partial: 'chat/content/conversation',
-               locals: { conversation: conversation }) if messages.present? %>
-    <% messages.each do |message| %>
-      <% if current_user.id == message.user.id %>
-        <%= render partial: 'chat/content/sender/message',
-                   locals: { conversation: conversation, message: message } %>
-      <% else %>
-        <%= render partial: 'chat/content/receiver/message',
-                   locals: { conversation: conversation, message: message } %>
-      <% end %>
+<% conversations.each do |conversation| %>
+  <% messages = conversation.messages %>
+  <%= render(partial: 'chat/content/conversations/conversation',
+             locals: { conversation: conversation }) if messages.present? %>
+  <% messages.each do |message| %>
+    <% if current_user.id == message.user.id %>
+      <%= render partial: 'chat/content/sender/message',
+                 locals: { conversation: conversation, message: message } %>
+    <% else %>
+      <%= render partial: 'chat/content/receiver/message',
+                 locals: { conversation: conversation, message: message } %>
     <% end %>
   <% end %>
-</div>
+<% end %>

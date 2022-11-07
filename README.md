@@ -13,6 +13,19 @@ make seed
 ## Running the Rails app
 ```
 make dev && make debug
+http://localhost:3000/chat
+Account:
+  - john_snow@gmail.com/12345678
+  - bronn@gmail.com/12345678
+  - daenerys_targaryen@gmail.com/12345678
+  - arya_stark@gmail.com/12345678
+  - khal _drogo@gmail.com/12345678
+  - robb_stark@gmail.com/12345678
+```
+
+## Bash
+```
+make bash
 ```
 
 ## Migrate

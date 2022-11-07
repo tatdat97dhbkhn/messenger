@@ -18,4 +18,6 @@ Rails.application.routes.draw do
       resources :messages, only: :create
     end
   end
+
+  put '/rails/active_storage/disk/:encoded_token', to: 'upload#update'
 end

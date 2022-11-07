@@ -7,39 +7,7 @@
     <%= video_tag(url_for(attachment), class:'message-video', controls:'') %>
   <% end %>
 <% elsif attachment.audio? %>
-  <div class="min-h-screen bg-gray-50 py-6 flex flex-col justify-center items-center relative overflow-hidden sm:py-12" data-controller="components--audio">
-    <div class="h-20 w-64">
-      <button type="button" class="relative rounded-xl group cursor-pointer focus:outline-none focus:ring focus:ring-[#1F89AE]">
-        <div class="absolute inset-0 flex items-center justify-center p-8">
-          <div class="w-full h-full transition duration-300 ease-in-out bg-cyan-500 filter group-hover:blur-2xl"></div>
-        </div>
-        <%= image_tag "bg_audio.jpeg", class: "relative rounded-xl" %>
-        <div style="top: 1rem; left: 40%"
-             class="absolute inset-0 flex items-center justify-center transition duration-200 ease-in-out bg-black rounded-xl bg-opacity-30 group-hover:bg-opacity-20">
-          <div style="background-color: black"
-               data-components--audio-target="btnPlay"
-               data-action="click->components--audio#playAndStop"
-               class="bg-black bg-opacity-50 rounded-full p-0.5">
-            <svg class="w-12 h-12 text-white text-opacity-0 transition duration-150 ease-in-out hover:text-opacity-20 w-6 h-6" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
-            </svg>
-          </div>
-          <div style="background-color: black"
-               data-components--audio-target="btnStop"
-               data-action="click->components--audio#playAndStop"
-               class="bg-black bg-opacity-50 rounded-full p-0.5 hidden">
-            <svg xmlns="http://www.w3.org/2000/svg" class="w-12 h-12 text-white text-opacity-0 transition duration-150 ease-in-out hover:text-opacity-20" viewBox="0 0 20 20" fill="white">
-              <path fill-rule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zM8 7a1 1 0 00-1 1v4a1 1 0 001 1h4a1 1 0 001-1V8a1 1 0 00-1-1H8z" clip-rule="evenodd" />
-            </svg>
-          </div>
-        </div>
-      </button>
-      <%= audio_tag(url_for(attachment), class:'message-audio', controls: '', data: { "components--audio-target": "audio" }) %>
-      <audio x-ref="audio">
-        <source src="https://soundbible.com/mp3/meadowlark_daniel-simion.mp3" type="audio/mp3" />
-      </audio>
-    </div>
-  </div>
+  <%= audio_tag(url_for(attachment), class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md', controls: '') %>
 <% else %>
   <%= link_to attachment.filename, url_for(attachment), target: '_blank', class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
 <% end %>

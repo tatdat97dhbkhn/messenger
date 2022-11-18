@@ -12,3 +12,5 @@ pin "sweetalert2", to: "https://ga.jspm.io/npm:sweetalert2@11.6.5/dist/sweetaler
 pin "stimulus-use", to: "https://ga.jspm.io/npm:stimulus-use@0.51.0/dist/index.js"
 pin "hotkeys-js", to: "https://ga.jspm.io/npm:hotkeys-js@3.10.0/dist/hotkeys.esm.js"
 pin "@rails/activestorage", to: "https://ga.jspm.io/npm:@rails/activestorage@7.0.4/app/assets/javascripts/activestorage.esm.js"
+pin "picmo", to: "https://ga.jspm.io/npm:picmo@5.7.2/dist/index.js"
+pin "@picmo/popup-picker", to: "https://ga.jspm.io/npm:@picmo/popup-picker@5.7.2/dist/index.js"

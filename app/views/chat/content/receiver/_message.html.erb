@@ -8,7 +8,7 @@
   end
 %>
 
-<% if message.body.present? %>
+<% if message.body.present? || message.icon_type? %>
   <%= render partial: 'chat/content/receiver/message_body', locals: { message: message, message_body_class: message_body_class, hidden_avatar: hidden_avatar } %>
 <% end %>
 

@@ -4,7 +4,7 @@
                 class: 'relative',
                 id: 'send-message-form',
                 data: {
-                  controller: "components--reset-form channels--show-or-create components--reset-form components--file-preview components--audio-record",
+                  controller: "messages--create components--reset-form channels--show-or-create components--reset-form components--file-preview components--audio-record",
                   "channels--show-or-create-sender-id-value": current_user.id,
                   "channels--show-or-create-channel-id-value": channel.id,
                   "components--audio-record-target": "formSubmit",
@@ -13,6 +13,7 @@
     <%= f.hidden_field :channel_type, value: Channel.types[:just_two_people] %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :channel_id, value: channel.id %>
+    <%= f.hidden_field :type, value: Message.types[:plain_text_or_attachment] %>
 
     <div id="attachment-previews"
          class="hidden"
@@ -50,6 +51,13 @@
       <button type="submit" class="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-6 h-6">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+        </svg>
+      </button>
+      <button type="button"
+              class="flex flex-shrink-0 focus:outline-none mx-2 block text-blue-600 hover:text-blue-700 w-6 h-6"
+              data-action="click->messages--create#sendLikeButton">
+        <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
+          <path d="M11.0010436,0 C9.89589787,0 9.00000024,0.886706352 9.0000002,1.99810135 L9,8 L1.9973917,8 C0.894262725,8 0,8.88772964 0,10 L0,12 L2.29663334,18.1243554 C2.68509206,19.1602453 3.90195042,20 5.00853025,20 L12.9914698,20 C14.1007504,20 15,19.1125667 15,18.000385 L15,10 L12,3 L12,0 L11.0010436,0 L11.0010436,0 Z M17,10 L20,10 L20,20 L17,20 L17,10 L17,10 Z"/>
         </svg>
       </button>
     </div>

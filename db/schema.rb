@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_03_092444) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_18_020953) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -76,6 +76,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_03_092444) do
     t.datetime "updated_at", null: false
     t.bigint "conversation_id"
     t.boolean "is_msg_sent_immediately_after_last_message_from_same_user", default: false
+    t.string "type"
     t.index ["channel_id"], name: "index_messages_on_channel_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"

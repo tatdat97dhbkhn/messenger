@@ -6,6 +6,7 @@
 #  body                                                      :text
 #  is_msg_sent_immediately_after_last_message_from_same_user :boolean          default(FALSE)
 #  read_at                                                   :datetime
+#  type                                                      :string
 #  created_at                                                :datetime         not null
 #  updated_at                                                :datetime         not null
 #  channel_id                                                :bigint           not null
@@ -25,10 +26,16 @@
 #  fk_rails_...  (user_id => users.id)
 #
 class Message < ApplicationRecord
+  self.inheritance_column = :_sti_disabled
+
   belongs_to :user
   belongs_to :channel
   belongs_to :conversation
   has_many_attached :attachments, dependent: :destroy
+
+  enum type: { icon: 'icon', plain_text_or_attachment: 'plain_text_or_attachment' },
+       _suffix: true,
+       _default: :plain_text_or_attachment
 
   after_create_commit :update_channel_last_message_sent_at
 

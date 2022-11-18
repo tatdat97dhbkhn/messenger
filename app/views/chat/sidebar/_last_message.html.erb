@@ -3,5 +3,5 @@
     <p class="truncate"><%= channel&.last_message_body(sender) %>
     </p>
   </div>
-  <p class="ml-2 whitespace-no-wrap sort-column" data-time="<%= channel&.latest_message&.created_at.to_i %>"><%= send_message_at_format(channel.latest_message.created_at) if channel.present? %></p>
+  <p class="ml-2 whitespace-no-wrap sort-column" data-time="<%= channel&.latest_message&.created_at.to_i %>"><%= send_message_at_format(channel.latest_message.created_at) if channel&.latest_message.present? %></p>
 </div>

@@ -1,7 +1,7 @@
 class MessageForm < ApplicationForm
-  attr_accessor :body, :user_id, :channel_id, :attachments, :params, :message, :messages
+  attr_accessor :body, :user_id, :channel_id, :attachments, :params, :message, :messages, :type
 
-  validates :body, presence: true, if: -> { message_params[:attachments].blank? }
+  validates :body, presence: true, if: :attachment_blank?
 
   def submit
     assign_attributes(message_params)
@@ -18,6 +18,10 @@ class MessageForm < ApplicationForm
 
   def message_params
     params.require(:message_form)
-          .permit(:body, :user_id, :channel_id, attachments: [])
+          .permit(:body, :user_id, :channel_id, :type, attachments: [])
+  end
+
+  def attachment_blank?
+    message_params[:type] == Message.types[:plain_text_or_attachment] && message_params[:attachments].blank?
   end
 end

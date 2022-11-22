@@ -8,6 +8,11 @@ export default class extends BaseController {
       const attachmentsPreview = document.getElementById('attachment-previews')
       attachmentsPreview.innerHTML = ''
       attachmentsPreview.classList.add('hidden')
+
+      const messageTypeInput = document.getElementById('message_form_type');
+      messageTypeInput.value = ''
+
+      document.getElementById('hide-reply-message-box').click()
     }
   }
 }

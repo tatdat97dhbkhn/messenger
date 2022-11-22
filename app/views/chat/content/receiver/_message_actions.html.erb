@@ -5,7 +5,16 @@
   C15.786,7.8,14.8,8.785,14.8,10s0.986,2.2,2.201,2.2S19.2,11.215,19.2,10S18.216,7.8,17.001,7.8z"/>
   </svg>
 </button>
-<button type="button" class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
+<button type="button"
+        data-controller="messages--reply"
+        data-messages--create-target="replyMessageButton"
+        data-reply-type="<%= message_reply_type %>"
+        data-reply-to="<%= message.user.name %>"
+        data-parent-id="<%= message.id %>"
+        data-attachment-id="<%= attachment_id %>"
+        data-reply-content="<%= message_reply_content %>"
+        data-action="click->messages--reply#showReplyMessageBox"
+        class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
   <svg viewBox="0 0 20 20" class="w-full h-full fill-current">
     <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
   </svg>

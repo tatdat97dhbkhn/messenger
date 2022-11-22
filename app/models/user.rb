@@ -46,7 +46,7 @@ class User < ApplicationRecord
 
   scope :all_except, ->(ids) { where.not(id: ids) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :name_cont, ->(string) { where('users.name LIKE ?', "%#{string}%") }
+  scope :name_cont, ->(string) { where('LOWER(users.name) LIKE ?', "%#{string.strip.downcase}%") }
 
   def broadcast_update_user_status
     broadcast_replace_later_to [self, 'status'], partial: 'users/status', locals: { user: decorate },

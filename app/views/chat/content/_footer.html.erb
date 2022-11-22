@@ -4,7 +4,7 @@
                 class: 'relative',
                 id: 'send-message-form',
                 data: {
-                  controller: "messages--create components--reset-form channels--show-or-create components--reset-form components--file-preview components--audio-record",
+                  controller: "messages--create components--reset-form channels--show-or-create components--file-preview components--audio-record",
                   "channels--show-or-create-sender-id-value": current_user.id,
                   "channels--show-or-create-channel-id-value": channel.id,
                   "components--audio-record-target": "formSubmit",
@@ -14,12 +14,37 @@
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :channel_id, value: channel.id %>
     <%= f.hidden_field :type, value: Message.types[:plain_text_or_attachment] %>
+    <%= f.hidden_field :reply_type, value: Message.reply_types[:not_reply], data: { 'messages--create-target': 'replyTypeInput' } %>
+    <%= f.hidden_field :parent_id, value: nil, data: { 'messages--create-target': 'parentIdInput' } %>
+    <%= f.hidden_field :attachment_id, value: nil, data: { 'messages--create-target': 'attachmentIdInput' } %>
 
     <div id="attachment-previews"
          class="hidden"
          data-components--file-preview-target="attachmentPreviews"
          data-action="components--file-preview#preview"
     >
+    </div>
+
+    <div class="hidden border-gray-800 flex justify-between border-t p-4"
+         id="reply-message-box"
+         data-messages--create-target="replyMessageBox">
+      <div>
+        <div class="flex items-center gap-2">
+          <svg class="h-4 w-4 " fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <path d="m10 7.002v-4.252c0-.301-.181-.573-.458-.691-.276-.117-.599-.058-.814.153l-8.5 8.25c-.146.141-.228.335-.228.538s.082.397.228.538l8.5 8.25c.217.21.539.269.814.153.277-.118.458-.39.458-.691v-4.25h1.418c4.636 0 8.91 2.52 11.153 6.572l.021.038c.134.244.388.39.658.39.062 0 .124-.007.186-.023.332-.085.564-.384.564-.727 0-7.774-6.257-14.114-14-14.248z"></path>
+          </svg>
+          <p class="reply-to"></p>
+        </div>
+        <p class="reply-content max-w-[calc(100vw-65px)] overflow-hidden text-ellipsis whitespace-nowrap md:max-w-[calc(100vw-420px)]"></p>
+      </div>
+      <button type="button"
+              id="hide-reply-message-box"
+              data-action="click->messages--create#hideReplyMessageBox"
+              data-default-reply-type="<%= Message.reply_types[:not_reply] %>">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+        </svg>
+      </button>
     </div>
 
     <div class="flex flex-row items-center p-4">

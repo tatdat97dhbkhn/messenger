@@ -1,8 +1,21 @@
 <div class="flex flex-row justify-end mb-2">
   <div class="messages text-sm text-white grid grid-flow-row gap-2">
     <div class="flex items-center flex-row-reverse group">
-      <%= render partial: 'chat/content/concerns/message_attachment', locals: { attachment: attachment } %>
-      <%= render partial: 'chat/content/sender/message_actions' %>
+      <% attachment_type = reply_type_mapping_attachment(attachment) %>
+      <div class="flex flex-col flex-shrink-0 items-end">
+        <% parent = message.parent %>
+        <% if parent.present? && message.body.blank? %>
+          <%= render partial: 'chat/content/sender/message_reply', locals: { attachment: message.reply_attachment, parent: parent } %>
+        <% end %>
+        <%= render partial: 'chat/content/concerns/message_attachment',
+                   locals: { attachment: attachment, attachment_type: attachment_type } %>
+      </div>
+      <%= render partial: 'chat/content/sender/message_actions', locals: {
+        message: message,
+        message_reply_type: attachment_type,
+        message_reply_content: reply_content_mapping_reply_type(attachment, message),
+        attachment_id: attachment.id
+      } %>
     </div>
   </div>
 </div>

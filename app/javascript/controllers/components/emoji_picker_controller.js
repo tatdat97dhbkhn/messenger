@@ -19,8 +19,14 @@ export default class extends BaseController {
     );
 
     this.picker.addEventListener("emoji:select", (event) => {
-      currentController.messagesCreateController.inputTextTarget.value = event.emoji
-      currentController.messagesCreateController.element.requestSubmit()
+      const textInput = currentController.messagesCreateController.inputTextTarget
+      const currentValue = textInput.value
+      const start = textInput.selectionStart;
+      const end = textInput.selectionEnd;
+      const splitted = currentValue.split("");
+
+      splitted.splice(start, end - start, event.emoji);
+      textInput.value = splitted.join("")
     });
   }
 

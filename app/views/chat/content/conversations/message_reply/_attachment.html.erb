@@ -1,0 +1,11 @@
+<% if attachment.image? %>
+  <%= link_to url_for(attachment), class: 'block w-10 h-10 relative flex flex-shrink-0 max-w-xs lg:max-w-md', target: '_blank' do %>
+    <%= image_tag(url_for(attachment), class: "absolute shadow-md w-full h-full rounded-l-lg object-cover") %>
+  <% end %>
+<% elsif attachment.video? %>
+  video
+<% elsif attachment.audio? %>
+  audio
+<% else %>
+  <%= link_to attachment.filename, url_for(attachment), target: '_blank', class:'block text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
+<% end %>

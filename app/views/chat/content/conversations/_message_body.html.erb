@@ -1,0 +1,37 @@
+<div class="flex flex-row <%= is_sender ? 'justify-end' : 'justify-start' %> mb-2">
+  <% unless is_sender %>
+    <div class="w-8 h-8 relative flex flex-shrink-0 mr-4">
+      <%= image_tag message.user.avatar, class: "shadow-md rounded-full w-full h-full object-cover #{hidden_avatar ? 'hidden' : ''}" %>
+    </div>
+  <% end %>
+
+  <div class="messages text-sm <%= is_sender ? 'text-white' : 'text-gray-700' %> grid grid-flow-row gap-2">
+    <div class="flex items-center group <%= is_sender ? 'flex-row-reverse' : '' %>">
+      <div class="flex flex-col flex-shrink-0 <%= is_sender ? 'items-end' : 'items-start' %>">
+        <% parent = message.parent %>
+        <% if parent.present? %>
+          <%= render partial: 'chat/content/conversations/message_reply',
+                     locals: {
+                       attachment: message.reply_attachment,
+                       parent: parent,
+                       is_sender: is_sender
+                     } %>
+        <% end %>
+
+        <% if message.icon_type? %>
+          <%= render partial: 'chat/content/conversations/like_button' %>
+        <% else %>
+          <p class="<%= message_body_class %> z-0"><%= message.body %></p>
+        <% end %>
+      </div>
+      <%= render partial: 'chat/content/conversations/message_actions',
+                 locals: {
+                   message: message,
+                   message_reply_type: Message.reply_types[:text],
+                   message_reply_content: reply_content_mapping_reply_type(nil, message),
+                   attachment_id: nil,
+                   is_sender: is_sender
+                 } %>
+    </div>
+  </div>
+</div>

@@ -3,12 +3,11 @@
   <%= render(partial: 'chat/content/conversations/conversation',
              locals: { conversation: conversation }) if messages.present? %>
   <% messages.each do |message| %>
-    <% if current_user.id == message.user.id %>
-      <%= render partial: 'chat/content/sender/message',
-                 locals: { conversation: conversation, message: message } %>
-    <% else %>
-      <%= render partial: 'chat/content/receiver/message',
-                 locals: { conversation: conversation, message: message } %>
-    <% end %>
+    <%= render partial: 'chat/content/conversations/message',
+               locals: {
+                 conversation: conversation,
+                 message: message,
+                 is_sender: current_user.id == message.user.id
+               } %>
   <% end %>
 <% end %>

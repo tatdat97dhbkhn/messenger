@@ -9,5 +9,5 @@
 <% elsif attachment.audio? %>
   <%= audio_tag(url_for(attachment), class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md', controls: '') %>
 <% else %>
-  <%= link_to attachment.filename, url_for(attachment), target: '_blank', class:'block w-64 text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
+  <%= link_to attachment.filename, url_for(attachment), target: '_blank', class:'block text-white h-10 relative flex flex-shrink-0 items-center max-w-xs lg:max-w-md' %>
 <% end %>

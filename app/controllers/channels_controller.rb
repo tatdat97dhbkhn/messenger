@@ -9,7 +9,8 @@ class ChannelsController < ApplicationController
 
     @message_form = MessageForm.new
 
-    conversations = @channel.conversations.includes(messages: :user)
+    conversations = @channel.conversations
+                            .includes(messages: [ :parent, :user, { attachments_attachments: :blob }])
                             .order('conversations.created_at desc', 'messages.created_at asc')
     @pagy, conversations = pagy_array(conversations, items: 10)
     @conversations = conversations.reverse

@@ -1,0 +1,41 @@
+<%
+  if is_sender
+    if message.is_msg_sent_immediately_after_last_message_from_same_user
+      message_body_class = "px-6 py-3 rounded-l-full bg-blue-700 max-w-xs lg:max-w-md"
+      hidden_avatar = true
+    else
+      message_body_class = "px-6 py-3 rounded-t-full rounded-l-full bg-blue-700 max-w-xs lg:max-w-md"
+      hidden_avatar = true
+    end
+  else
+    if message.is_msg_sent_immediately_after_last_message_from_same_user
+      message_body_class = "px-6 py-3 rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200"
+      hidden_avatar = true
+    else
+      message_body_class = "px-6 py-3 rounded-t-full rounded-r-full bg-gray-800 max-w-xs lg:max-w-md text-gray-200"
+      hidden_avatar = false
+    end
+  end
+%>
+
+<% if message.body.present? || message.icon_type? %>
+  <%= render partial: 'chat/content/conversations/message_body',
+             locals: {
+               message: message,
+               message_body_class: message_body_class,
+               hidden_avatar: hidden_avatar,
+               is_sender: is_sender
+             } %>
+<% end %>
+
+<% if message.attachments.attached? %>
+  <% message.attachments.each_with_index do |attachment, _index| %>
+    <%= render partial: 'chat/content/conversations/message_attachment',
+               locals: {
+                 message: message,
+                 attachment: attachment,
+                 hidden_avatar: hidden_avatar,
+                 is_sender: is_sender
+               } %>
+  <% end %>
+<% end %>

@@ -6,7 +6,11 @@ class MessagesController < ApplicationController
     @form = MessageForm.new(params: params, messages: @conversation.messages)
 
     if @form.submit
-      broadcast_append_conversations if @is_new_conversation
+      if @is_new_conversation
+        broadcast_append_conversations
+        sleep 0.2
+      end
+
       broadcast_append_messages
     else
       @conversation.destroy if @is_new_conversation
@@ -23,14 +27,9 @@ class MessagesController < ApplicationController
   end
 
   def set_conversation
-    last_conversation = @channel.conversations.order(created_at: :desc)
-    @conversation = last_conversation.first
-    @is_new_conversation = false
-
-    return unless @conversation.nil? || Time.current > @conversation.end_time
-
-    @conversation = @channel.conversations.create(end_time: Time.current + 30.minutes)
-    @is_new_conversation = true
+    conversations_create_service = Conversations::CreateService.call(channel: @channel)
+    @conversation = conversations_create_service.conversation
+    @is_new_conversation = conversations_create_service.is_new_conversation
   end
 
   def broadcast_append_conversations
@@ -42,12 +41,18 @@ class MessagesController < ApplicationController
 
   def broadcast_append_messages
     ActionCable.server.broadcast "channel:#{@channel.id}", {
-      sender_message: ApplicationController.render(partial: 'chat/content/sender/message',
-                                                   locals: { conversation: @conversation,
-                                                             message: @form.message }),
-      recipient_message: ApplicationController.render(partial: 'chat/content/receiver/message',
-                                                      locals: { conversation: @conversation,
-                                                                message: @form.message }),
+      sender_message: ApplicationController.render(partial: 'chat/content/conversations/message',
+                                                   locals: {
+                                                     conversation: @conversation,
+                                                     message: @form.message,
+                                                     is_sender: true
+                                                   }),
+      recipient_message: ApplicationController.render(partial: 'chat/content/conversations/message',
+                                                      locals: {
+                                                        conversation: @conversation,
+                                                        message: @form.message,
+                                                        is_sender: false
+                                                      }),
       sender_id: current_user.id
     }
   end

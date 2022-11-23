@@ -52,7 +52,7 @@ class Message < ApplicationRecord
   }
 
   def reply_attachment
-    ActiveStorage::Attachment.find_by(id: attachment_id)
+    ActiveStorage::Attachment.eager_load(:blob).find_by(id: attachment_id)
   end
 
   def is_message_sent_immediately_after_last_message_from_the_same_user?

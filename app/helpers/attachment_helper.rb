@@ -14,9 +14,15 @@ module AttachmentHelper
   def reply_content_mapping_reply_type(attachment, message)
     if attachment.nil?
       reply_content = message.body
-      reply_content = 'like' if reply_content.blank?
+
+      if reply_content.blank?
+        reply_content = "#{render(partial: 'chat/content/conversations/message_reply/like_button')}"
+      end
     else
-      reply_content = reply_type_mapping_attachment(attachment)
+      reply_content = "#{render(partial: 'chat/content/conversations/message_reply/attachment',
+                                locals: {
+                                  attachment: attachment
+                                })}"
     end
 
     reply_content

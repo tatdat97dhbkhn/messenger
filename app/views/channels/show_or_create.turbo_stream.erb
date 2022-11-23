@@ -3,7 +3,13 @@
         "prepend",
         target: "list-conversations",
         template: %(#{render partial: 'chat/content/conversations',
-                             locals: { conversations: @conversations, pagy: @pagy, channel: @channel, friend: @friend }})
+                             locals: {
+                               conversations: @conversations,
+                               pagy: @pagy,
+                               channel: @channel,
+                               friend: @friend,
+                               message_reaction_form: @message_reaction_form
+                             }})
       ) %>
   <%= turbo_stream.update("conversations-pager", "") %>
   <%= turbo_stream_action_tag(
@@ -22,6 +28,7 @@
       message_form: @message_form,
       conversations: @conversations,
       pagy: @pagy,
+      message_reaction_form: @message_reaction_form
     }})
   ) %>
 <% end %>

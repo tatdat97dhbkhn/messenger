@@ -8,9 +8,13 @@ class ChannelsController < ApplicationController
     @channel = Channel.find_or_create_just_two_people_channel([@friend, current_user], channel_name)
 
     @message_form = MessageForm.new
+    @message_reaction_form = MessageReactionForm.new
 
     conversations = @channel.conversations
-                            .includes(messages: [ :parent, :user, { attachments_attachments: :blob }])
+                            .includes(messages: [
+                              :parent, :user, :message_reactions,
+                              { attachments_attachments: :blob }
+                            ])
                             .order('conversations.created_at desc', 'messages.created_at asc')
     @pagy, conversations = pagy_array(conversations, items: 10)
     @conversations = conversations.reverse

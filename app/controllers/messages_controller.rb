@@ -4,6 +4,7 @@ class MessagesController < ApplicationController
 
   def create
     @form = MessageForm.new(params: params, messages: @conversation.messages)
+    @message_reaction_form = MessageReactionForm.new
 
     if @form.submit
       if @is_new_conversation
@@ -42,16 +43,22 @@ class MessagesController < ApplicationController
   def broadcast_append_messages
     ActionCable.server.broadcast "channel:#{@channel.id}", {
       sender_message: ApplicationController.render(partial: 'chat/content/conversations/message',
+                                                   collection: @form.new_messages,
+                                                   as: :message,
                                                    locals: {
                                                      conversation: @conversation,
-                                                     message: @form.message,
-                                                     is_sender: true
+                                                     is_sender: true,
+                                                     channel: @channel,
+                                                     message_reaction_form: @message_reaction_form
                                                    }),
       recipient_message: ApplicationController.render(partial: 'chat/content/conversations/message',
+                                                      collection: @form.new_messages,
+                                                      as: :message,
                                                       locals: {
                                                         conversation: @conversation,
-                                                        message: @form.message,
-                                                        is_sender: false
+                                                        is_sender: false,
+                                                        channel: @channel,
+                                                        message_reaction_form: @message_reaction_form
                                                       }),
       sender_id: current_user.id
     }

@@ -3,7 +3,7 @@
     <%= image_tag(url_for(attachment), class: "absolute shadow-md w-full h-full rounded-l-lg object-cover") %>
   <% end %>
 <% elsif attachment.video? %>
-  <%= link_to url_for(attachment), class: 'block w-64 h-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md items-center', target: '_blank' do %>
+  <%= link_to url_for(attachment), class: 'block w-64 mh-64 relative flex flex-shrink-0 max-w-xs lg:max-w-md items-center', target: '_blank' do %>
     <%= video_tag(url_for(attachment), class:'message-video', controls:'') %>
   <% end %>
 <% elsif attachment.audio? %>

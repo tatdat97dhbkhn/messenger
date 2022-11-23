@@ -34,6 +34,7 @@ class User < ApplicationRecord
 
   has_one_attached :avatar, dependent: :destroy
   has_many :messages, dependent: :destroy
+  has_many :message_reactions, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_channels, through: :joinables, source: :channel
 

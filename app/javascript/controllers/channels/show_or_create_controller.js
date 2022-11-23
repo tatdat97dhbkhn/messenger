@@ -7,6 +7,10 @@ export default class extends BaseController {
     senderId: Number
   }
 
+  static targets = [
+    'reactionBox'
+  ]
+
   get scrollController() {
     return this.findController("list-conversations", "components--scroll")
   }
@@ -42,6 +46,33 @@ export default class extends BaseController {
       this.scrollController.toBottom()
     } else {
       listConversationsTarget.insertAdjacentHTML('beforeend', data.recipient_message)
+    }
+  }
+
+  hideAllReactionBoxes() {
+    this.reactionBoxTargets.forEach(reactionBoxTarget => {
+      reactionBoxTarget.classList.add('hidden')
+    })
+  }
+
+  toggleReactionBox(event) {
+    event.stopPropagation();
+
+    const reactionBoxReflex = document.getElementById(`${this.targetPrefix(event, 'btn')}Box`)
+    let isShowing = true
+
+    if (reactionBoxReflex.classList.contains('hidden')) {
+      isShowing = false
+    }
+
+    this.hideAllReactionBoxes()
+
+    if (!isShowing) {
+      reactionBoxReflex.classList.remove('hidden')
+
+      setTimeout(() => {
+        reactionBoxReflex.classList.add('hidden')
+      }, 10000)
     }
   }
 }

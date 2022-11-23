@@ -5,8 +5,7 @@ export default class extends BaseController {
     'inputText',
     'replyTypeInput',
     'replyMessageBox',
-    'parentIdInput',
-    'attachmentIdInput'
+    'parentIdInput'
   ]
 
   get resetFormController() {
@@ -21,7 +20,7 @@ export default class extends BaseController {
     this.element.requestSubmit()
   }
 
-  showReplyMessageBox(replyTo, replyContent, replyType, parentId, attachmentId) {
+  showReplyMessageBox(replyTo, replyContent, replyType, parentId) {
     const replyToEle = this.replyMessageBoxTarget.getElementsByClassName('reply-to')[0]
     const replyContentEle = this.replyMessageBoxTarget.getElementsByClassName('reply-content')[0]
 
@@ -30,7 +29,6 @@ export default class extends BaseController {
     replyContentEle.innerHTML = replyContent
     this.replyTypeInputTarget.value = replyType
     this.parentIdInputTarget.value = parentId
-    this.attachmentIdInputTarget.value = attachmentId
   }
 
   hideReplyMessageBox(event) {
@@ -38,6 +36,5 @@ export default class extends BaseController {
     this.replyMessageBoxTarget.classList.add('hidden')
     this.replyTypeInputTarget.value = currentTarget.dataset.defaultReplyType
     this.parentIdInputTarget.value = ''
-    this.attachmentIdInputTarget.value = ''
   }
 }

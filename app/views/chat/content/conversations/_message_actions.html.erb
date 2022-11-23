@@ -11,7 +11,6 @@
         data-reply-type="<%= message_reply_type %>"
         data-reply-to="<%= message.user.name %>"
         data-parent-id="<%= message.id %>"
-        data-attachment-id="<%= attachment_id %>"
         data-reply-content="<%= message_reply_content %>"
         data-action="click->messages--reply#showReplyMessageBox"
         class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
@@ -19,9 +18,42 @@
     <path d="M19,16.685c0,0-2.225-9.732-11-9.732V2.969L1,9.542l7,6.69v-4.357C12.763,11.874,16.516,12.296,19,16.685z"/>
   </svg>
 </button>
-<button type="button" class="hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
+
+<button type="button"
+        id="select-reaction-<%= message.id %>-btn"
+        data-action="click->channels--show-or-create#toggleReactionBox"
+        class="relative hidden group-hover:block flex flex-shrink-0 focus:outline-none mx-2 block rounded-full text-gray-500 hover:text-gray-900 hover:bg-gray-700 bg-gray-800 w-8 h-8 p-2">
   <svg viewBox="0 0 24 24" class="w-full h-full fill-current">
     <path
       d="M12 22a10 10 0 1 1 0-20 10 10 0 0 1 0 20zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16zm-3.54-4.46a1 1 0 0 1 1.42-1.42 3 3 0 0 0 4.24 0 1 1 0 0 1 1.42 1.42 5 5 0 0 1-7.08 0zM9 11a1 1 0 1 1 0-2 1 1 0 0 1 0 2zm6 0a1 1 0 1 1 0-2 1 1 0 0 1 0 2z"/>
   </svg>
 </button>
+
+<%= form_with(model: message_reaction_form,
+              url: channel_message_message_reactions_path(channel_id: channel.id, message_id: message.id),
+              method: :post,
+              class: 'hidden bg-dark-lighten animate-fade-in absolute bottom-[calc(100%+5px)] z-[1] flex gap-1 rounded-full shadow',
+              id: "selectReaction#{message.id}Box",
+              data: {
+                controller: "message-reactions--create",
+                "message-reactions--create-target": "formSubmit",
+                "channels--show-or-create-target": "reactionBox",
+                action: "turbo:submit-end->channels--show-or-create#hideAllReactionBoxes"
+              }) do |f| %>
+  <% reactions.each do |reaction| %>
+    <%= render partial: 'chat/content/conversations/message_actions/reaction',
+               locals: {
+                 reaction: reaction,
+                 message: message,
+                 channel: channel
+               } %>
+  <% end %>
+  <%= f.hidden_field :message_id, value: message.id %>
+  <%= f.hidden_field :channel_id, value: channel.id %>
+  <%= f.hidden_field :type,
+                     data: {
+                       "message-reactions--create-target": "typeInputHidden"
+                     } %>
+<% end %>
+
+<%= render partial: 'chat/content/conversations/message_actions/reacted', locals: { message: message } %>

@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_21_092538) do
+ActiveRecord::Schema[7.0].define(version: 2022_11_24_020506) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -67,6 +67,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_092538) do
     t.index ["user_id"], name: "index_joinables_on_user_id"
   end
 
+  create_table "message_reactions", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.string "type", null: false
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["message_id"], name: "index_message_reactions_on_message_id"
+    t.index ["user_id"], name: "index_message_reactions_on_user_id"
+  end
+
   create_table "messages", force: :cascade do |t|
     t.bigint "user_id", null: false
     t.bigint "channel_id", null: false
@@ -79,7 +89,6 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_092538) do
     t.string "type"
     t.string "reply_type"
     t.bigint "parent_id"
-    t.bigint "attachment_id"
     t.index ["channel_id"], name: "index_messages_on_channel_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
@@ -108,6 +117,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_21_092538) do
   add_foreign_key "conversations", "channels"
   add_foreign_key "joinables", "channels"
   add_foreign_key "joinables", "users"
+  add_foreign_key "message_reactions", "messages"
+  add_foreign_key "message_reactions", "users"
   add_foreign_key "messages", "channels"
   add_foreign_key "messages", "conversations"
   add_foreign_key "messages", "users"

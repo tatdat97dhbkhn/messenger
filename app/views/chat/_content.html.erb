@@ -1,10 +1,20 @@
 <%= render partial: 'chat/content/top', locals: { friend: friend } %>
 
 <%= turbo_stream_from channel %>
-<div class="chat-body p-4 flex-1 overflow-y-scroll" id="list-conversations" data-controller="components--scroll">
+<div class="chat-body p-4 flex-1 overflow-y-scroll"
+     id="list-conversations"
+     data-controller="channels--show-or-create components--scroll messages--reaction"
+     data-channels--show-or-create-sender-id-value="<%= current_user.id %>"
+     data-channels--show-or-create-channel-id-value="<%= channel.id %>">
   <%= render partial: "chat/content/conversations/pager", locals: { pagy: pagy, friend: friend } %>
   <%= render partial: 'chat/content/conversations',
-             locals: { conversations: conversations, pagy: pagy, channel: channel, friend: friend } %>
+             locals: {
+               conversations: conversations,
+               pagy: pagy,
+               channel: channel,
+               friend: friend,
+               message_reaction_form: message_reaction_form
+             } %>
 </div>
 
 <%= render partial: 'chat/content/footer', locals: { channel: channel, message_form: message_form } %>

@@ -1,0 +1,8 @@
+<% message_reactions = message.message_reactions %>
+
+<div id="message-<%= message.id %>-reactions" class="<%= message_reactions.size > 0 ? '' : 'hidden' %> bg-gray-800 absolute top-full flex -translate-y-1/2 cursor-pointer items-center gap-[2px] rounded-lg px-2 text-sm">
+  <% message_reactions.each do |message_reaction| %>
+    <%= image_tag "reactions/#{message_reaction.type}.gif", class: 'h-3 w-3' %>
+  <% end %>
+  <span class="text-white" style="font-size: smaller;"><%= message_reactions.size.to_i %></span>
+</div>

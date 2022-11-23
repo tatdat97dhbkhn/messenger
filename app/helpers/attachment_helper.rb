@@ -11,8 +11,8 @@ module AttachmentHelper
     end
   end
 
-  def reply_content_mapping_reply_type(attachment, message)
-    if attachment.nil?
+  def reply_content_mapping_reply_type(message)
+    if message.attachments.blank?
       reply_content = message.body
 
       if reply_content.blank?
@@ -21,7 +21,7 @@ module AttachmentHelper
     else
       reply_content = "#{render(partial: 'chat/content/conversations/message_reply/attachment',
                                 locals: {
-                                  attachment: attachment
+                                  attachment: message.attachments.first
                                 })}"
     end
 

@@ -4,9 +4,7 @@
                 class: 'relative',
                 id: 'send-message-form',
                 data: {
-                  controller: "messages--create components--reset-form channels--show-or-create components--file-preview components--audio-record",
-                  "channels--show-or-create-sender-id-value": current_user.id,
-                  "channels--show-or-create-channel-id-value": channel.id,
+                  controller: "messages--create components--reset-form components--file-preview components--audio-record",
                   "components--audio-record-target": "formSubmit",
                   action: "turbo:submit-end->components--reset-form#reset"
                 }) do |f| %>
@@ -16,7 +14,6 @@
     <%= f.hidden_field :type, value: Message.types[:plain_text_or_attachment] %>
     <%= f.hidden_field :reply_type, value: Message.reply_types[:not_reply], data: { 'messages--create-target': 'replyTypeInput' } %>
     <%= f.hidden_field :parent_id, value: nil, data: { 'messages--create-target': 'parentIdInput' } %>
-    <%= f.hidden_field :attachment_id, value: nil, data: { 'messages--create-target': 'attachmentIdInput' } %>
 
     <div id="attachment-previews"
          class="hidden"

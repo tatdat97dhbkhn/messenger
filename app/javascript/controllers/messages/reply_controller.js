@@ -13,7 +13,6 @@ export default class extends BaseController {
       currentTarget.dataset.replyContent,
       currentTarget.dataset.replyType,
       currentTarget.dataset.parentId,
-      currentTarget.dataset.attachmentId
     )
   }
 }

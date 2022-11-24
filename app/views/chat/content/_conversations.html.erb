@@ -3,11 +3,14 @@
   <%= render(partial: 'chat/content/conversations/conversation',
              locals: { conversation: conversation }) if messages.present? %>
   <% messages.each do |message| %>
+    <%= turbo_stream_from message %>
     <%= render partial: 'chat/content/conversations/message',
                locals: {
                  conversation: conversation,
                  message: message,
-                 is_sender: current_user.id == message.user.id
+                 is_sender: current_user.id == message.user.id,
+                 channel: channel,
+                 message_reaction_form: message_reaction_form
                } %>
   <% end %>
 <% end %>

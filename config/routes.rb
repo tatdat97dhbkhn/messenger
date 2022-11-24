@@ -15,7 +15,9 @@ Rails.application.routes.draw do
         get :show_or_create
       end
 
-      resources :messages, only: :create
+      resources :messages, only: :create do
+        resources :message_reactions, only: %i[index create]
+      end
     end
   end
 

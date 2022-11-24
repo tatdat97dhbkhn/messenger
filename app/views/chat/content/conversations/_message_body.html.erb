@@ -1,4 +1,4 @@
-<div class="flex flex-row <%= is_sender ? 'justify-end' : 'justify-start' %> mb-2">
+<div class="relative flex flex-row <%= is_sender ? 'justify-end' : 'justify-start' %> mb-3">
   <% unless is_sender %>
     <div class="w-8 h-8 relative flex flex-shrink-0 mr-4">
       <%= image_tag message.user.avatar, class: "shadow-md rounded-full w-full h-full object-cover #{hidden_avatar ? 'hidden' : ''}" %>
@@ -12,7 +12,6 @@
         <% if parent.present? %>
           <%= render partial: 'chat/content/conversations/message_reply',
                      locals: {
-                       attachment: message.reply_attachment,
                        parent: parent,
                        is_sender: is_sender
                      } %>
@@ -28,9 +27,10 @@
                  locals: {
                    message: message,
                    message_reply_type: Message.reply_types[:text],
-                   message_reply_content: reply_content_mapping_reply_type(nil, message),
-                   attachment_id: nil,
-                   is_sender: is_sender
+                   message_reply_content: reply_content_mapping_reply_type(message),
+                   is_sender: is_sender,
+                   channel: channel,
+                   message_reaction_form: message_reaction_form
                  } %>
     </div>
   </div>

@@ -10,7 +10,6 @@
 #  type                                                      :string
 #  created_at                                                :datetime         not null
 #  updated_at                                                :datetime         not null
-#  attachment_id                                             :bigint
 #  channel_id                                                :bigint           not null
 #  conversation_id                                           :bigint
 #  parent_id                                                 :bigint
@@ -36,6 +35,7 @@ class Message < ApplicationRecord
   belongs_to :conversation
   belongs_to :parent, class_name: self.name, optional: true
   has_many :children, class_name: self.name, foreign_key: 'parent_id'
+  has_many :message_reactions, dependent: :destroy
   has_many_attached :attachments, dependent: :destroy
 
   enum type: { icon: 'icon', plain_text_or_attachment: 'plain_text_or_attachment' },
@@ -50,10 +50,6 @@ class Message < ApplicationRecord
   scope :previous_from_the_same_user, ->(id, user_id) {
     where('id < ?', id).where(user_id: user_id).order('id DESC').first || last
   }
-
-  def reply_attachment
-    ActiveStorage::Attachment.eager_load(:blob).find_by(id: attachment_id)
-  end
 
   def is_message_sent_immediately_after_last_message_from_the_same_user?
     message_previous = channel.messages.order('id DESC').first

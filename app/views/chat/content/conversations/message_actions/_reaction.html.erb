@@ -1,0 +1,8 @@
+<%= image_tag reaction[:path],
+              class: 'h-7 w-7 origin-bottom cursor-pointer transition duration-300 hover:scale-[115%]',
+              id: "select-reaction-#{message.id}",
+              data: {
+                'action': 'click->message-reactions--create#react',
+                'type': reaction[:type]
+              },
+              title: reaction[:type] %>

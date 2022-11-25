@@ -1,0 +1,7 @@
+<div class="flex items-center justify-between px-5 py-2">
+  <div class="flex items-center gap-3">
+    <%= image_tag message_reaction.user_avatar, class: 'h-10 w-10 rounded-full object-cover' %>
+    <p><%= message_reaction.user_name %></p>
+  </div>
+  <%= image_tag "reactions/#{message_reaction.type}.gif", class: 'h-5 w-5' %>
+</div>

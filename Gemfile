@@ -81,6 +81,9 @@ group :development do
   # Add a comment summarizing the current schema to the top or bottom of each of your ActiveRecord models...
   gem 'annotate'
 
+  # help to kill N+1 queries and unused eager loading.
+  gem 'bullet'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

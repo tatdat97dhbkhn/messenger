@@ -12,7 +12,6 @@
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :channel_id, value: channel.id %>
     <%= f.hidden_field :type, value: Message.types[:plain_text_or_attachment] %>
-    <%= f.hidden_field :reply_type, value: Message.reply_types[:not_reply], data: { 'messages--create-target': 'replyTypeInput' } %>
     <%= f.hidden_field :parent_id, value: nil, data: { 'messages--create-target': 'parentIdInput' } %>
 
     <div id="attachment-previews"
@@ -36,8 +35,7 @@
       </div>
       <button type="button"
               id="hide-reply-message-box"
-              data-action="click->messages--create#hideReplyMessageBox"
-              data-default-reply-type="<%= Message.reply_types[:not_reply] %>">
+              data-action="click->messages--create#hideReplyMessageBox">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-5 h-5">
           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
         </svg>

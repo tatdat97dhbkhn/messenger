@@ -6,7 +6,6 @@
 #  body                                                      :text
 #  is_msg_sent_immediately_after_last_message_from_same_user :boolean          default(FALSE)
 #  read_at                                                   :datetime
-#  reply_type                                                :string
 #  type                                                      :string
 #  created_at                                                :datetime         not null
 #  updated_at                                                :datetime         not null
@@ -41,9 +40,6 @@ class Message < ApplicationRecord
   enum type: { icon: 'icon', plain_text_or_attachment: 'plain_text_or_attachment' },
        _suffix: true,
        _default: :plain_text_or_attachment
-  enum reply_type: { not_reply: 'not_reply', video: 'video', 'audio': 'audio', image: 'image', file: 'file',
-                     text: 'text' },
-       _default: :not_reply
 
   after_create_commit :update_channel_last_message_sent_at
 

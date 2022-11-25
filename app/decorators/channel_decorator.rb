@@ -1,6 +1,6 @@
 class ChannelDecorator < ApplicationDecorator
   def latest_message
-    object.latest_message
+    @latest_message ||= object.latest_message
   end
 
   def last_message_body(sender)

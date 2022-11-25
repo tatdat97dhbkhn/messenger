@@ -1,0 +1,8 @@
+<%= turbo_stream_action_tag(
+      "replace",
+      target: "components-modal",
+      template: %(#{render partial: 'message_reactions/index',
+                           locals: {
+                             message_reactions: @message_reactions
+                           }})
+    ) %>

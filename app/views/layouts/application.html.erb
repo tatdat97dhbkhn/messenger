@@ -13,6 +13,7 @@
 
   <body>
     <%= render partial: 'shared/flash_messages' %>
+    <%= render partial: 'shared/modal' %>
 
     <% unless devise_controller? %>
       <%= turbo_frame_tag "appearance_channel" %>

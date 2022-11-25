@@ -26,7 +26,6 @@
       <%= render partial: 'chat/content/conversations/message_actions',
                  locals: {
                    message: message,
-                   message_reply_type: Message.reply_types[:text],
                    message_reply_content: reply_content_mapping_reply_type(message),
                    is_sender: is_sender,
                    channel: channel,

@@ -23,7 +23,7 @@
            so we need to check defined?(current_user)-->
       <% if defined?(current_user) && current_user.present? %>
         <% channel_name = generate_just_two_people_channel_name(user, current_user) %>
-        <% channel = Channel.includes(messages: :user).where(name: channel_name).first %>
+        <% channel = channel_just_two_peoples.where(name: channel_name).first %>
 
         <% is_channel_present = channel.present? %>
         <%= render partial: "chat/sidebar/last_message", locals: { channel: channel&.decorate, sender: current_user, channel_name: channel_name } %>

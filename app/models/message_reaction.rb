@@ -29,6 +29,8 @@ class MessageReaction < ApplicationRecord
        _suffix: true,
        _default: :like
 
+  delegate :name, :avatar, to: :user, prefix: true, allow_nil: true
+
   after_commit :broadcast_to_message_channel
 
   def broadcast_to_message_channel

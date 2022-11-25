@@ -4,12 +4,13 @@ class ChatController < ApplicationController
                                  .users
                                  .order('channels.last_message_sent_at DESC')
                                  .decorate
-    @channel_just_two_peoples = Channel.just_two_people_type
+    @channel_just_two_peoples = Channel.includes(:messages).just_two_people_type
   end
 
   private
 
   def user_scope
-    User.includes(joinables: :channel).confirmed.all_except(current_user.id)
+    User.includes(avatar_attachment: :blob, joinables: [ { channel: :messages } ])
+        .confirmed.all_except(current_user.id)
   end
 end

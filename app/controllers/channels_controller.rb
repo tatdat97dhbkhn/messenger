@@ -12,7 +12,7 @@ class ChannelsController < ApplicationController
 
     conversations = @channel.conversations
                             .includes(messages: [
-                              :parent, :user, :message_reactions,
+                              :channel, :parent, :user, :message_reactions,
                               { attachments_attachments: :blob }
                             ])
                             .order('conversations.created_at desc', 'messages.created_at asc')

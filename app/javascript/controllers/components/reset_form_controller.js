@@ -10,7 +10,7 @@ export default class extends BaseController {
       attachmentsPreview.classList.add('hidden')
 
       const messageTypeInput = document.getElementById('message_form_type');
-      messageTypeInput.value = ''
+      messageTypeInput.value = 'plain_text_or_attachment'
 
       document.getElementById('hide-reply-message-box').click()
     }

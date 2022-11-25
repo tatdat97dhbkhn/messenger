@@ -1,6 +1,5 @@
 class MessageForm < ApplicationForm
-  attr_accessor :body, :user_id, :channel_id, :attachments, :params, :new_messages, :messages, :type, :parent_id,
-                :reply_type
+  attr_accessor :body, :user_id, :channel_id, :attachments, :params, :new_messages, :messages, :type, :parent_id
 
   validates :body, presence: true, if: :attachment_blank?
 
@@ -43,7 +42,7 @@ class MessageForm < ApplicationForm
 
   def message_params
     params.require(:message_form)
-          .permit(:body, :user_id, :channel_id, :type, :parent_id, :reply_type, attachments: [])
+          .permit(:body, :user_id, :channel_id, :type, :parent_id, attachments: [])
   end
 
   def save(msg_params)

@@ -1,6 +1,10 @@
 class MessageReactionsController < ApplicationController
-  before_action :set_channel, only: :create
-  before_action :set_message, only: :create
+  before_action :set_channel, only: %i[index create]
+  before_action :set_message, only: %i[index create]
+
+  def index
+    @message_reactions = @message.message_reactions
+  end
 
   def create
     @form = MessageReactionForm.new(params: params, user_id: current_user.id)
@@ -15,6 +19,7 @@ class MessageReactionsController < ApplicationController
   end
 
   def set_message
-    @message = @channel.messages.find_by(id: params[:message_id])
+    @message = @channel.messages.eager_load(message_reactions: { user: { avatar_attachment: :blob } })
+                       .find_by(id: params[:message_id])
   end
 end

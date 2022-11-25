@@ -11,7 +11,6 @@ export default class extends BaseController {
     this.messagesCreateController.showReplyMessageBox(
       `Replying to ${currentTarget.dataset.replyTo}`,
       currentTarget.dataset.replyContent,
-      currentTarget.dataset.replyType,
       currentTarget.dataset.parentId,
     )
   }

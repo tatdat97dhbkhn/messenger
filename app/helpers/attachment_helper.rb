@@ -17,6 +17,8 @@ module AttachmentHelper
 
       if reply_content.blank?
         reply_content = "#{render(partial: 'chat/content/conversations/message_reply/like_button')}"
+      else
+        reply_content = "<p class='break-all'>#{reply_content}</p>"
       end
     else
       reply_content = "#{render(partial: 'chat/content/conversations/message_reply/attachment',

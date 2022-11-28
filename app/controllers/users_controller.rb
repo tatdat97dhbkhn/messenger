@@ -10,6 +10,6 @@ class UsersController < ApplicationController
   private
 
   def user_scope
-    User.includes(joinables: :channel).confirmed.all_except(current_user.id)
+    User.includes(joinables: :channel, avatar_attachment: :blob).confirmed.all_except(current_user.id)
   end
 end

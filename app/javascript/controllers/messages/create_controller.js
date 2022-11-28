@@ -4,7 +4,8 @@ export default class extends BaseController {
   static targets = [
     'inputText',
     'replyMessageBox',
-    'parentIdInput'
+    'parentIdInput',
+    'gifUrlInput'
   ]
 
   get resetFormController() {
@@ -16,6 +17,13 @@ export default class extends BaseController {
 
     const messageTypeInput = document.getElementById('message_form_type');
     messageTypeInput.value = 'icon'
+    this.element.requestSubmit()
+  }
+
+  sendGif(gifUrl) {
+    this.resetFormController.reset()
+    const gifUrlInput = document.getElementById('message_form_gif_url');
+    gifUrlInput.value = gifUrl
     this.element.requestSubmit()
   }
 

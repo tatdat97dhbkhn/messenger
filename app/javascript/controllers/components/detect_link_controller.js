@@ -8,7 +8,7 @@ export default class extends BaseController {
   static targets = [ 'displayContent' ]
 
   connect() {
-      this.displayContentTarget.innerHTML = this.urlify(this.contentValue)
+    this.displayContentTarget.innerHTML = this.urlify(this.contentValue)
   }
 
   urlify(text) {

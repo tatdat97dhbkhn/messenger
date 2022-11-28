@@ -66,6 +66,12 @@ gem 'draper'
 # Easy to use and customize, very fast and very light.
 gem 'pagy'
 
+# Faraday is an HTTP client library that provides a common interface over many adapters (such as Net::HTTP) and embraces the concept of Rack middleware when processing the request/response cycle.
+gem 'faraday'
+
+# Various middleware for Faraday
+gem 'faraday_middleware'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

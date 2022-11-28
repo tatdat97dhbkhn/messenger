@@ -12,6 +12,9 @@ export default class extends BaseController {
       const messageTypeInput = document.getElementById('message_form_type');
       messageTypeInput.value = 'plain_text_or_attachment'
 
+      const gifUrlInput = document.getElementById('message_form_gif_url');
+      gifUrlInput.value = ''
+
       document.getElementById('hide-reply-message-box').click()
     }
   }

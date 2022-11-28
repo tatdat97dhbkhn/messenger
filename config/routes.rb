@@ -9,6 +9,7 @@ Rails.application.routes.draw do
 
   resources :users, only: :index
   resources :chat, only: :index
+  resources :giphy, only: :index
   scope :chat do
     resources :channels, only: %i[] do
       collection do

@@ -1,0 +1,8 @@
+<% gif_url = gif.dig('images', 'original', 'url') %>
+<%= image_tag gif_url,
+              class: 'h-[100px] flex-1 cursor-pointer object-cover',
+              data: {
+                url: gif_url,
+                action: 'click->components--giphy#selectGif'
+              }
+%>

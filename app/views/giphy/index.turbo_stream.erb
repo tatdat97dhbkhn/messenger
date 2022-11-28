@@ -1,0 +1,6 @@
+<%= turbo_stream_action_tag(
+      "update",
+      target: "list-gifs",
+      template: %(#{render(partial: 'giphy/giphy', collection: @gifs, as: :gif) || render(partial: 'giphy/no_record')
+      })
+    ) %>

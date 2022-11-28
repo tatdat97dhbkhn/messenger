@@ -118,6 +118,31 @@ GEM
       request_store (>= 1.0)
       ruby2_keywords
     erubi (1.11.0)
+    faraday (1.10.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-httpclient (~> 1.0)
+      faraday-multipart (~> 1.0)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.0)
+      faraday-patron (~> 1.0)
+      faraday-rack (~> 1.0)
+      faraday-retry (~> 1.0)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-httpclient (1.0.1)
+    faraday-multipart (1.0.4)
+      multipart-post (~> 2)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.2.0)
+    faraday-patron (1.0.0)
+    faraday-rack (1.0.0)
+    faraday-retry (1.0.3)
+    faraday_middleware (1.2.0)
+      faraday (~> 1.0)
     ffi (1.15.5)
     globalid (1.0.0)
       activesupport (>= 5.0)
@@ -147,6 +172,7 @@ GEM
     mini_mime (1.1.2)
     minitest (5.16.3)
     msgpack (1.6.0)
+    multipart-post (2.2.3)
     net-imap (0.3.1)
       net-protocol
     net-pop (0.1.2)
@@ -276,6 +302,8 @@ DEPENDENCIES
   debug
   devise
   draper
+  faraday
+  faraday_middleware
   image_processing (~> 1.2)
   importmap-rails
   jbuilder

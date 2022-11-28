@@ -26,8 +26,13 @@
 #  fk_rails_...  (conversation_id => conversations.id)
 #  fk_rails_...  (user_id => users.id)
 #
+
+require 'open-uri'
+
 class Message < ApplicationRecord
   self.inheritance_column = :_sti_disabled
+
+  attr_accessor :gif_url
 
   belongs_to :user
   belongs_to :channel
@@ -41,6 +46,7 @@ class Message < ApplicationRecord
        _suffix: true,
        _default: :plain_text_or_attachment
 
+  before_save :attach_gif
   after_create_commit :update_channel_last_message_sent_at
 
   scope :previous_from_the_same_user, ->(id, user_id) {
@@ -52,6 +58,15 @@ class Message < ApplicationRecord
     return if message_previous.blank?
 
     message_previous.user_id == self.user_id && message_previous.created_at >= Time.current - 3.minutes
+  end
+
+  def attach_gif
+    return if gif_url.blank?
+
+    filename = File.basename(URI.parse(gif_url).path)
+    file = URI.open(gif_url)
+
+    self.attachments.attach(io: file, filename: filename)
   end
 
   private

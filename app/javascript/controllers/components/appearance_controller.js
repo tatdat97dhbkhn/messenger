@@ -71,7 +71,7 @@ export default class extends BaseController {
           this.online();
           clearTimeout(timer);
 
-          const timeInSeconds = 5;
+          const timeInSeconds = 60;
           const milliseconds = 1000;
           const timeInMilliseconds = timeInSeconds * milliseconds;
 

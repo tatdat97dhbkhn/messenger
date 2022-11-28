@@ -3,7 +3,8 @@ import BaseController from "../base_controller";
 export default class extends BaseController {
   static targets = [
     'attachmentPreviews',
-    'fileInput'
+    'fileInput',
+    'formSubmit'
   ]
 
   clickFileInput() {
@@ -22,6 +23,29 @@ export default class extends BaseController {
 
   toggleVisibility() {
     this.attachmentPreviewsTarget.classList.toggle("hidden");
+  }
+
+  appendInputFileHiddenToForm(file) {
+    const reader = new FileReader();
+    this.createAndDisplayFilePreviewElements(file, reader);
+
+    const dataTransfer = new DataTransfer()
+    dataTransfer.items.add(file)
+
+    const hiddenFile = document.createElement("input")
+    hiddenFile.setAttribute("type", "file")
+    hiddenFile.classList.add('hidden')
+    hiddenFile.files = dataTransfer.files;
+    hiddenFile.name = this.fileInputTarget.name
+
+    this.formSubmitTarget.appendChild(hiddenFile)
+  }
+
+  pasteImage(event) {
+    const file = event?.clipboardData?.files?.[0];
+    if (!file || !file.type.startsWith("image")) return;
+
+    this.appendInputFileHiddenToForm(file)
   }
 
   createAndDisplayFilePreviewElements(file, reader) {

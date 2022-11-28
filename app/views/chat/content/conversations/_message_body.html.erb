@@ -20,7 +20,7 @@
         <% if message.icon_type? %>
           <%= render partial: 'chat/content/conversations/like_button' %>
         <% else %>
-          <p class="<%= message_body_class %> z-0"><%= message.body %></p>
+          <p class="<%= message_body_class %> z-0 break-all text-center"><%= message.body %></p>
         <% end %>
       </div>
       <%= render partial: 'chat/content/conversations/message_actions',

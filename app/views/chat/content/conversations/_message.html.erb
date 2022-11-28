@@ -18,6 +18,8 @@
   end
 %>
 
+<%= turbo_stream_from message %>
+
 <% if message.body.present? || message.icon_type? %>
   <%= render partial: 'chat/content/conversations/message_body',
              locals: {

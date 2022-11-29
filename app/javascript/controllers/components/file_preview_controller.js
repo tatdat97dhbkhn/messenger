@@ -131,7 +131,7 @@ export default class extends BaseController {
     let cancelUploadButton, element;
 
     const image = document.createElement("img");
-    image.setAttribute("style", "background-image: url(" + reader.result + ")");
+    image.setAttribute("src", reader.result);
     image.classList.add("preview-image");
     element = document.createElement("div");
     element.classList.add("attachment-image-container", "file-removal");

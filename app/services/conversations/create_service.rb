@@ -6,11 +6,12 @@ module Conversations
     def call
       @conversation = @channel.conversations.order(created_at: :desc).first
       @is_new_conversation = false
+      last_message = channel.latest_message
 
-      return unless @conversation.nil? || Time.current > @conversation.end_time
-
-      @conversation = @channel.conversations.create(end_time: Time.current + 30.minutes)
-      @is_new_conversation = true
+      if last_message.nil? || ( last_message.created_at + 30.minutes < Time.current )
+        @conversation = @channel.conversations.create
+        @is_new_conversation = true
+      end
     end
   end
 end

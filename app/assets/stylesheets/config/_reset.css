@@ -61,9 +61,9 @@
   display: flex;
   justify-content: end;
   align-items: center;
-  top: -60px;
-  height: 70px;
-  width: 290px;
+  height: auto;
+  width: auto;
+  top: -26px;
   left: 20px;
   overflow-y: hidden;
   overflow-x: auto;
@@ -75,9 +75,9 @@
   position: relative;
   display: inline-block;
   width: 50px;
-  height: 50px;
+  height: 40px;
   margin-right: 10px;
-  max-height: 50px;
+  max-height: 40px;
   background-size: contain;
   font-size: 50px;
   text-align: end;
@@ -87,8 +87,8 @@
 
 .cancel-upload-button {
   position: absolute;
-  top: -9px;
-  right: -8px;
+  top: 0;
+  right: -5px;
   font-size: 15px;
   padding: 3px;
   color: rgb(224, 0, 0);
@@ -113,10 +113,10 @@
 
 .preview-image {
   display: block;
-  position: absolute;
+  /*position: absolute;*/
   background-size: contain;
-  top: 0;
-  left: 0;
+  /*top: 0;*/
+  /*left: 0;*/
   width: 100%;
   height: 100%;
 }

@@ -33,14 +33,17 @@ export default class extends BaseController {
       },
       online() {
         console.log("online");
+        document.getElementById("current_user_status").value = 'online'
         this.perform("online");
       },
       away() {
         console.log("away");
+        document.getElementById("current_user_status").value = 'away'
         this.perform("away");
       },
       offline() {
         console.log("offline");
+        document.getElementById("current_user_status").value = 'offline'
         this.perform("offline");
       },
       uninstall() {
@@ -68,10 +71,11 @@ export default class extends BaseController {
         const shouldRun = document.getElementById("appearance_channel");
 
         if (!!shouldRun) {
-          this.online();
+          const currentUserStatus = document.getElementById("current_user_status").value
+          if (currentUserStatus !== 'online') this.online();
           clearTimeout(timer);
 
-          const timeInSeconds = 60;
+          const timeInSeconds = 5;
           const milliseconds = 1000;
           const timeInMilliseconds = timeInSeconds * milliseconds;
 

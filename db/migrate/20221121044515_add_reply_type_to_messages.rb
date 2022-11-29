@@ -1,4 +1,11 @@
 class AddReplyTypeToMessages < ActiveRecord::Migration[7.0]
+  class Message < ApplicationRecord
+    enum reply_type: {
+           not_reply: 'not_reply', video: 'video', 'audio': 'audio', image: 'image', file: 'file', text: 'text'
+         },
+         _default: :not_reply
+  end
+
   def up
     add_column :messages, :reply_type, :string
     update_messages_reply_types

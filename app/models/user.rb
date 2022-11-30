@@ -30,11 +30,14 @@ class User < ApplicationRecord
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :validatable, :confirmable
 
+  attr_accessor :not_broadcast
+
   enum status: { online: 'online', away: 'away', offline: 'offline' }, _default: :offline
 
   has_one_attached :avatar, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :message_reactions, dependent: :destroy
+  has_many :message_notifications, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_channels, through: :joinables, source: :channel
 
@@ -42,7 +45,7 @@ class User < ApplicationRecord
   validates :name, presence: true
 
   after_update_commit :broadcast_update_user_status, if: :has_status_changes?
-  after_update_commit :broadcast_append_users, if: :is_confirmed?
+  # after_update_commit :broadcast_append_users, if: -> { is_confirmed? && !not_broadcast }
   after_destroy_commit :broadcast_remove_user
 
   scope :all_except, ->(ids) { where.not(id: ids) }

@@ -3,7 +3,7 @@ class ChannelDecorator < ApplicationDecorator
     @latest_message ||= object.latest_message
   end
 
-  def last_message_body(sender)
+  def last_message_body
     return if latest_message.nil?
 
     attachment = latest_message.attachments.last
@@ -11,7 +11,7 @@ class ChannelDecorator < ApplicationDecorator
     if attachment.nil?
       latest_message.body
     else
-      "#{sender.name} send a #{attachment_type(attachment)}"
+      "#{latest_message.user.name} send a #{attachment_type(attachment)}"
     end
   end
 

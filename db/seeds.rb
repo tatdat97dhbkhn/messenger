@@ -15,6 +15,7 @@ users_avatar_paths.each do |path|
     filename: file_name,
     content_type: 'image/gif'
   )
+  user.not_broadcast = true
 
   user.save
   user.confirm

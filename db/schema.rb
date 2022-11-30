@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2022_11_29_024734) do
+ActiveRecord::Schema[7.0].define(version: 2022_12_01_090534) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -48,6 +48,7 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_024734) do
     t.string "type", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.text "connected_user_ids"
   end
 
   create_table "conversations", force: :cascade do |t|
@@ -66,6 +67,16 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_024734) do
     t.index ["user_id"], name: "index_joinables_on_user_id"
   end
 
+  create_table "message_notifications", force: :cascade do |t|
+    t.bigint "message_id", null: false
+    t.bigint "user_id", null: false
+    t.datetime "read_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["message_id"], name: "index_message_notifications_on_message_id"
+    t.index ["user_id"], name: "index_message_notifications_on_user_id"
+  end
+
   create_table "message_reactions", force: :cascade do |t|
     t.bigint "message_id", null: false
     t.string "type", null: false
@@ -80,13 +91,13 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_024734) do
     t.bigint "user_id", null: false
     t.bigint "channel_id", null: false
     t.text "body"
-    t.datetime "read_at"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.bigint "conversation_id"
     t.boolean "is_msg_sent_immediately_after_last_message_from_same_user", default: false
     t.string "type"
     t.bigint "parent_id"
+    t.integer "message_reactions_count", default: 0, null: false
     t.index ["channel_id"], name: "index_messages_on_channel_id"
     t.index ["conversation_id"], name: "index_messages_on_conversation_id"
     t.index ["user_id"], name: "index_messages_on_user_id"
@@ -115,6 +126,8 @@ ActiveRecord::Schema[7.0].define(version: 2022_11_29_024734) do
   add_foreign_key "conversations", "channels"
   add_foreign_key "joinables", "channels"
   add_foreign_key "joinables", "users"
+  add_foreign_key "message_notifications", "messages"
+  add_foreign_key "message_notifications", "users"
   add_foreign_key "message_reactions", "messages"
   add_foreign_key "message_reactions", "users"
   add_foreign_key "messages", "channels"

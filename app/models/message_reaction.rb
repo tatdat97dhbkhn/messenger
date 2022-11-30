@@ -25,6 +25,8 @@ class MessageReaction < ApplicationRecord
   belongs_to :message
   belongs_to :user
 
+  counter_culture :message
+
   enum type: { angry: 'angry', care: 'care', haha: 'haha', like: 'like', love: 'love', sad: 'sad', wow: 'wow' },
        _suffix: true,
        _default: :like
@@ -34,6 +36,8 @@ class MessageReaction < ApplicationRecord
   after_commit :broadcast_to_message_channel
 
   def broadcast_to_message_channel
+    message.reload
+
     broadcast_replace_to(message,
                          target: "message-#{message.id}-reactions",
                          partial: 'chat/content/conversations/message_actions/reacted',

@@ -15,11 +15,9 @@
   </div>
   <%= render partial: 'chat/sidebar/search' %>
   <%#= render partial: 'chat/stories' %>
-  <div class="contacts p-2 flex-1 overflow-y-scroll" data-controller="channels--index">
+  <div class="contacts p-2 flex-1 overflow-y-scroll" data-controller="channels--index components--sort" id="users">
     <%= turbo_stream_from 'users' %>
-    <%= turbo_frame_tag 'users', data: { controller: 'components--sort' } do %>
-      <%= render partial: 'chat/sidebar/user', collection: users, as: :user, locals: { channel_just_two_peoples: channel_just_two_peoples } %>
-    <% end %>
+    <%= render partial: 'chat/sidebar/user', collection: users, as: :user, locals: { channel_just_two_peoples: channel_just_two_peoples } %>
   </div>
   <div class="p-2 flex-none text-center">
     <p class="text-md font-bold group-hover:block">Channels</p>

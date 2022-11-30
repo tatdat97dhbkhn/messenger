@@ -1,0 +1,5 @@
+<div class="min-w-0">
+  <p class="truncate"><%= channel&.last_message_body %>
+  </p>
+</div>
+<p class="ml-2 whitespace-no-wrap sort-column" data-time="<%= channel&.latest_message&.created_at.to_i %>"><%= send_message_at_format(channel.latest_message.created_at) if channel&.latest_message.present? %></p>

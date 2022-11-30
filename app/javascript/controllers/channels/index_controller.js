@@ -15,6 +15,14 @@ export default class extends BaseController {
     currentTarget.classList.remove('hover:bg-gray-800')
 
     const userItemLinkHidden = document.getElementById(this.targetPrefix(event))
+
+    const latestMessageBox = currentTarget.querySelector(`.channel_user_last_message`)
+    const readOrUnreadBox = currentTarget.querySelector(`.channel_read_or_unread_latest_message`)
+
+    latestMessageBox.classList.remove('text-sm', 'font-bold', 'unread')
+    latestMessageBox.classList.add('text-gray-600')
+    readOrUnreadBox.innerHTML = ''
+
     userItemLinkHidden.click()
   }
 }

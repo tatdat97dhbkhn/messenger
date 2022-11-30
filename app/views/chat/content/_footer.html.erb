@@ -1,4 +1,8 @@
-<div class="chat-footer flex-none">
+<div class="chat-footer flex-none"
+     data-controller="channels--read-message-notifications"
+     data-channels--read-message-notifications-channel-name-or-id-value="<%= channel.just_two_people_type? ? channel.name : channel.id %>"
+     data-channels--read-message-notifications-channel-id-value="<%= channel.id %>"
+     data-action="click->channels--read-message-notifications#readMessageNotifications">
   <%= form_with(model: message_form, url: channel_messages_path(channel_id: channel.id),
                 method: :post,
                 class: 'relative',

@@ -5,9 +5,9 @@
               turbo_stream: ''
             },
             id: "message-#{message.id}-reactions",
-            class: "#{message_reactions.size > 0 ? '' : 'hidden'} bg-gray-800 absolute top-full flex -translate-y-1/2 cursor-pointer items-center gap-[2px] rounded-lg px-2 text-sm" do %>
+            class: "#{message.message_reactions_count > 0 ? '' : 'hidden'} bg-gray-800 absolute top-full flex -translate-y-1/2 cursor-pointer items-center gap-[2px] rounded-lg px-2 text-sm" do %>
   <% message_reactions.pluck(:type).uniq.each do |type| %>
     <%= image_tag "reactions/#{type}.gif", class: 'h-3 w-3' %>
   <% end %>
-  <span class="text-white" style="font-size: smaller;"><%= message_reactions.size.to_i %></span>
+  <span class="text-white" style="font-size: smaller;"><%= message.message_reactions_count %></span>
 <% end %>

@@ -72,6 +72,14 @@ gem 'faraday'
 # Various middleware for Faraday
 gem 'faraday_middleware'
 
+# Simple, efficient background processing for Ruby.
+gem 'sidekiq'
+
+# counter_culture provides turbo-charged counter caches that are kept up-to-date not just on create and destroy,
+# that support multiple levels of indirection through relationships,
+# allow dynamic column names and that avoid deadlocks by updating in the after_commit callback.
+gem 'counter_culture'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

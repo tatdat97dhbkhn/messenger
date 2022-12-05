@@ -3,9 +3,12 @@
 <%= turbo_stream_from channel %>
 <div class="chat-body p-4 flex-1 overflow-y-scroll"
      id="list-conversations"
-     data-controller="channels--show-or-create components--scroll messages--reaction"
+     data-controller="channels--show-or-create components--scroll messages--reaction channels--read-message-notifications"
      data-channels--show-or-create-sender-id-value="<%= current_user.id %>"
-     data-channels--show-or-create-channel-id-value="<%= channel.id %>">
+     data-channels--read-message-notifications-channel-name-or-id-value="<%= channel.just_two_people_type? ? channel.name : channel.id %>"
+     data-channels--read-message-notifications-channel-id-value="<%= channel.id %>"
+     data-channels--show-or-create-channel-id-value="<%= channel.id %>"
+     data-action="click->channels--read-message-notifications#readMessageNotifications">
   <%= render partial: "chat/content/conversations/pager", locals: { pagy: pagy, friend: friend } %>
   <%= render partial: 'chat/content/conversations',
              locals: {

@@ -75,7 +75,7 @@ export default class extends BaseController {
           if (currentUserStatus !== 'online') this.online();
           clearTimeout(timer);
 
-          const timeInSeconds = 5;
+          const timeInSeconds = 300;
           const milliseconds = 1000;
           const timeInMilliseconds = timeInSeconds * milliseconds;
 

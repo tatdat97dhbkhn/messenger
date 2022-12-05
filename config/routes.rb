@@ -16,8 +16,13 @@ Rails.application.routes.draw do
         get :show_or_create
       end
 
+      member do
+        put :read_message_notifications
+      end
+
       resources :messages, only: :create do
         resources :message_reactions, only: %i[index create]
+        resources :message_notifications, only: :create
       end
     end
   end

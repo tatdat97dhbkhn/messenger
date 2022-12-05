@@ -34,33 +34,16 @@ class MessagesController < ApplicationController
   end
 
   def broadcast_append_conversations
-    ActionCable.server.broadcast "channel:#{@channel.id}", {
-      conversation: ApplicationController.render(partial: 'chat/content/conversations/conversation',
-                                                 locals: { conversation: @conversation })
-    }
+    ConversationBroadcastJob.perform_now(channel: @channel, conversation: @conversation)
   end
 
   def broadcast_append_messages
-    ActionCable.server.broadcast "channel:#{@channel.id}", {
-      sender_message: ApplicationController.render(partial: 'chat/content/conversations/message',
-                                                   collection: @form.new_messages,
-                                                   as: :message,
-                                                   locals: {
-                                                     conversation: @conversation,
-                                                     is_sender: true,
-                                                     channel: @channel,
-                                                     message_reaction_form: @message_reaction_form
-                                                   }),
-      recipient_message: ApplicationController.render(partial: 'chat/content/conversations/message',
-                                                      collection: @form.new_messages,
-                                                      as: :message,
-                                                      locals: {
-                                                        conversation: @conversation,
-                                                        is_sender: false,
-                                                        channel: @channel,
-                                                        message_reaction_form: @message_reaction_form
-                                                      }),
-      sender_id: current_user.id
-    }
+    MessageBroadcastJob.perform_now(
+      channel: @channel,
+      form: @form,
+      conversation: @conversation,
+      message_reaction_form: @message_reaction_form,
+      current_user: current_user
+    )
   end
 end

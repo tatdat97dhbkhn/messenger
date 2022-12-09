@@ -46,24 +46,14 @@ class User < ApplicationRecord
 
   after_update_commit :broadcast_update_user_status, if: :has_status_changes?
   # after_update_commit :broadcast_append_users, if: -> { is_confirmed? && !not_broadcast }
-  after_destroy_commit :broadcast_remove_user
+  # after_destroy_commit :broadcast_remove_user
 
   scope :all_except, ->(ids) { where.not(id: ids) }
   scope :confirmed, -> { where.not(confirmed_at: nil) }
-  scope :name_cont, ->(string) { where('LOWER(users.name) LIKE ?', "%#{string.strip.downcase}%") }
 
   def broadcast_update_user_status
     broadcast_replace_later_to [self, 'status'], partial: 'users/status', locals: { user: decorate },
                                                  target: "user_#{id}_status"
-  end
-
-  def broadcast_append_users
-    broadcast_append_later_to 'users', partial: 'chat/sidebar/user',
-                                       locals: {
-                                         user: decorate,
-                                         channel_just_two_peoples: Channel.just_two_people_type.to_json
-                                       },
-                                       target: 'users'
   end
 
   def broadcast_remove_user

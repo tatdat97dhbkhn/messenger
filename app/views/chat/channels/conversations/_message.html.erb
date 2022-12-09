@@ -21,20 +21,24 @@
 <%= turbo_stream_from message %>
 
 <% if message.body.present? || message.icon_type? %>
-  <%= render partial: 'chat/content/conversations/message_body',
-             locals: {
-               message: message,
-               message_body_class: message_body_class,
-               hidden_avatar: hidden_avatar,
-               is_sender: is_sender,
-               channel: channel,
-               message_reaction_form: message_reaction_form
-             } %>
+  <% if message.notice_type? %>
+    <p class="p-4 text-center text-sm text-gray-500"><%= message.body %></p>
+  <% else %>
+    <%= render partial: 'chat/channels/conversations/message_body',
+               locals: {
+                 message: message,
+                 message_body_class: message_body_class,
+                 hidden_avatar: hidden_avatar,
+                 is_sender: is_sender,
+                 channel: channel,
+                 message_reaction_form: message_reaction_form
+               } %>
+  <% end %>
 <% end %>
 
 <% if message.attachments.attached? %>
   <% message.attachments.each_with_index do |attachment, _index| %>
-    <%= render partial: 'chat/content/conversations/message_attachment',
+    <%= render partial: 'chat/channels/conversations/message_attachment',
                locals: {
                  message: message,
                  attachment: attachment,

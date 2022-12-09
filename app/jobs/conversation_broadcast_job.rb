@@ -5,7 +5,7 @@ class ConversationBroadcastJob < ApplicationJob
 
   def perform(**options)
     ActionCable.server.broadcast "channel:#{options[:channel].id}", {
-      conversation: ApplicationController.render(partial: 'chat/content/conversations/conversation',
+      conversation: ApplicationController.render(partial: 'chat/channels/conversations/conversation',
                                                  locals: { conversation: options[:conversation] })
     }
   end

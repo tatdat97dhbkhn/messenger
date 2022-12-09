@@ -72,7 +72,7 @@ export default class extends BaseController {
 
         if (!!shouldRun) {
           const currentUserStatus = document.getElementById("current_user_status").value
-          if (currentUserStatus !== 'online') this.online();
+          this.online();
           clearTimeout(timer);
 
           const timeInSeconds = 300;

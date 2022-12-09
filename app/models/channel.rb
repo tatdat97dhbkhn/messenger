@@ -5,12 +5,14 @@
 #  id                   :bigint           not null, primary key
 #  connected_user_ids   :text
 #  last_message_sent_at :datetime
-#  name                 :string
+#  name                 :text
 #  type                 :string           not null
 #  created_at           :datetime         not null
 #  updated_at           :datetime         not null
 #
 class Channel < ApplicationRecord
+  include Filterable
+
   self.inheritance_column = :_sti_disabled
 
   serialize :connected_user_ids, Array
@@ -23,23 +25,19 @@ class Channel < ApplicationRecord
   has_many :joinables, dependent: :destroy
   has_many :joined_users, through: :joinables, source: :user
 
+  accepts_nested_attributes_for :messages
+
   scope :message_notifications_unread_by_user, ->(ids) { where.not(id: ids) }
-
-  class << self
-    def find_or_create_just_two_people_channel(users, channel_name)
-      channel = Channel.just_two_people_type.find_or_initialize_by(name: channel_name)
-
-      if channel.new_record?
-        channel.save
-
-        users.each do |user|
-          channel.joinables.create(user_id: user.id)
-        end
-      end
-
-      channel
-    end
-  end
+  scope :name_cont, lambda { |string|
+    where('LOWER(channels.name) LIKE ?', "%#{string.strip.downcase}%")
+      .or(where('channels.id IN (
+        SELECT c.id
+        FROM channels AS c
+        LEFT OUTER JOIN joinables AS j ON j.channel_id = c.id
+        LEFT OUTER JOIN users AS u ON u.id = j.user_id
+        WHERE LOWER(u.name) LIKE ?
+      )', "%#{string.strip.downcase}%"))
+  }
 
   def latest_message
     messages.eager_load(:user).order(created_at: :desc).first
@@ -56,5 +54,19 @@ class Channel < ApplicationRecord
   def is_read_by?(user_id)
     message_notification = message_notifications.unread_by_user(user_id).first
     message_notification.nil?
+  end
+
+  def members_except_user(user)
+    members = joined_users.where.not(id: user.id)
+
+    if just_two_people_type?
+      members.first
+    else
+      members
+    end
+  end
+
+  def two_joined_users
+    joined_users.includes(avatar_attachment: :blob).order('RANDOM()').limit(2)
   end
 end

@@ -5,7 +5,7 @@ import consumer from "../../channels/consumer";
 
 export default class extends BaseController {
   static values = {
-    channelNameOrId: String,
+    channelId: String,
     channelType: String,
     senderId: Number,
     receiverId: Number
@@ -14,7 +14,7 @@ export default class extends BaseController {
   connect() {
     this.subscription = consumer.subscriptions.create({
       channel: "LatestMessageChannel",
-      channel_name_or_id: this.channelNameOrIdValue,
+      channel_id: this.channelIdValue,
       channel_type: this.channelTypeValue
     }, {
       connected: this._connected.bind(this),
@@ -45,8 +45,8 @@ export default class extends BaseController {
   _disconnected() {}
 
   readMessage() {
-    const latestMessageBox = document.getElementById(`channel_${this.channelNameOrIdValue}_user_last_message`)
-    const readOrUnreadBox = document.getElementsByClassName(`channel_${this.channelNameOrIdValue}_read_or_unread_latest_message`)[0]
+    const latestMessageBox = document.getElementById(`channel_${this.channelIdValue}_last_message`)
+    const readOrUnreadBox = document.getElementsByClassName(`channel_${this.channelIdValue}_read_or_unread_latest_message`)[0]
 
     latestMessageBox.classList.remove('text-sm', 'font-bold', 'unread')
     latestMessageBox.classList.add('text-gray-600')
@@ -54,8 +54,8 @@ export default class extends BaseController {
   }
 
   unreadMessage(data) {
-    const latestMessageBox = document.getElementById(`channel_${this.channelNameOrIdValue}_user_last_message`)
-    const readOrUnreadBox = document.getElementsByClassName(`channel_${this.channelNameOrIdValue}_read_or_unread_latest_message`)[0]
+    const latestMessageBox = document.getElementById(`channel_${this.channelIdValue}_last_message`)
+    const readOrUnreadBox = document.getElementsByClassName(`channel_${this.channelIdValue}_read_or_unread_latest_message`)[0]
 
     latestMessageBox.classList.add('text-sm', 'font-bold', 'unread')
     latestMessageBox.classList.remove('text-gray-600')
@@ -63,7 +63,7 @@ export default class extends BaseController {
   }
 
   _received(data) {
-    const latestMessageBox = document.getElementById(`channel_${this.channelNameOrIdValue}_user_last_message`)
+    const latestMessageBox = document.getElementById(`channel_${this.channelIdValue}_last_message`)
     const isTabActive = document.getElementById('is_tab_active')?.value
 
     latestMessageBox.innerHTML = data.latest_message

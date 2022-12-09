@@ -2,12 +2,11 @@
   <%= turbo_stream_action_tag(
         "prepend",
         target: "list-conversations",
-        template: %(#{render partial: 'chat/content/conversations',
+        template: %(#{render partial: 'chat/channels/conversations',
                              locals: {
                                conversations: @conversations,
                                pagy: @pagy,
                                channel: @channel,
-                               friend: @friend,
                                message_reaction_form: @message_reaction_form
                              }})
       ) %>
@@ -15,15 +14,14 @@
   <%= turbo_stream_action_tag(
         "prepend",
         target: "list-conversations",
-        template: %(#{render partial: 'chat/content/conversations/pager',
-                             locals: { pagy: @pagy, friend: @friend }})
+        template: %(#{render partial: 'chat/channels/conversations/pager',
+                             locals: { pagy: @pagy }})
       ) %>
 <% else %>
   <%= turbo_stream_action_tag(
     "update",
     target: "channel_detail",
-    template: %(#{render partial: "chat/content", locals: {
-      friend: @friend,
+    template: %(#{render partial: "chat/channels/show", locals: {
       channel: @channel,
       message_form: @message_form,
       conversations: @conversations,

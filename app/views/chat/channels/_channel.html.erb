@@ -1,0 +1,47 @@
+<% channel_decorate = channel&.decorate %>
+<% members = channel.members_except_user(user) %>
+
+<div class="flex justify-between items-center p-3 hover:bg-gray-800 rounded-lg relative sort-item"
+     id="channel-item-<%= channel.id %>"
+     data-controller='channels--latest-message'
+     data-channels--latest-message-sender-id-value="<%= user.id %>"
+     data-channels--latest-message-receiver-id-value="<%= channel.just_two_people_type? ? members.id : nil %>"
+     data-channels--latest-message-channel-type-value="<%= channel.type %>"
+     data-channels--latest-message-channel-id-value="<%= channel.id %>"
+     data-channels--index-target="channelItem"
+     data-action="click->channels--index#activeChannel">
+  <%= link_to "channel detail",
+              channel_path(id: channel.id),
+              class: 'hidden',
+              id: "channelItem#{channel.id}",
+              data: {
+                turbo_stream: '',
+                'channels--index-target': 'linkHidden'
+              } %>
+
+  <%= render partial: 'chat/channels/channel_avatar', locals: { members: members, channel: channel } %>
+
+  <div class="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
+    <p class="truncate">
+      <% if channel.just_two_people_type? %>
+        <%= members.name %>
+      <% else %>
+        <%= channel.name %>
+      <% end %>
+    </p>
+    <% is_read = channel&.is_read_by?(user.id) %>
+
+    <div class="flex items-center text-sm channel_last_message <%= is_read ? 'text-gray-600' : 'text-sm font-bold unread' %>"
+         id="channel_<%= channel.id %>_last_message">
+      <%= render partial: 'chat/channels/latest_message',
+                 locals: {
+                   channel: channel_decorate,
+                 } %>
+    </div>
+  </div>
+  <div class="channel_<%= channel.id %>_read_or_unread_latest_message channel_read_or_unread_latest_message">
+    <% unless is_read %>
+      <%= render partial: 'chat/channels/unread_latest_message' %>
+    <% end %>
+  </div>
+</div>

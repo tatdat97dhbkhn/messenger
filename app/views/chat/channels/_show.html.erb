@@ -1,0 +1,45 @@
+<% members = channel.members_except_user(current_user) %>
+
+<div class="chat-header px-6 py-4 flex flex-row flex-none justify-between items-center shadow">
+  <div class="flex">
+    <% if channel.just_two_people_type? %>
+      <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
+        <%= image_tag members.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "channel-user-#{members.id}-avatar" %>
+      </div>
+      <div class="text-sm">
+        <p class="font-bold"><%= members.name %></p>
+        <p>Winter is coming</p>
+      </div>
+    <% elsif channel.private_type? %>
+      <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
+        <%= image_tag members[0].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-left: 1.1rem' %>
+        <%= image_tag members[1].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-top: 1.1rem' %>
+        <%#= image_tag members.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "channel-user-#{members.id}-avatar" %>
+      </div>
+      <div class="text-sm">
+        <p class="font-bold"><%= channel.name %></p>
+        <p>Winter is coming</p>
+      </div>
+    <% end %>
+  </div>
+</div>
+
+<%= turbo_stream_from channel %>
+<div class="chat-body p-4 flex-1 overflow-y-scroll"
+     id="list-conversations"
+     data-controller="channels--show components--scroll messages--reaction channels--read-message-notifications"
+     data-channels--show-sender-id-value="<%= current_user.id %>"
+     data-channels--read-message-notifications-channel-id-value="<%= channel.id %>"
+     data-channels--show-channel-id-value="<%= channel.id %>"
+     data-action="click->channels--read-message-notifications#readMessageNotifications">
+  <%= render partial: "chat/channels/conversations/pager", locals: { pagy: pagy } %>
+  <%= render partial: 'chat/channels/conversations',
+             locals: {
+               conversations: conversations,
+               pagy: pagy,
+               channel: channel,
+               message_reaction_form: message_reaction_form
+             } %>
+</div>
+
+<%= render partial: 'chat/channels/messages/form', locals: { channel: channel, message_form: message_form } %>

@@ -1,6 +1,5 @@
 <div class="chat-footer flex-none"
      data-controller="channels--read-message-notifications"
-     data-channels--read-message-notifications-channel-name-or-id-value="<%= channel.just_two_people_type? ? channel.name : channel.id %>"
      data-channels--read-message-notifications-channel-id-value="<%= channel.id %>"
      data-action="click->channels--read-message-notifications#readMessageNotifications">
   <%= form_with(model: message_form, url: channel_messages_path(channel_id: channel.id),
@@ -13,7 +12,7 @@
                   "components--file-preview-target": "formSubmit",
                   action: "turbo:submit-end->components--reset-form#reset"
                 }) do |f| %>
-    <%= f.hidden_field :channel_type, value: Channel.types[:just_two_people] %>
+    <%= f.hidden_field :channel_type, value: channel.type %>
     <%= f.hidden_field :user_id, value: current_user.id %>
     <%= f.hidden_field :channel_id, value: channel.id %>
     <%= f.hidden_field :type, value: Message.types[:plain_text_or_attachment] %>

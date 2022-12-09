@@ -1,0 +1,13 @@
+<% if channel.just_two_people_type? %>
+  <div class="w-16 h-16 relative flex flex-shrink-0">
+    <%= image_tag members.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "user_#{members.id}_avatar" %>
+    <%= turbo_stream_from members, 'status' %>
+    <%= render partial: 'users/status', locals: { user: members } %>
+  </div>
+<% elsif channel.private_type? %>
+  <div class="w-16 h-16 relative flex flex-shrink-0">
+    <% users = channel.two_joined_users %>
+    <%= image_tag users[0].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute ml-6' %>
+    <%= image_tag users[1].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute mt-6' %>
+  </div>
+<% end %>

@@ -1,0 +1,6 @@
+<%= turbo_stream_action_tag(
+    "update",
+    target: "channels",
+    template: %(#{render partial: 'chat/channels/channel', collection: @channels, locals: { user: current_user }
+    })
+  ) %>

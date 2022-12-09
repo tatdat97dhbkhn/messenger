@@ -1,2 +1,4 @@
-<div class="hidden animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080]"
-     id="components-modal" data-controller="components--modal"></div>
+<%= turbo_frame_tag "components-modal" do %>
+  <div class="hidden animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080]"
+     data-controller="components--modal" id="components-modal-controller"></div>
+<% end %>

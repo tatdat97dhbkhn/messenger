@@ -1,0 +1,30 @@
+<%= turbo_frame_tag "components-modal" do %>
+  <div class="animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080] text-white"
+       data-controller="components--modal" id="components-modal-controller">
+    <%= form_with url: channels_path, method: :post,
+                  data: { action: "turbo:submit-end->components--modal#next" } do |f| %>
+      <div class="bg-gray-800 flex w-screen max-w-[500px] flex-col rounded-lg border border-gray-800">
+        <div class="border-white-800 flex items-center justify-between border-b py-3 px-3">
+          <div class="flex-1"></div>
+          <div class="flex flex-1 items-center justify-center">
+            <h1 class="whitespace-nowrap text-center text-2xl">New conversation</h1>
+          </div>
+          <div class="flex flex-1 justify-end">
+            <button data-action="click->components--modal#hideModal"
+                    class="bg-dark-lighten flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:brightness-125">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+        <div class="flex h-96 flex-col items-stretch gap-2 overflow-y-auto py-2">
+          <%= render partial: 'users/user', collection: @users, locals: { f: f } %>
+        </div>
+        <div class="border-white-800 flex justify-end border-t p-3">
+          <button type="submit" class="bg-indigo-800 rounded-lg py-2 px-3 transition duration-300 hover:brightness-125 disabled:!brightness-[80%]">Start conversation</button>
+        </div>
+      </div>
+    <% end %>
+  </div>
+<% end %>

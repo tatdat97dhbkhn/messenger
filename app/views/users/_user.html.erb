@@ -1,0 +1,5 @@
+<div class="hover:bg-dark-lighten flex cursor-pointer items-center gap-2 px-5 py-2 transition">
+  <%= f.check_box 'user_ids[]', { class: 'flex-shrink-0 cursor-pointer rounded', id: "user_ids_#{user.id}" }, user.id, false %>
+  <%= image_tag user.avatar, class: 'h-10 w-10 flex-shrink-0 rounded-full object-cover' %>
+  <p><%= user.name %></p>
+</div>

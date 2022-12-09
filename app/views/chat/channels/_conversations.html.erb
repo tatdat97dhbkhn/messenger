@@ -1,9 +1,9 @@
 <% conversations.each do |conversation| %>
   <% messages = conversation.messages %>
-  <%= render(partial: 'chat/content/conversations/conversation',
+  <%= render(partial: 'chat/channels/conversations/conversation',
              locals: { conversation: conversation }) if messages.present? %>
   <% messages.each do |message| %>
-    <%= render partial: 'chat/content/conversations/message',
+    <%= render partial: 'chat/channels/conversations/message',
                locals: {
                  conversation: conversation,
                  message: message,

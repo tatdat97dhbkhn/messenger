@@ -43,7 +43,9 @@ class Message < ApplicationRecord
   has_many :message_notifications, dependent: :destroy
   has_many_attached :attachments, dependent: :destroy
 
-  enum type: { icon: 'icon', plain_text_or_attachment: 'plain_text_or_attachment' },
+  accepts_nested_attributes_for :conversation
+
+  enum type: { icon: 'icon', plain_text_or_attachment: 'plain_text_or_attachment', notice: 'notice' },
        _suffix: true,
        _default: :plain_text_or_attachment
 

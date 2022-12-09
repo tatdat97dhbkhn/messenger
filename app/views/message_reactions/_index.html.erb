@@ -1,22 +1,24 @@
-<div class="animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080] text-white"
-     id="components-modal" data-controller="components--modal">
-  <div class="bg-gray-800 flex h-96 w-screen max-w-[400px] flex-col rounded-lg border border-gray-800">
-    <div class="border-gray-800 flex flex-shrink-0 items-center border-b p-4">
-      <div class="flex-1"></div>
-      <div class="flex-1">
-        <h1 class="text-center text-2xl">Reactions</h1>
+<%= turbo_frame_tag "components-modal" do %>
+  <div class="animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080] text-white"
+       data-controller="components--modal" id="components-modal-controller">
+    <div class="bg-gray-800 flex h-96 w-screen max-w-[400px] flex-col rounded-lg border border-gray-800">
+      <div class="border-gray-800 flex flex-shrink-0 items-center border-b p-4">
+        <div class="flex-1"></div>
+        <div class="flex-1">
+          <h1 class="text-center text-2xl">Reactions</h1>
+        </div>
+        <div class="flex flex-1 justify-end">
+          <button data-action="click->components--modal#hideModal"
+                  class="bg-dark-lighten flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:brightness-125">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
       </div>
-      <div class="flex flex-1 justify-end">
-        <button data-action="click->components--modal#hideModal"
-                class="bg-dark-lighten flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:brightness-125">
-          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
-        </button>
+      <div class="flex-grow overflow-y-auto overflow-x-hidden">
+        <%= render partial: 'message_reactions/message_reaction', collection: message_reactions %>
       </div>
-    </div>
-    <div class="flex-grow overflow-y-auto overflow-x-hidden">
-      <%= render partial: 'message_reactions/message_reaction', collection: message_reactions %>
     </div>
   </div>
-</div>
+<% end %>

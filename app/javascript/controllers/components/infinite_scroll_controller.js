@@ -1,21 +1,16 @@
-import { useIntersection } from "stimulus-use";
 import BaseController from "../base_controller";
 
 export default class AutoClick extends BaseController {
-  options = {
-    threshold: 0
-  };
+  static targets = ['box', 'loadingIcon']
 
-  connect() {
-    useIntersection(this, this.options);
-  }
+  loadMore() {
+    const btnLoadMore = document.getElementById('btn-load-more')
 
-  appear(entry) {
-    setTimeout(() => {
-      this.element.click()
-    }, 500)
-  }
+    if (!btnLoadMore) return false
 
-  disappear(entry) {
+    if (this.boxTarget.scrollTop <= 0) {
+      this.loadingIconTarget.classList.remove('hidden')
+      btnLoadMore.click()
+    }
   }
 }

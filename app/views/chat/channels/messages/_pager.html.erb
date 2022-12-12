@@ -1,13 +1,13 @@
-<div id="messages-pager" class="min-w-full my-8 flex justify-center">
+<div id="messages-pager" class="min-w-full my-8 flex justify-center hidden">
   <div>
     <% if pagy.next %>
       <%= link_to(
             "Load more messages",
             channel_path(infinite_scroll: true, page: pagy.next),
             class: "rounded py-3 px-5 bg-gray-600 text-white block hover:bg-gray-800",
+            id: 'btn-load-more',
             data: {
-              turbo_stream: "",
-              controller: "components--infinite-scroll"
+              turbo_stream: ""
             }
           ) %>
     <% end %>

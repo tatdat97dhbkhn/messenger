@@ -1,4 +1,7 @@
 <% if params[:infinite_scroll] %>
+  <%= turbo_stream.update('loading-animation') do %>
+    <%= render partial: "shared/loading", locals: { hidden: true } %>
+  <% end %>
   <%= turbo_stream_action_tag(
         "prepend",
         target: "list-messages-of-channel",

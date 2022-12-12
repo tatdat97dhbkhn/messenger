@@ -5,23 +5,27 @@
   </div>
   <div class="group relative flex-shrink-0" tabindex="0">
     <% if joined %>
-      <button>
-        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
-          <path fill-rule="evenodd" d="M4.5 12a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
-        </svg>
-      </button>
-      <div class="bg-gray-700 border-gray-600 invisible absolute top-full right-0 z-[1] flex w-max flex-col items-stretch rounded-lg border py-1 opacity-0 transition-all duration-300 group-focus-within:!visible group-focus-within:!opacity-100">
-        <%= link_to kick_channel_user_path(channel_id: channel.id, id: user.id),
-                    data: {
-                      turbo_stream: ''
-                    },
-                    class: 'bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:bg-gray-600' do %>
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
-            <path d="M10.375 2.25a4.125 4.125 0 100 8.25 4.125 4.125 0 000-8.25zM10.375 12a7.125 7.125 0 00-7.124 7.247.75.75 0 00.363.63 13.067 13.067 0 006.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 00.364-.63l.001-.12v-.002A7.125 7.125 0 0010.375 12zM16 9.75a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6z" />
+      <% if channel.creator_id == current_user.id %>
+        <button>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M4.5 12a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0zm6 0a1.5 1.5 0 113 0 1.5 1.5 0 01-3 0z" clip-rule="evenodd" />
           </svg>
-          <span>Kick from channel</span>
-        <% end %>
-      </div>
+        </button>
+        <div class="bg-gray-700 border-gray-600 invisible absolute top-full right-0 z-[1] flex w-max flex-col items-stretch rounded-lg border py-1 opacity-0 transition-all duration-300 group-focus-within:!visible group-focus-within:!opacity-100">
+          <%= link_to kick_channel_user_path(channel_id: channel.id, id: user.id),
+                      method: :delete,
+                      data: {
+                        turbo_stream: '',
+                        'turbo-method': :delete,
+                      },
+                      class: 'bg-dark-lighten flex items-center gap-1 px-3 py-1 transition duration-300 hover:bg-gray-600' do %>
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-4 h-4">
+              <path d="M10.375 2.25a4.125 4.125 0 100 8.25 4.125 4.125 0 000-8.25zM10.375 12a7.125 7.125 0 00-7.124 7.247.75.75 0 00.363.63 13.067 13.067 0 006.761 1.873c2.472 0 4.786-.684 6.76-1.873a.75.75 0 00.364-.63l.001-.12v-.002A7.125 7.125 0 0010.375 12zM16 9.75a.75.75 0 000 1.5h6a.75.75 0 000-1.5h-6z" />
+            </svg>
+            <span>Kick from channel</span>
+          <% end %>
+        </div>
+      <% end %>
     <% else %>
       <%= form_with url: add_channel_user_path(channel_id: channel.id, id: user.id) do %>
         <button type="submit">

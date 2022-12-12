@@ -14,7 +14,8 @@ module Channels
           ),
           channel_id: options[:channel].id,
           is_new_channel: true,
-          sender_id: options[:current_user].id
+          sender_id: options[:current_user].id,
+          type: 'add'
         }
       end
     end

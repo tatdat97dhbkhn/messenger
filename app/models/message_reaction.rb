@@ -40,7 +40,7 @@ class MessageReaction < ApplicationRecord
 
     broadcast_replace_to(message,
                          target: "message-#{message.id}-reactions",
-                         partial: 'chat/channels/conversations/message_actions/reacted',
+                         partial: 'chat/channels/messages/message_actions/reacted',
                          locals: {
                            message: message
                          })

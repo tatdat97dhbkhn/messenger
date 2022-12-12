@@ -12,7 +12,7 @@ export default class extends BaseController {
   ]
 
   get scrollController() {
-    return this.findController("list-conversations", "components--scroll")
+    return this.findController("list-messages-of-channel", "components--scroll")
   }
 
   connect() {
@@ -37,15 +37,13 @@ export default class extends BaseController {
   }
 
   _received(data) {
-    const listConversationsTarget = document.getElementById('list-conversations')
+    const listMessagesTarget = document.getElementById('list-messages-of-channel')
 
-    if(data.conversation) {
-      listConversationsTarget.insertAdjacentHTML('beforeend', data.conversation)
-    } else if (data.sender_id === this.senderIdValue) {
-      listConversationsTarget.insertAdjacentHTML('beforeend', data.sender_message)
+    if (data.sender_id === this.senderIdValue) {
+      listMessagesTarget.insertAdjacentHTML('beforeend', data.sender_message)
       this.scrollController.toBottom()
     } else {
-      listConversationsTarget.insertAdjacentHTML('beforeend', data.recipient_message)
+      listMessagesTarget.insertAdjacentHTML('beforeend', data.recipient_message)
     }
   }
 

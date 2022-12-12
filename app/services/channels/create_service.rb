@@ -32,7 +32,7 @@ module Channels
 
     def create_joinables(users)
       users.each do |user|
-        @errors.push(@channel.errors.full_messages) unless channel.joinables.create!(user_id: user.id)
+        channel.joinables.create!(user_id: user.id)
       end
     end
 
@@ -60,10 +60,7 @@ module Channels
       channel.messages.create!({
         user_id: current_user.id,
         body: body,
-        type: Message.types[:notice],
-        conversation_attributes: {
-          channel_id: channel.id
-        }
+        type: Message.types[:notice]
       })
     end
   end

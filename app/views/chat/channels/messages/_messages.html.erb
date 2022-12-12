@@ -1,0 +1,10 @@
+<% messages.each do |message| %>
+  <%= render partial: 'chat/channels/messages/message',
+             locals: {
+               message: message,
+               pagy: pagy,
+               channel: channel,
+               message_reaction_form: message_reaction_form,
+               is_sender: current_user.id == message.user_id
+             } %>
+<% end %>

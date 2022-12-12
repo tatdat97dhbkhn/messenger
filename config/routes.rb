@@ -12,6 +12,19 @@ Rails.application.routes.draw do
   resources :giphy, only: :index
   scope :chat do
     resources :channels, only: %i[show create] do
+      scope module: 'chat/channels' do
+        resources :users, only: [] do
+          collection do
+            get :joined_users
+            get :not_joined_users
+          end
+
+          member do
+            post :add
+            delete :kick
+          end
+        end
+      end
       member do
         put :read_message_notifications
       end

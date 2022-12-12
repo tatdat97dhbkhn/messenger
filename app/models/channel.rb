@@ -19,7 +19,6 @@ class Channel < ApplicationRecord
 
   enum type: { public: 'public', private: 'private', just_two_people: 'just_two_people' }, _suffix: true
 
-  has_many :conversations, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :message_notifications, through: :messages
   has_many :joinables, dependent: :destroy
@@ -57,7 +56,7 @@ class Channel < ApplicationRecord
   end
 
   def members_except_user(user)
-    members = joined_users.where.not(id: user.id)
+    members = joined_users.includes(avatar_attachment: :blob).where.not(id: user.id)
 
     if just_two_people_type?
       members.first

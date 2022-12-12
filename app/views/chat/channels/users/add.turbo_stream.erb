@@ -1,0 +1,5 @@
+<%= render_turbo_stream_flash_messages %>
+
+<% if flash.none? %>
+  <%= turbo_stream.remove("channel-#{@channel.id}-user-#{@user.id}") %>
+<% end %>

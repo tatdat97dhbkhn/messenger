@@ -10,7 +10,7 @@
       <div class="flex flex-col flex-shrink-0 <%= is_sender ? 'items-end' : 'items-start' %>">
         <% parent = message.parent %>
         <% if parent.present? %>
-          <%= render partial: 'chat/channels/conversations/message_reply',
+          <%= render partial: 'chat/channels/messages/message_reply',
                      locals: {
                        parent: parent,
                        is_sender: is_sender
@@ -18,7 +18,7 @@
         <% end %>
 
         <% if message.icon_type? %>
-          <%= render partial: 'chat/channels/conversations/like_button' %>
+          <%= render partial: 'chat/channels/messages/like_button' %>
         <% else %>
           <p class="<%= message_body_class %> z-0 break-all text-center"
              data-controller="components--detect-link"
@@ -26,7 +26,7 @@
              data-components--detect-link-content-value="<%= message.body %>"><%= message.body %></p>
         <% end %>
       </div>
-      <%= render partial: 'chat/channels/conversations/message_actions',
+      <%= render partial: 'chat/channels/messages/message_actions',
                  locals: {
                    message: message,
                    message_reply_content: reply_content_mapping_reply_type(message),

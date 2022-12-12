@@ -4,7 +4,7 @@
     <%= form_with url: channels_path, method: :post,
                   data: { action: "turbo:submit-end->components--modal#next" } do |f| %>
       <div class="bg-gray-800 flex w-screen max-w-[500px] flex-col rounded-lg border border-gray-800">
-        <div class="border-white-800 flex items-center justify-between border-b py-3 px-3">
+        <div class="border-gray-600 flex items-center justify-between border-b py-3 px-3">
           <div class="flex-1"></div>
           <div class="flex flex-1 items-center justify-center">
             <h1 class="whitespace-nowrap text-center text-2xl">New conversation</h1>
@@ -21,7 +21,7 @@
         <div class="flex h-96 flex-col items-stretch gap-2 overflow-y-auto py-2">
           <%= render partial: 'users/user', collection: @users, locals: { f: f } %>
         </div>
-        <div class="border-white-800 flex justify-end border-t p-3">
+        <div class="border-gray-600 flex justify-end border-t p-3">
           <button type="submit" class="bg-indigo-800 rounded-lg py-2 px-3 transition duration-300 hover:brightness-125 disabled:!brightness-[80%]">Start conversation</button>
         </div>
       </div>

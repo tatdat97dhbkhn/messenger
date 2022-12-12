@@ -1,0 +1,5 @@
+<%= turbo_frame_tag "channel-users" do %>
+  <div class="flex h-80 flex-col items-stretch gap-4 overflow-y-auto overflow-x-hidden py-4">
+    <%= render partial: 'chat/channels/users/user', collection: @users, locals: { joined: false, channel: @channel } %>
+  </div>
+<% end %>

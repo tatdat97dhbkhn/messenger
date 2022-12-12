@@ -1,6 +1,6 @@
 class MessageForm < ApplicationForm
   attr_accessor :body, :user_id, :channel_id, :attachments, :params, :new_messages, :messages, :type, :parent_id,
-                :gif_url
+                :gif_url, :channel
 
   validates :body, presence: true, if: :attachment_blank?
 
@@ -57,6 +57,12 @@ class MessageForm < ApplicationForm
     new_message = messages.build(msg_params)
     new_message.is_msg_sent_immediately_after_last_message_from_same_user =
       new_message.is_message_sent_immediately_after_last_message_from_the_same_user?
+
+    last_message = channel.latest_message
+    if last_message.nil? || (last_message.created_at + 30.minutes < Time.current)
+      new_message.is_start_conversation = true
+    end
+
     new_message
   end
 

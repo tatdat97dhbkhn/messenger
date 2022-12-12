@@ -6,14 +6,11 @@ class ChannelsController < ApplicationController
     @message_form = MessageForm.new
     @message_reaction_form = MessageReactionForm.new
 
-    conversations = @channel.conversations
-                            .includes(messages: [
-                              :channel, :parent, :user, :message_reactions, :message_notifications,
-                              { attachments_attachments: :blob }
-                            ])
-                            .order('conversations.created_at desc', 'messages.created_at asc')
-    @pagy, conversations = pagy_array(conversations, items: 10)
-    @conversations = conversations.reverse
+    messages = @channel.messages.includes( :channel, :parent, :user,
+                                           :message_reactions, { attachments_attachments: :blob })
+                       .order('messages.created_at desc')
+    @pagy, messages = pagy_array(messages, items: 10)
+    @messages = messages.reverse
   end
 
   def create

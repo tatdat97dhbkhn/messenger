@@ -16,12 +16,12 @@ module AttachmentHelper
       reply_content = message.body
 
       if reply_content.blank?
-        reply_content = "#{render(partial: 'chat/channels/conversations/message_reply/like_button')}"
+        reply_content = "#{render(partial: 'chat/channels/messages/message_reply/like_button')}"
       else
         reply_content = "<p class='break-all'>#{reply_content}</p>"
       end
     else
-      reply_content = "#{render(partial: 'chat/channels/conversations/message_reply/attachment',
+      reply_content = "#{render(partial: 'chat/channels/messages/message_reply/attachment',
                                 locals: {
                                   attachment: message.attachments.first
                                 })}"

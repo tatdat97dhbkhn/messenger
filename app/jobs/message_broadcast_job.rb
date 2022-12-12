@@ -5,20 +5,18 @@ class MessageBroadcastJob < ApplicationJob
 
   def perform(**options)
     ActionCable.server.broadcast "channel:#{options[:channel].id}", {
-      sender_message: ApplicationController.render(partial: 'chat/channels/conversations/message',
-                                                   collection: options[:form].new_messages,
+      sender_message: ApplicationController.render(partial: 'chat/channels/messages/message',
+                                                   collection: options[:messages],
                                                    as: :message,
                                                    locals: {
-                                                     conversation: options[:conversation],
                                                      is_sender: true,
                                                      channel: options[:channel],
                                                      message_reaction_form: options[:message_reaction_form]
                                                    }),
-      recipient_message: ApplicationController.render(partial: 'chat/channels/conversations/message',
-                                                      collection: options[:form].new_messages,
+      recipient_message: ApplicationController.render(partial: 'chat/channels/messages/message',
+                                                      collection: options[:messages],
                                                       as: :message,
                                                       locals: {
-                                                        conversation: options[:conversation],
                                                         is_sender: false,
                                                         channel: options[:channel],
                                                         message_reaction_form: options[:message_reaction_form]

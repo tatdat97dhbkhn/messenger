@@ -40,7 +40,7 @@
                 action: "turbo:submit-end->channels--show#hideAllReactionBoxes"
               }) do |f| %>
   <% reactions.each do |reaction| %>
-    <%= render partial: 'chat/channels/conversations/message_actions/reaction',
+    <%= render partial: 'chat/channels/messages/message_actions/reaction',
                locals: {
                  reaction: reaction,
                  message: message,
@@ -55,4 +55,4 @@
                      } %>
 <% end %>
 
-<%= render partial: 'chat/channels/conversations/message_actions/reacted', locals: { message: message } %>
+<%= render partial: 'chat/channels/messages/message_actions/reacted', locals: { message: message } %>

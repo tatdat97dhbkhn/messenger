@@ -9,7 +9,7 @@ class ChannelsController < ApplicationController
     messages = @channel.messages.includes( :channel, :parent, :user,
                                            :message_reactions, { attachments_attachments: :blob })
                        .order('messages.created_at desc')
-    @pagy, messages = pagy_array(messages, items: 10)
+    @pagy, messages = pagy_array(messages, items: 20)
     @messages = messages.reverse
   end
 

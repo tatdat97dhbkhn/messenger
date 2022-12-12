@@ -56,11 +56,13 @@
 <%#= turbo_stream_from channel %>
 <div class="chat-body p-4 flex-1 overflow-y-scroll"
      id="list-messages-of-channel"
-     data-controller="channels--show components--scroll messages--reaction channels--read-message-notifications"
+     data-controller="channels--show components--scroll messages--reaction channels--read-message-notifications components--infinite-scroll"
      data-channels--show-sender-id-value="<%= current_user.id %>"
      data-channels--read-message-notifications-channel-id-value="<%= channel.id %>"
      data-channels--show-channel-id-value="<%= channel.id %>"
-     data-action="click->channels--read-message-notifications#readMessageNotifications">
+     data-components--infinite-scroll-target="box"
+     data-action="click->channels--read-message-notifications#readMessageNotifications scroll->components--infinite-scroll#loadMore">
+  <%= render partial: 'shared/loading', locals: { hidden: true } %>
   <%= render partial: "chat/channels/messages/pager", locals: { pagy: pagy } %>
   <%= render partial: 'chat/channels/messages/messages',
              locals: {

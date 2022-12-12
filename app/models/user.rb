@@ -40,6 +40,7 @@ class User < ApplicationRecord
   has_many :message_notifications, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_channels, through: :joinables, source: :channel
+  has_many :admin_channels, class_name: 'Channel', foreign_key: :creator_id
 
   validates :avatar, attached: true, content_type: %w[image/png image/jpeg image/gif image/jpg]
   validates :name, presence: true

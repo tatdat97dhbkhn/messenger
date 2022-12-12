@@ -33,17 +33,31 @@ export default class extends BaseController {
   _received(data) {
     this.modalController.hideModal()
 
-    if(data.is_new_channel) {
-      const channelsBox = document.getElementById('channels')
-      channelsBox.insertAdjacentHTML('afterbegin', data.channel_partial)
-    }
+    if (data.type === 'kick') {
+      if (data.sender_id != this.senderIdValue) {
+        const channelItemTarget = document.getElementById(`channel-item-${data.channel_id}`)
+        channelItemTarget.remove()
 
-    if (data.sender_id == this.senderIdValue) {
-      const channelItemTarget = document.getElementById(`channel-item-${data.channel_id}`);
-      const channelItemHidden = document.getElementById(`channelItem${data.channel_id}`);
+        const channelActive = document.getElementById('message_form_channel_id').value
+        const channelDetailBox = document.getElementById('channel_detail')
 
-      this.activeChannelFunc(channelItemTarget)
-      channelItemHidden.click()
+        if (data.channel_id == channelActive) {
+          channelDetailBox.innerHTML = ''
+        }
+      }
+    } else {
+      if(data.is_new_channel) {
+        const channelsBox = document.getElementById('channels')
+        channelsBox.insertAdjacentHTML('afterbegin', data.channel_partial)
+      }
+
+      if (data.sender_id == this.senderIdValue) {
+        const channelItemTarget = document.getElementById(`channel-item-${data.channel_id}`);
+        const channelItemHidden = document.getElementById(`channelItem${data.channel_id}`);
+
+        this.activeChannelFunc(channelItemTarget)
+        channelItemHidden.click()
+      }
     }
   }
 

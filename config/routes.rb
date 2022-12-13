@@ -22,6 +22,7 @@ Rails.application.routes.draw do
           member do
             post :add
             delete :kick
+            delete :leave
           end
         end
       end

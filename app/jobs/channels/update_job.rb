@@ -36,12 +36,12 @@ module Channels
             channel: options[:channel].decorate
           }
         ),
-        read: ApplicationController.render(
-          partial: 'chat/channels/read_latest_message',
-          locals: {
-            user: options[:channel].joined_users.where.not(joinables: { user_id: options[:sender_id] }).first
-          }
-        ),
+        # read: ApplicationController.render(
+        #   partial: 'chat/channels/read_latest_message',
+        #   locals: {
+        #     user: options[:channel].joined_users.where.not(joinables: { user_id: options[:sender_id] }).first
+        #   }
+        # ),
         unread: ApplicationController.render(partial: 'chat/channels/unread_latest_message'),
         sender_id: options[:sender_id] ,
         channel_id: options[:channel].id,

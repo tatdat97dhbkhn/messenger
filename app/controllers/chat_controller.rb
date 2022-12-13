@@ -8,6 +8,7 @@ class ChatController < ApplicationController
   private
 
   def channel_scope
-    Channel.includes(joinables: { user: [:avatar_attachment] }).where(users: { id: current_user.id })
+    Channel.includes({ joinables: { user: [:avatar_attachment] } }, { photo_attachment: :blob })
+           .where(users: { id: current_user.id })
   end
 end

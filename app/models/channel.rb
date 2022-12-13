@@ -21,6 +21,7 @@ class Channel < ApplicationRecord
   enum type: { public: 'public', private: 'private', just_two_people: 'just_two_people' }, _suffix: true
 
   belongs_to :creator, foreign_key: :creator_id, class_name: 'User', optional: true
+  has_one_attached :photo, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :message_notifications, through: :messages
   has_many :joinables, dependent: :destroy

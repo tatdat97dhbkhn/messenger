@@ -11,10 +11,14 @@
         <p>Winter is coming</p>
       </div>
     <% elsif channel.private_type? %>
-      <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
-        <% all_members = [members, current_user].flatten %>
-        <%= image_tag all_members[0].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-left: 1.1rem' %>
-        <%= image_tag(all_members[1].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-top: 1.1rem') if all_members[1].present? %>
+      <div class="w-12 h-12 mr-4 relative flex flex-shrink-0 channel-<%= channel.id %>-photo">
+        <% if channel.photo.attached? %>
+          <%= image_tag channel.photo, class: 'shadow-md rounded-full w-full h-full object-cover' %>
+        <% else %>
+          <% all_members = [members, current_user].flatten %>
+          <%= image_tag all_members[0].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-left: 1.1rem' %>
+          <%= image_tag(all_members[1].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-top: 1.1rem') if all_members[1].present? %>
+        <% end %>
       </div>
       <div class="text-sm">
         <p class="font-bold channel-<%= channel.id %>-name"><%= channel.name %></p>

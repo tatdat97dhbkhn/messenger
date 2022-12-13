@@ -1,7 +1,7 @@
 class ChannelForm < ApplicationForm
-  attr_accessor :params, :channel, :name, :type
+  attr_accessor :params, :channel, :name, :type, :photo, :skip_validate_name
 
-  validates :name, presence: true, unless: -> { channel_params[:type] == Channel.types[:just_two_people] }
+  validates :name, presence: true, if: -> { params.dig(:channel_form, :skip_validate_name).blank? }
 
   def submit
     assign_attributes(channel_params)
@@ -18,6 +18,6 @@ class ChannelForm < ApplicationForm
 
   def channel_params
     params.require(:channel_form)
-          .permit(:name, :type)
+          .permit(:name, :type, :photo)
   end
 end

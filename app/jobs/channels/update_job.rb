@@ -9,8 +9,16 @@ module Channels
 
     private
 
-    def update_avatar_data(**options)
-      {}
+    def update_photo_data(**options)
+      {
+        channel_id: options[:channel].id,
+        photo_partial: ApplicationController.render(
+          partial: 'channels/photo',
+          locals: {
+            channel: options[:channel]
+          }
+        )
+      }
     end
 
     def update_name_data(**options)

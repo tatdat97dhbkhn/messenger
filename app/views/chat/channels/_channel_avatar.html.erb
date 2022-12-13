@@ -5,9 +5,13 @@
     <%= render partial: 'users/status', locals: { user: members } %>
   </div>
 <% elsif channel.private_type? %>
-  <div class="w-16 h-16 relative flex flex-shrink-0">
-    <% users = channel.two_joined_users %>
-    <%= image_tag users[0].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute ml-6' %>
-    <%= image_tag(users[1].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute mt-6') if users[1].present? %>
+  <div class="w-16 h-16 relative flex flex-shrink-0 channel-<%= channel.id %>-photo">
+    <% if channel.photo.attached? %>
+      <%= image_tag channel.photo, class: 'shadow-md rounded-full w-full h-full object-cover' %>
+    <% else %>
+      <% users = channel.two_joined_users %>
+      <%= image_tag users[0].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute ml-6' %>
+      <%= image_tag(users[1].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute mt-6') if users[1].present? %>
+    <% end %>
   </div>
 <% end %>

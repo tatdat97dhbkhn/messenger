@@ -113,13 +113,21 @@ export default class extends BaseController {
     }
   }
 
+  updateChannelPhoto(data) {
+    const channelPhotoTargets = document.getElementsByClassName(`channel-${data.channel_id}-photo`)
+
+    for (let i = 0; i < channelPhotoTargets.length; i++) {
+      channelPhotoTargets[i].innerHTML = data.photo_partial
+    }
+  }
+
   _received(data) {
     if (data.type === 'update_latest_message') {
       this.updateLatestMessage(data)
     } else if (data.type === 'update_name') {
       this.updateChannelName(data)
-    } else if (data.type === 'update_avatar') {
-
+    } else if (data.type === 'update_photo') {
+      this.updateChannelPhoto(data)
     }
   }
 }

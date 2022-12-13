@@ -31,7 +31,9 @@ export default class extends BaseController {
   _disconnected() {}
 
   _received(data) {
-    this.modalController.hideModal()
+    if (this.modalController) {
+      this.modalController.hideModal()
+    }
 
     if (data.type === 'kick') {
       if (data.sender_id != this.senderIdValue) {

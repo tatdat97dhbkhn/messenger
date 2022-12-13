@@ -1,8 +1,8 @@
 module Chat
   module Channels
     class UsersController < ApplicationController
-      before_action :set_channel, only: %i[joined_users not_joined_users add kick]
-      before_action :set_user, only: %i[add kick]
+      before_action :set_channel, only: %i[joined_users not_joined_users add kick leave]
+      before_action :set_user, only: %i[add kick leave]
 
       def joined_users
         @users = Users::FilterService.call(params: params, users: user_scope)
@@ -22,6 +22,11 @@ module Chat
       def kick
         kick_service = ::Channels::Users::KickService.call(user: @user, current_user: current_user, channel: @channel)
         flash.now[:error] = kick_service.errors if kick_service.fail?
+      end
+
+      def leave
+        leave_service = ::Channels::Users::LeaveService.call(current_user: current_user, channel: @channel)
+        flash.now[:error] = leave_service.errors if leave_service.fail?
       end
 
       private

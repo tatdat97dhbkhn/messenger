@@ -62,7 +62,7 @@ export default class extends BaseController {
     readOrUnreadBox.innerHTML = data.unread
   }
 
-  _received(data) {
+  updateLatestMessage(data) {
     const latestMessageBox = document.getElementById(`channel_${this.channelIdValue}_last_message`)
     const isTabActive = document.getElementById('is_tab_active')?.value
 
@@ -102,6 +102,24 @@ export default class extends BaseController {
       // } else {
       //   readOrUnreadBox.innerHTML = ''
       // }
+    }
+  }
+
+  updateChannelName(data) {
+    const channelNameTargets = document.getElementsByClassName(`channel-${data.channel_id}-name`)
+
+    for (let i = 0; i < channelNameTargets.length; i++) {
+      channelNameTargets[i].innerHTML = data.channel_name
+    }
+  }
+
+  _received(data) {
+    if (data.type === 'update_latest_message') {
+      this.updateLatestMessage(data)
+    } else if (data.type === 'update_name') {
+      this.updateChannelName(data)
+    } else if (data.type === 'update_avatar') {
+
     }
   }
 }

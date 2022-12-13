@@ -1,0 +1,66 @@
+<%= turbo_frame_tag "components-modal" do %>
+  <div class="animate-fade-in fixed top-0 left-0 z-20 flex h-full w-full items-center justify-center bg-[#00000080] text-white"
+       data-controller="components--modal channels--settings" id="components-modal-controller">
+    <div class="bg-gray-800 flex w-screen max-w-[500px] flex-col rounded-lg border border-gray-800">
+      <div class="border-gray-600 flex items-center justify-between border-b py-3 px-3">
+        <div class="flex-1"></div>
+        <div class="flex flex-1 items-center justify-center">
+          <h1 class="whitespace-nowrap text-center text-2xl">Channel settings</h1>
+        </div>
+        <div class="flex flex-1 justify-end">
+          <button data-action="click->components--modal#hideModal"
+                  class="bg-dark-lighten flex h-8 w-8 items-center justify-center rounded-full transition duration-300 hover:brightness-125">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+            </svg>
+          </button>
+        </div>
+      </div>
+      <div class="flex flex-col items-stretch p-3">
+        <button class="bg-dark flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition duration-300 hover:brightness-125">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path d="M21.731 2.269a2.625 2.625 0 00-3.712 0l-1.157 1.157 3.712 3.712 1.157-1.157a2.625 2.625 0 000-3.712zM19.513 8.199l-3.712-3.712-8.4 8.4a5.25 5.25 0 00-1.32 2.214l-.8 2.685a.75.75 0 00.933.933l2.685-.8a5.25 5.25 0 002.214-1.32l8.4-8.4z" />
+              <path d="M5.25 5.25a3 3 0 00-3 3v10.5a3 3 0 003 3h10.5a3 3 0 003-3V13.5a.75.75 0 00-1.5 0v5.25a1.5 1.5 0 01-1.5 1.5H5.25a1.5 1.5 0 01-1.5-1.5V8.25a1.5 1.5 0 011.5-1.5h5.25a.75.75 0 000-1.5H5.25z" />
+            </svg>
+            <span>Change channel name</span>
+          </div>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6" data-channels--settings-target="btnOpenForm" data-for="formUpdateChannelName" data-action="click->channels--settings#openForm">
+            <path fill-rule="evenodd" d="M12.53 16.28a.75.75 0 01-1.06 0l-7.5-7.5a.75.75 0 011.06-1.06L12 14.69l6.97-6.97a.75.75 0 111.06 1.06l-7.5 7.5z" clip-rule="evenodd" />
+          </svg>
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6 hidden" data-channels--settings-target="btnCloseForm" data-for="formUpdateChannelName" data-action="click->channels--settings#closeForm">
+            <path fill-rule="evenodd" d="M11.47 7.72a.75.75 0 011.06 0l7.5 7.5a.75.75 0 11-1.06 1.06L12 9.31l-6.97 6.97a.75.75 0 01-1.06-1.06l7.5-7.5z" clip-rule="evenodd" />
+          </svg>
+        </button>
+        <%= form_with model: @form, url: channel_path(@channel), method: :put, class: 'my-2 flex gap-3 hidden px-3',
+                      data: {
+                        'channels--settings-target': 'formUpdateChannelName'
+                      } do |f| %>
+          <div class="flex-grow">
+            <%= f.text_field :name,
+                             placeholder: 'Channel name',
+                             class: 'border-dark-lighten bg-gray-800 h-full w-full rounded-lg border p-2 outline-none transition duration-300 focus:border-gray-500' %>
+            <%= f.hidden_field :type, value: @channel.type %>
+          </div>
+          <button type="submit" class="bg-blue-700 flex-shrink-0 rounded px-3 transition duration-300 hover:brightness-110">Change</button>
+        <% end %>
+        <button class="bg-dark flex items-center gap-3 rounded-lg px-3 py-3 transition duration-300 hover:brightness-125">
+          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+            <path fill-rule="evenodd" d="M1.5 6a2.25 2.25 0 012.25-2.25h16.5A2.25 2.25 0 0122.5 6v12a2.25 2.25 0 01-2.25 2.25H3.75A2.25 2.25 0 011.5 18V6zM3 16.06V18c0 .414.336.75.75.75h16.5A.75.75 0 0021 18v-1.94l-2.69-2.689a1.5 1.5 0 00-2.12 0l-.88.879.97.97a.75.75 0 11-1.06 1.06l-5.16-5.159a1.5 1.5 0 00-2.12 0L3 16.061zm10.125-7.81a1.125 1.125 0 112.25 0 1.125 1.125 0 01-2.25 0z" clip-rule="evenodd" />
+          </svg>
+          <span>Change channel photo</span>
+        </button>
+        <input hidden="" class="hidden" type="file" accept="image/*">
+        <div class="fixed top-5 right-5 bg-red-500 z-[9999] w-[calc(100vw-40px)] max-w-[300px] scale-100 rounded p-4 text-white transition-all duration-300 invisible scale-50 opacity-0"></div>
+        <button class="bg-dark flex items-center justify-between gap-3 rounded-lg px-3 py-3 transition duration-300 hover:brightness-125">
+          <div class="flex items-center gap-3">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" class="w-6 h-6">
+              <path fill-rule="evenodd" d="M7.5 3.75A1.5 1.5 0 006 5.25v13.5a1.5 1.5 0 001.5 1.5h6a1.5 1.5 0 001.5-1.5V15a.75.75 0 011.5 0v3.75a3 3 0 01-3 3h-6a3 3 0 01-3-3V5.25a3 3 0 013-3h6a3 3 0 013 3V9A.75.75 0 0115 9V5.25a1.5 1.5 0 00-1.5-1.5h-6zm5.03 4.72a.75.75 0 010 1.06l-1.72 1.72h10.94a.75.75 0 010 1.5H10.81l1.72 1.72a.75.75 0 11-1.06 1.06l-3-3a.75.75 0 010-1.06l3-3a.75.75 0 011.06 0z" clip-rule="evenodd" />
+            </svg>
+            <span>Leave channel</span>
+          </div>
+        </button>
+      </div>
+    </div>
+  </div>
+<% end %>

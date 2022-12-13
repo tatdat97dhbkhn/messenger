@@ -8,6 +8,6 @@
   <div class="w-16 h-16 relative flex flex-shrink-0">
     <% users = channel.two_joined_users %>
     <%= image_tag users[0].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute ml-6' %>
-    <%= image_tag users[1].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute mt-6' %>
+    <%= image_tag(users[1].avatar, class: 'shadow-md rounded-full w-10 h-10 object-cover absolute mt-6') if users[1].present? %>
   </div>
 <% end %>

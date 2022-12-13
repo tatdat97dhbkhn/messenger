@@ -21,14 +21,15 @@ module Channels
       private
 
       def create_message_notice
-        body = "#{current_user.name} kicked #{user.name} out of the channel"
+        messages_create_service = Messages::CreateService.call(
+          user_id: current_user.id,
+          body: "#{current_user.name} kicked #{user.name} out of the channel",
+          type: Message.types[:notice],
+          channel: channel,
+          allow_broadcast_new_message: true
+        )
 
-        channel.messages.create!({
-                                   user_id: current_user.id,
-                                   body: body,
-                                   type: Message.types[:notice],
-                                   allow_broadcast_new_message: true
-                                 })
+        raise ActiveRecord::Rollback if messages_create_service.fail?
       end
     end
   end

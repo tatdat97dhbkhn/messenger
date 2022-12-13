@@ -84,7 +84,14 @@ class Message < ApplicationRecord
   end
 
   def update_channel_last_message_sent_at
-    Channels::UpdateLatestMessageJob.perform_later(sender_id: Current&.user&.id, channel: channel, message: self)
+    channel.update(last_message_sent_at: Time.current)
+
+    Channels::UpdateJob.perform_later(
+      sender_id: Current&.user&.id,
+      channel: channel,
+      message: self,
+      type: 'update_latest_message'
+    )
   end
 
   def create_message_notifications

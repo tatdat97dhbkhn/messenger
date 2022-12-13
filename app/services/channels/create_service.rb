@@ -12,6 +12,7 @@ module Channels
         else
           @channel = Channel.private_type.new
           @channel.name = channel_name
+          @channel.creator_id = current_user.id
         end
 
         @is_new_channel = channel.new_record?
@@ -55,13 +56,21 @@ module Channels
     end
 
     def create_message_notice
-      body = channel.private_type? ? "#{current_user.name} created a channel" : 'Became friends, can now text each other'
+      body = if channel.private_type?
+               "#{current_user.name} created a channel"
+             else
+               'Became friends, can now text each other'
+             end
 
-      channel.messages.create!({
+      messages_create_service = Messages::CreateService.call(
         user_id: current_user.id,
         body: body,
-        type: Message.types[:notice]
-      })
+        type: Message.types[:notice],
+        channel: channel,
+        allow_broadcast_new_message: false
+      )
+
+      raise ActiveRecord::Rollback if messages_create_service.fail?
     end
   end
 end

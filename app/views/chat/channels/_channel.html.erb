@@ -22,7 +22,7 @@
   <%= render partial: 'chat/channels/channel_avatar', locals: { members: members, channel: channel } %>
 
   <div class="flex-auto min-w-0 ml-4 mr-6 hidden md:block group-hover:block">
-    <p class="truncate">
+    <p class="truncate channel-<%= channel.id %>-name">
       <% if channel.just_two_people_type? %>
         <%= members.name %>
       <% else %>

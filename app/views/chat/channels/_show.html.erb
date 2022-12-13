@@ -12,12 +12,12 @@
       </div>
     <% elsif channel.private_type? %>
       <div class="w-12 h-12 mr-4 relative flex flex-shrink-0">
-        <%= image_tag members[0].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-left: 1.1rem' %>
-        <%= image_tag members[1].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-top: 1.1rem' %>
-        <%#= image_tag members.avatar, class: 'shadow-md rounded-full w-full h-full object-cover', alt: "channel-user-#{members.id}-avatar" %>
+        <% all_members = [members, current_user].flatten %>
+        <%= image_tag all_members[0].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-left: 1.1rem' %>
+        <%= image_tag(all_members[1].avatar, class: 'shadow-md rounded-full w-8 h-8 object-cover absolute', style: 'margin-top: 1.1rem') if all_members[1].present? %>
       </div>
       <div class="text-sm">
-        <p class="font-bold"><%= channel.name %></p>
+        <p class="font-bold channel-<%= channel.id %>-name"><%= channel.name %></p>
         <p>Winter is coming</p>
       </div>
     <% end %>
@@ -44,12 +44,17 @@
           <path d="M4.5 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM14.25 8.625a3.375 3.375 0 116.75 0 3.375 3.375 0 01-6.75 0zM1.5 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM17.25 19.128l-.001.144a2.25 2.25 0 01-.233.96 10.088 10.088 0 005.06-1.01.75.75 0 00.42-.643 4.875 4.875 0 00-6.957-4.611 8.586 8.586 0 011.71 5.157v.003z" />
         </svg>
       <% end %>
+
+      <%= link_to settings_channel_path(id: channel.id),
+                  data: {
+                    turbo_frame: 'components-modal'
+                  },
+                  class: 'block rounded-full hover:bg-gray-700 bg-gray-800 w-10 h-10 p-2 ml-4' do %>
+        <svg viewBox="0 0 20 20" class="w-full h-full fill-current text-blue-500">
+          <path d="M2.92893219,17.0710678 C6.83417511,20.9763107 13.1658249,20.9763107 17.0710678,17.0710678 C20.9763107,13.1658249 20.9763107,6.83417511 17.0710678,2.92893219 C13.1658249,-0.976310729 6.83417511,-0.976310729 2.92893219,2.92893219 C-0.976310729,6.83417511 -0.976310729,13.1658249 2.92893219,17.0710678 Z M9,11 L9,10.5 L9,9 L11,9 L11,15 L9,15 L9,11 Z M9,5 L11,5 L11,7 L9,7 L9,5 Z"/>
+        </svg>
+      <% end %>
     <% end %>
-<!--    <a href="#" class="block rounded-full hover:bg-gray-700 bg-gray-800 w-10 h-10 p-2 ml-4">-->
-<!--      <svg viewBox="0 0 20 20" class="w-full h-full fill-current text-blue-500">-->
-<!--        <path d="M2.92893219,17.0710678 C6.83417511,20.9763107 13.1658249,20.9763107 17.0710678,17.0710678 C20.9763107,13.1658249 20.9763107,6.83417511 17.0710678,2.92893219 C13.1658249,-0.976310729 6.83417511,-0.976310729 2.92893219,2.92893219 C-0.976310729,6.83417511 -0.976310729,13.1658249 2.92893219,17.0710678 Z M9,11 L9,10.5 L9,9 L11,9 L11,15 L9,15 L9,11 Z M9,5 L11,5 L11,7 L9,7 L9,5 Z"/>-->
-<!--      </svg>-->
-<!--    </a>-->
   </div>
 </div>
 

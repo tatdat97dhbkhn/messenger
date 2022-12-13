@@ -1,13 +1,27 @@
-# frozen_string_literal: true
-
 module Channels
-  class UpdateLatestMessageJob < ApplicationJob
+  class UpdateJob < ApplicationJob
     queue_as :default
 
     def perform(**options)
-      options[:channel].update(last_message_sent_at: Time.current)
+      ActionCable.server.broadcast "latest_message_channel:#{options[:channel].id}",
+                                   { type: options[:type] }.merge(send("#{options[:type] }_data", **options))
+    end
 
-      ActionCable.server.broadcast "latest_message_channel:#{options[:channel].id}", {
+    private
+
+    def update_avatar_data(**options)
+      {}
+    end
+
+    def update_name_data(**options)
+      {
+        channel_name: options[:channel].name,
+        channel_id: options[:channel].id,
+      }
+    end
+
+    def update_latest_message_data(**options)
+      {
         latest_message: ApplicationController.render(
           partial: 'chat/channels/latest_message',
           locals: {

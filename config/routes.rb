@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :chat, only: :index
   resources :giphy, only: :index
   scope :chat do
-    resources :channels, only: %i[show create] do
+    resources :channels, only: %i[show create update] do
       scope module: 'chat/channels' do
         resources :users, only: [] do
           collection do
@@ -27,6 +27,7 @@ Rails.application.routes.draw do
       end
       member do
         put :read_message_notifications
+        get :settings
       end
 
       resources :messages, only: :create do

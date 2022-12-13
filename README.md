@@ -1,6 +1,10 @@
 The messenger is built on the top of [Rails](https://rubyonrails.org/) and [Hotwired](https://hotwired.dev/).
 This is a website designed based on Facebook messenger.
 
+
+https://user-images.githubusercontent.com/27503213/207297619-b7bbbcb0-0983-45f2-958d-b8088d4cfdb1.mp4
+
+
 - [Requirements](#requirements)
 - [Setup](#setup)
 - [Start server in dev mode (live reload)](#start-server-in-dev-mode-live-reload)

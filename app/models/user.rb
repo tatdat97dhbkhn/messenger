@@ -61,6 +61,10 @@ class User < ApplicationRecord
     broadcast_remove_to 'users', target: "user_#{id}"
   end
 
+  def send_devise_notification(notification, *args)
+    devise_mailer.send(notification, self, *args).deliver_later
+  end
+
   private
 
   def has_status_changes?

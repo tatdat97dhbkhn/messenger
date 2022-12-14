@@ -80,6 +80,10 @@ gem 'sidekiq'
 # allow dynamic column names and that avoid deadlocks by updating in the after_commit callback.
 gem 'counter_culture'
 
+# The Cloudinary Ruby on Rails SDK allows you to quickly and easily integrate your application with Cloudinary.
+# Effortlessly optimize, transform, upload and manage your cloud's assets.
+gem 'cloudinary'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

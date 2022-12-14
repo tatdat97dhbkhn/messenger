@@ -85,6 +85,8 @@ test:
 #
 production:
   <<: *default
-  database: project_messenger_production
-  username: project_messenger
-  password: <%= ENV["PROJECT_MESSENGER_DATABASE_PASSWORD"] %>
+  host: <%= Rails.application.credentials.dig(:db, :host) %>
+  username: <%= Rails.application.credentials.dig(:db, :username) %>
+  password: <%= Rails.application.credentials.dig(:db, :password) %>
+  port: <%= Rails.application.credentials.dig(:db, :port) %>
+  database: <%= Rails.application.credentials.dig(:db, :database) %>

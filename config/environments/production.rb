@@ -2,7 +2,7 @@ require "active_support/core_ext/integer/time"
 
 Rails.application.config.action_controller.default_url_options = {
   host: Rails.application.credentials.dig(:default_url_host),
-  protocol: Rails.application.config.force_ssl ? 'https' : 'http'
+  protocol: 'https'
 }
 
 Rails.application.configure do
@@ -52,7 +52,7 @@ Rails.application.configure do
   # config.action_cable.allowed_request_origins = [ "http://example.com", /http:\/\/example.*/ ]
 
   # Force all access to the app over SSL, use Strict-Transport-Security, and use secure cookies.
-  # config.force_ssl = true
+  config.force_ssl = true
 
   # Include generic and useful information about system operation, but avoid logging too much
   # information to avoid inadvertent exposure of personally identifiable information (PII).
@@ -105,11 +105,11 @@ Rails.application.configure do
     protocol: config.force_ssl ? 'https' : 'http'
   }
   config.action_mailer.smtp_settings = {
-    user_name:      Rails.application.credentials.dig(:gmail, :user_name),
-    password:       Rails.application.credentials.dig(:gmail, :password),
-    domain:         Rails.application.credentials.dig(:gmail, :domain),
-    address:       Rails.application.credentials.dig(:gmail, :address),
-    port:          Rails.application.credentials.dig(:gmail, :port),
+    user_name:      Rails.application.credentials.dig(:mail, :user_name),
+    password:       Rails.application.credentials.dig(:mail, :password),
+    domain:         Rails.application.credentials.dig(:mail, :domain),
+    address:       Rails.application.credentials.dig(:mail, :address),
+    port:          Rails.application.credentials.dig(:mail, :port),
     authentication: :plain,
     enable_starttls_auto: true
   }

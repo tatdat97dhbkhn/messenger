@@ -85,6 +85,8 @@ test:
 #
 production:
   <<: *default
+  pool: 40
+  timeout: 5000
   host: <%= Rails.application.credentials.dig(:db, :host) %>
   username: <%= Rails.application.credentials.dig(:db, :username) %>
   password: <%= Rails.application.credentials.dig(:db, :password) %>

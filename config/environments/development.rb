@@ -77,16 +77,16 @@ Rails.application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.delivery_method = :smtp
   config.action_mailer.default_url_options = {
-    host: Rails.application.credentials.dig(:gmail, :host),
+    host: Rails.application.credentials.dig(:mail, :host),
     port: ENV.fetch("DEFAULT_PORT") { '3000' },
-    protocol: Rails.application.credentials.dig(:gmail, :protocol),
+    protocol: Rails.application.credentials.dig(:mail, :protocol),
   }
   config.action_mailer.smtp_settings = {
-    user_name:      Rails.application.credentials.dig(:gmail, :user_name),
-    password:       Rails.application.credentials.dig(:gmail, :password),
-    domain:         Rails.application.credentials.dig(:gmail, :domain),
-    address:       Rails.application.credentials.dig(:gmail, :address),
-    port:          Rails.application.credentials.dig(:gmail, :port),
+    user_name:      Rails.application.credentials.dig(:mail, :user_name),
+    password:       Rails.application.credentials.dig(:mail, :password),
+    domain:         Rails.application.credentials.dig(:mail, :domain),
+    address:       Rails.application.credentials.dig(:mail, :address),
+    port:          Rails.application.credentials.dig(:mail, :port),
     authentication: :plain,
     enable_starttls_auto: true
   }

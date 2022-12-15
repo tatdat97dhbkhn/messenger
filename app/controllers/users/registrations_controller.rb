@@ -24,5 +24,15 @@ module Users
         respond_with resource
       end
     end
+
+    protected
+
+    def after_inactive_sign_up_path_for(resource)
+      scope = Devise::Mapping.find_scope!(resource)
+      router_name = Devise.mappings[scope].router_name
+      context = router_name ? send(router_name) : self
+
+      context.new_user_session_path
+    end
   end
 end

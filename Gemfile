@@ -84,6 +84,9 @@ gem 'counter_culture'
 # Effortlessly optimize, transform, upload and manage your cloud's assets.
 gem 'cloudinary'
 
+# This library allows you to quickly and easily use the Twilio SendGrid Web API v3 via Ruby.
+gem 'sendgrid-ruby'
+
 group :development, :test do
   # See https://guides.rubyonrails.org/debugging_rails_applications.html#debugging-with-the-debug-gem
   gem "debug", platforms: %i[ mri mingw x64_mingw ]

@@ -1,6 +1,8 @@
 services:
   web:
-    build: ./Dockerfile.development
+    build:
+      context: .
+      dockerfile: Dockerfile.development
     command: bash -c "rm -f tmp/pids/server.pid && bin/dev"
     volumes:
       - .:/usr/src/app

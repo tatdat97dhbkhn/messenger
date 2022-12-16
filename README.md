@@ -21,7 +21,7 @@ https://user-images.githubusercontent.com/27503213/207297619-b7bbbcb0-0983-45f2-
 ## Setup
 - `echo "2f969ec2ee03b53670bcb5904a0cd603" > config/master.key`
 - `echo "0e61394468bff7e3f4744bdf397474c1" > config/credentials/development.key`
-- `chmod +x entrypoint.sh`
+- `chmod +x entrypoint_development.sh`
 - `cp .env.example .env`
 - `make build`
 - `make db-setup`

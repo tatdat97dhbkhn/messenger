@@ -91,12 +91,14 @@ c8.62,0,15.609,6.989,15.609,15.609c0,8.62-6.989,15.609-15.609,15.609h-61.661v33.
         </div>
       </div>
 
-      <%= f.file_field(:attachments, multiple: true,
+      <%= f.file_field(:attachments,
+                       multiple: true,
                        class: 'hidden',
                        data: {
                          action: "change->components--file-preview#preview",
                          'components--file-preview-target': 'fileInput',
-                         'components--audio-record-target': 'inputUpload'
+                         'components--audio-record-target': 'inputUpload',
+                         'components--dropzone-target': 'input',
                        },
                        direct_upload: true) %>
       <div class="relative flex-grow" data-controller="components--emoji-picker" data-components--emoji-picker-target="rootElement">

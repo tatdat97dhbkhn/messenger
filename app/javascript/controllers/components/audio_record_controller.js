@@ -46,6 +46,11 @@ export default class extends BaseController {
           let container = new DataTransfer()
           container.items.add(file)
           currentController.uploadFile(file)
+
+          Array.from(inputUpload.files).forEach(oldFile => {
+            container.items.add(oldFile)
+          });
+
           inputUpload.files = container.files
           inputUpload.dispatchEvent(new Event("change"))
         };
@@ -79,11 +84,14 @@ export default class extends BaseController {
         // Add an appropriately-named hidden input to the form with a
         //  value of blob.signed_id so that the blob ids will be
         //  transmitted in the normal upload flow
-        const hiddenField = document.createElement("input")
-        hiddenField.setAttribute("type", "hidden")
-        hiddenField.setAttribute("value", blob.signed_id)
-        hiddenField.name = inputUpload.name
-        currentController.formSubmitTarget.appendChild(hiddenField)
+
+        // don't make the input hidden because we used DataTransfer to reset the input's files
+
+        // const hiddenField = document.createElement("input")
+        // hiddenField.setAttribute("type", "hidden")
+        // hiddenField.setAttribute("value", blob.signed_id)
+        // hiddenField.name = inputUpload.name
+        // currentController.formSubmitTarget.appendChild(hiddenField)
       }
     });
   }

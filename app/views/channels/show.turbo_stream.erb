@@ -22,7 +22,7 @@
       ) %>
 <% else %>
   <%= turbo_stream_action_tag(
-    "update",
+    "replace",
     target: "channel_detail",
     template: %(#{render partial: "chat/channels/show", locals: {
       channel: @channel,

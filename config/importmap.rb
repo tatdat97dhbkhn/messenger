@@ -15,3 +15,5 @@ pin "@rails/activestorage", to: "https://ga.jspm.io/npm:@rails/activestorage@7.0
 pin "picmo", to: "https://ga.jspm.io/npm:picmo@5.7.2/dist/index.js"
 pin "@picmo/popup-picker", to: "https://ga.jspm.io/npm:@picmo/popup-picker@5.7.2/dist/index.js"
 pin "@rails/ujs", to: "https://ga.jspm.io/npm:@rails/ujs@7.0.4/lib/assets/compiled/rails-ujs.js"
+pin "dropzone", to: "https://ga.jspm.io/npm:dropzone@6.0.0-beta.2/dist/dropzone.mjs"
+pin "just-extend", to: "https://ga.jspm.io/npm:just-extend@5.1.1/index.esm.js"

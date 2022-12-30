@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: message_reactions
@@ -19,6 +21,8 @@
 #  fk_rails_...  (message_id => messages.id)
 #  fk_rails_...  (user_id => users.id)
 #
+
+# This is your message_reaction model
 class MessageReaction < ApplicationRecord
   self.inheritance_column = :_sti_disabled
 
@@ -42,7 +46,7 @@ class MessageReaction < ApplicationRecord
                          target: "message-#{message.id}-reactions",
                          partial: 'chat/channels/messages/message_actions/reacted',
                          locals: {
-                           message: message
+                           message:
                          })
   end
 end

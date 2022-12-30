@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class AddReplyTypeToMessages < ActiveRecord::Migration[7.0]
+  # This is your message class
   class Message < ApplicationRecord
     enum reply_type: {
-           not_reply: 'not_reply', video: 'video', 'audio': 'audio', image: 'image', file: 'file', text: 'text'
+           not_reply: 'not_reply', video: 'video', audio: 'audio', image: 'image', file: 'file', text: 'text'
          },
          _default: :not_reply
   end

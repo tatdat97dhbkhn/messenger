@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class RemoveConversations < ActiveRecord::Migration[7.0]
   def up
     remove_column :messages, :conversation_id
@@ -5,6 +8,6 @@ class RemoveConversations < ActiveRecord::Migration[7.0]
   end
 
   def down
-    fail ActiveRecord::IrreversibleMigration
+    raise ActiveRecord::IrreversibleMigration
   end
 end

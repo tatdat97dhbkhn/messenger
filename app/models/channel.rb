@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: channels
@@ -11,6 +13,8 @@
 #  updated_at           :datetime         not null
 #  creator_id           :bigint
 #
+
+# This is your channel model
 class Channel < ApplicationRecord
   include Filterable
 
@@ -20,7 +24,7 @@ class Channel < ApplicationRecord
 
   enum type: { public: 'public', private: 'private', just_two_people: 'just_two_people' }, _suffix: true
 
-  belongs_to :creator, foreign_key: :creator_id, class_name: 'User', optional: true
+  belongs_to :creator, class_name: 'User', optional: true, inverse_of: :admin_channels
   has_one_attached :photo, dependent: :destroy
   has_many :messages, dependent: :destroy
   has_many :message_notifications, through: :messages
@@ -53,7 +57,7 @@ class Channel < ApplicationRecord
     update!(connected_user_ids: (connected_user_ids - [user_id]).uniq)
   end
 
-  def is_read_by?(user_id)
+  def read_by?(user_id)
     message_notification = message_notifications.unread_by_user(user_id).first
     message_notification.nil?
   end

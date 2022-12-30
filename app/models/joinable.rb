@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: joinables
@@ -18,6 +20,8 @@
 #  fk_rails_...  (channel_id => channels.id)
 #  fk_rails_...  (user_id => users.id)
 #
+
+# This is your joinable model
 class Joinable < ApplicationRecord
   belongs_to :user
   belongs_to :channel

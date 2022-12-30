@@ -35,6 +35,7 @@
 # form = UserRegistrationForm.new(user, permitted_params)
 # form.submit
 
+# This is your application form
 class ApplicationForm
   include ActiveModel::Model
 

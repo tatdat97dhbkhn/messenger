@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Channels
+  # This is your channels/filter service
   class FilterService < ApplicationService
     parameters :params, :channels
     attr_reader :channels

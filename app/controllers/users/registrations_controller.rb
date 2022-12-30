@@ -1,7 +1,11 @@
+# frozen_string_literal: true
+
 module Users
+  # This is your users/registrations controller
   class RegistrationsController < Devise::RegistrationsController
     layout 'application'
 
+    # rubocop:disable Metrics/AbcSize
     def create
       build_resource(sign_up_params)
 
@@ -13,7 +17,7 @@ module Users
           sign_up(resource_name, resource)
           respond_with resource, location: after_sign_up_path_for(resource)
         else
-          flash[:notice] = 'Account registration is successful, please check your email to confirm'
+          flash[:notice] = t('devise.registrations.signed_up_but_unconfirmed')
           expire_data_after_sign_in!
           respond_with resource, location: after_inactive_sign_up_path_for(resource)
         end
@@ -24,6 +28,7 @@ module Users
         respond_with resource
       end
     end
+    # rubocop:enable Metrics/AbcSize, Metrics/MethodLength
 
     protected
 

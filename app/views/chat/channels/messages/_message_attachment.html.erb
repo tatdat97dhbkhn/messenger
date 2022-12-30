@@ -6,7 +6,6 @@
   <% end %>
   <div class="messages text-sm <%= is_sender ? 'text-white' : 'text-gray-700' %> grid grid-flow-row gap-2">
     <div class="flex items-center group <%= is_sender ? 'flex-row-reverse' : '' %>">
-      <% attachment_type = reply_type_mapping_attachment(attachment) %>
       <div class="flex flex-col flex-shrink-0 <%= is_sender ? 'items-end' : 'items-start' %>">
         <% parent = message.parent %>
         <% if parent.present? && message.body.blank? %>
@@ -17,10 +16,17 @@
                      } %>
         <% end %>
 
-        <%= render partial: 'chat/channels/messages/message_attachment/attachment',
-                   locals: {
-                     attachment: attachment
-                   } %>
+        <% if attachment %>
+          <%= render partial: 'chat/channels/messages/message_attachment/attachment',
+                     locals: {
+                       attachment: attachment
+                     } %>
+        <% else %>
+          <%= render partial: 'chat/channels/messages/message_attachment/gif',
+                     locals: {
+                       gif_url: message.gif_url
+                     } %>
+        <% end %>
       </div>
 
       <%= render partial: 'chat/channels/messages/message_actions', locals: {

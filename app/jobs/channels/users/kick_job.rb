@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Channels
   module Users
+    # This is your channels/users/kick job
     class KickJob < ApplicationJob
       queue_as :default
 

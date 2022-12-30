@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Users
+  # This is your users/sessions controller
   class SessionsController < Devise::SessionsController
     layout 'application'
 
@@ -12,7 +15,7 @@ module Users
     end
 
     def destroy
-      ActionCable.server.remote_connections.where(current_user: current_user).disconnect
+      ActionCable.server.remote_connections.where(current_user:).disconnect
       current_user.offline!
 
       super

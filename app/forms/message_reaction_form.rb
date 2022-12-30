@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your message_reaction form
 class MessageReactionForm < ApplicationForm
   attr_accessor :user_id, :message_id, :type, :params, :message_reaction
 
@@ -7,7 +10,7 @@ class MessageReactionForm < ApplicationForm
     return false if invalid?
 
     self.message_reaction = MessageReaction.find_or_initialize_by(
-      user_id: user_id,
+      user_id:,
       message_id: message_reaction_params[:message_id]
     )
     message_reaction.type = message_reaction_params[:type]

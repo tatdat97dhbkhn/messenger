@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Channels
   module Users
+    # This is your channels/users/add service
     class AddService < ApplicationService
       parameters :user, :current_user, :channel
 
@@ -10,11 +13,11 @@ module Channels
 
           Channels::Users::AddJob.perform_later(
             channel: @channel,
-            current_user: current_user,
-            user: user
+            current_user:,
+            user:
           )
-        rescue => e
-          @errors = [ e.message ]
+        rescue StandardError => e
+          @errors = [e.message]
         end
       end
 
@@ -29,7 +32,7 @@ module Channels
           user_id: current_user.id,
           body: "#{current_user.name} added #{user.name} to the channel",
           type: Message.types[:notice],
-          channel: channel,
+          channel:,
           allow_broadcast_new_message: true
         )
 

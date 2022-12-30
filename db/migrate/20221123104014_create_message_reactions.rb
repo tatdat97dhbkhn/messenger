@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class CreateMessageReactions < ActiveRecord::Migration[7.0]
   def change
     create_table :message_reactions do |t|

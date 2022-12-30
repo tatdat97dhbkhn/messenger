@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
+# This is your application helper
 module ApplicationHelper
   include Pagy::Frontend
 
   def render_turbo_stream_flash_messages
-    turbo_stream.replace "flash-messages", partial: "shared/flash_messages"
+    turbo_stream.replace 'flash-messages', partial: 'shared/flash_messages'
   end
 
   def active_class_if_url(url)

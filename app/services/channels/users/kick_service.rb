@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Channels
   module Users
+    # This is your channels/users/kick service
     class KickService < ApplicationService
       parameters :user, :current_user, :channel
 
@@ -9,9 +12,9 @@ module Channels
         if joinable.destroy
           create_message_notice
           Channels::Users::KickJob.perform_later(
-            channel: channel,
-            current_user: current_user,
-            user: user
+            channel:,
+            current_user:,
+            user:
           )
         else
           @errors = joinable.errors.full_messages
@@ -25,7 +28,7 @@ module Channels
           user_id: current_user.id,
           body: "#{current_user.name} kicked #{user.name} out of the channel",
           type: Message.types[:notice],
-          channel: channel,
+          channel:,
           allow_broadcast_new_message: true
         )
 

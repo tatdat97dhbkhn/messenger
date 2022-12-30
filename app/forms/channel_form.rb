@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your channel form
 class ChannelForm < ApplicationForm
   attr_accessor :params, :channel, :name, :type, :photo, :skip_validate_name
 

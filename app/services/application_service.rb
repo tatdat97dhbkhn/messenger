@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your application service
 class ApplicationService
   attr_reader :payload, :errors
 
@@ -21,13 +24,9 @@ class ApplicationService
   end
 
   def initialize(**params)
-    @payload ||= ''
-    @errors ||= []
+    @payload = ''
+    @errors = []
 
-    set_parameters(params)
-  end
-
-  def set_parameters(params)
     params.each do |param_name, param_value|
       instance_variable_set("@#{param_name}", param_value)
     end

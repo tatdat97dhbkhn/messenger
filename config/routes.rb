@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# rubocop:disable Metrics/BlockLength
 Rails.application.routes.draw do
   root 'home#index'
 
@@ -41,3 +44,4 @@ Rails.application.routes.draw do
 
   put '/rails/active_storage/disk/:encoded_token', to: 'upload#update'
 end
+# rubocop:enable Metrics/BlockLength

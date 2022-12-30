@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your appearance channel
 class AppearanceChannel < ApplicationCable::Channel
   def subscribed
     stream_from 'appearance_channel'

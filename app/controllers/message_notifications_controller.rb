@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your message_notifications controller
 class MessageNotificationsController < ApplicationController
   before_action :set_channel, only: :create
   before_action :set_message, only: :create

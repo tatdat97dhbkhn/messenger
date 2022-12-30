@@ -1,13 +1,16 @@
+# frozen_string_literal: true
+
+# This is your chat channel
 class ChannelChatChannel < ApplicationCable::Channel
   def subscribed
-    return unless params[:channel_id].present?
+    return if params[:channel_id].blank?
 
     channel.add_user_to_connected_user_ids!(current_user.id)
     stream_from("channel:#{params[:channel_id]}")
   end
 
   def unsubscribed
-    return unless params[:channel_id].present?
+    return if params[:channel_id].blank?
 
     channel.remove_user_to_connected_user_ids!(current_user.id)
     stop_stream_from("channel:#{params[:channel_id]}")

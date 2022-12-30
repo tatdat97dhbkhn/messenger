@@ -53,6 +53,18 @@
                } %>
   <% end %>
 <% end %>
+
+<% if message.gif_url.present? %>
+  <%= render partial: 'chat/channels/messages/message_attachment',
+             locals: {
+               message: message,
+               attachment: nil,
+               hidden_avatar: hidden_avatar,
+               is_sender: is_sender,
+               channel: channel,
+               message_reaction_form: message_reaction_form
+             } %>
+<% end %>
 <!--<div class="flex justify-end gap-[1px] mb-3">-->
 <!--  <img title="Dat Pham Tat" class="rounded-full object-cover" src="https://apoqrsgtqq.cloudimg.io/https://lh3.googleusercontent.com/a/ALm5wu0T8-hpF0iEvFnd_NtFDlL27gNnIcGykNRL-8DC=s96-c" style="width: 14px; height: 14px;">-->
 <!--</div>-->

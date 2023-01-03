@@ -1,7 +1,16 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class ChangeNameTypeToChannels < ActiveRecord::Migration[7.0]
-  def change
+  reversible do |dir|
     change_table :channels do |t|
-      t.change :name, :text
+      dir.up do
+        t.change :name, :text
+      end
+
+      dir.down do
+        t.change :name, :string
+      end
     end
   end
 end

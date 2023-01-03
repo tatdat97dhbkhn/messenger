@@ -29,7 +29,7 @@
         <%= channel.name %>
       <% end %>
     </p>
-    <% is_read = channel&.is_read_by?(user.id) %>
+    <% is_read = channel&.read_by?(user.id) %>
 
     <div class="flex items-center text-sm channel_last_message <%= is_read ? 'text-gray-600' : 'text-sm font-bold unread' %>"
          id="channel_<%= channel.id %>_last_message">

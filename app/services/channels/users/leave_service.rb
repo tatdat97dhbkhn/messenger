@@ -1,5 +1,8 @@
+# frozen_string_literal: true
+
 module Channels
   module Users
+    # This is your channels/users/leave service
     class LeaveService < ApplicationService
       parameters :current_user, :channel
 
@@ -26,7 +29,7 @@ module Channels
           user_id: current_user.id,
           body: "#{current_user.name} has left the channel",
           type: Message.types[:notice],
-          channel: channel,
+          channel:,
           allow_broadcast_new_message: true
         )
 

@@ -1,13 +1,18 @@
-ENV["RAILS_ENV"] ||= "test"
-require_relative "../config/environment"
-require "rails/test_help"
+# frozen_string_literal: true
 
-class ActiveSupport::TestCase
-  # Run tests in parallel with specified workers
-  parallelize(workers: :number_of_processors)
+ENV['RAILS_ENV'] ||= 'test'
 
-  # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
-  fixtures :all
+require_relative '../config/environment'
+require 'rails/test_help'
 
-  # Add more helper methods to be used by all tests here...
+module ActiveSupport
+  # This is your test case helper.
+  class TestCase
+    parallelize(workers: :number_of_processors)
+
+    # Setup all fixtures in test/fixtures/*.yml for all tests in alphabetical order.
+    fixtures :all
+
+    # Add more helper methods to be used by all tests here...
+  end
 end

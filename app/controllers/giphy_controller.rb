@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your giphy controller
 class GiphyController < ApplicationController
   def index
     @gifs = if params[:q].present?

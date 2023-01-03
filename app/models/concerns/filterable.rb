@@ -1,6 +1,10 @@
+# frozen_string_literal: true
+
+# This is your filterable model concern
 module Filterable
   extend ActiveSupport::Concern
 
+  # This is your class methods of Filterable concern
   module ClassMethods
     def filter_records(filtering_params)
       results = where(nil)

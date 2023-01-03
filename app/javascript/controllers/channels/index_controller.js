@@ -40,11 +40,14 @@ export default class extends BaseController {
         const channelItemTarget = document.getElementById(`channel-item-${data.channel_id}`)
         channelItemTarget.remove()
 
-        const channelActive = document.getElementById('message_form_channel_id').value
-        const channelDetailBox = document.getElementById('channel_detail')
+        const channelActive = document.getElementById('message_form_channel_id')
 
-        if (data.channel_id == channelActive) {
-          channelDetailBox.innerHTML = ''
+        if(channelActive) {
+          const channelDetailBox = document.getElementById('channel_detail')
+
+          if (data.channel_id == channelActive.value) {
+            channelDetailBox.innerHTML = ''
+          }
         }
       }
     } else {

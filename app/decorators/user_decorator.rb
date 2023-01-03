@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your user decorator
 class UserDecorator < ApplicationDecorator
   delegate_all
 
@@ -10,7 +13,7 @@ class UserDecorator < ApplicationDecorator
     when 'offline'
       'bg-stone-500'
     else
-      'bg-stone-500'
+      ''
     end
   end
 end

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class CreateMessageNotifications < ActiveRecord::Migration[7.0]
   def change
     create_table :message_notifications do |t|

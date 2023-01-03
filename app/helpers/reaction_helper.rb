@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# This is your reaction helper
 module ReactionHelper
   def reactions
-    reaction_paths = Dir.glob(Rails.root.join('app', 'assets', 'images', 'reactions', '*.gif'))
+    reaction_paths = Dir['app/assets/images/reactions/*.gif']
 
     reaction_paths.each_with_object([]) do |reaction_path, array|
       reaction_name = File.basename(reaction_path, '.gif')

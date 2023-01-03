@@ -71,9 +71,6 @@ export default class extends BaseController {
     const currentUserActiveChannel = _.includes(data.connected_user_ids, parseInt(this.senderIdValue))
 
     if (data.sender_id !== this.senderIdValue) {
-      const audioTag = document.getElementById("notice-audio-tag");
-      audioTag.play();
-
       if (!currentUserActiveChannel) {
         this.unreadMessage(data)
       } else {
@@ -96,6 +93,9 @@ export default class extends BaseController {
           this.readMessage()
         }
       }
+
+      const audioTag = document.getElementById("notice-audio-tag");
+      audioTag.play();
     } else {
       // if (_.includes(data.connected_user_ids, parseInt(this.receiverIdValue))) {
       //   readOrUnreadBox.innerHTML = data.read

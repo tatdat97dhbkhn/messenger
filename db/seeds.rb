@@ -2,7 +2,7 @@
 
 return if User.first.present?
 
-users_avatar_paths = Dir.glob(Rails.root.join('app', 'assets', 'images', 'users', '*'))
+users_avatar_paths = Dir['app/assets/images/users/*']
 
 users_avatar_paths.each do |path|
   file_name = File.basename(path)

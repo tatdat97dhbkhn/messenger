@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class AddCreatorIdToChannels < ActiveRecord::Migration[7.0]
   class Joinable < ApplicationRecord
     belongs_to :user, class_name: 'AddCreatorIdToChannels::User'
@@ -37,3 +40,4 @@ class AddCreatorIdToChannels < ActiveRecord::Migration[7.0]
     end
   end
 end
+# rubocop:enable Style/Documentation

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your channels controller
 class ChannelsController < ApplicationController
   before_action :set_channel, only: %i[show read_message_notifications settings update]
   before_action :set_message_notifications_to_read, only: %i[show read_message_notifications]
@@ -6,8 +9,8 @@ class ChannelsController < ApplicationController
     @message_form = MessageForm.new
     @message_reaction_form = MessageReactionForm.new
 
-    messages = @channel.messages.includes( :channel, :parent, { user: { avatar_attachment: :blob } },
-                                           :message_reactions, :attachments_attachments )
+    messages = @channel.messages.includes(:channel, :parent, { user: { avatar_attachment: :blob } },
+                                          :message_reactions, :attachments_attachments)
                        .order('messages.created_at desc')
     @pagy, messages = pagy_array(messages, items: 20)
     @messages = messages.reverse
@@ -16,26 +19,15 @@ class ChannelsController < ApplicationController
   def create
     return if params[:user_ids].blank?
 
-    create_service = Channels::CreateService.call(user_ids: params[:user_ids], current_user: current_user)
+    create_service = Channels::CreateService.call(user_ids: params[:user_ids], current_user:)
     flash.now[:error] = create_service.errors if create_service.fail?
   end
 
   def update
-    @form = ChannelForm.new(params: params, channel: @channel)
+    @form = ChannelForm.new(params:, channel: @channel)
 
     if @form.submit
-      body = if params[:type] == 'update_photo'
-               "#{current_user.name} changed the channel photo"
-             else
-               "#{current_user.name} changed the channel name to #{@form.name}"
-             end
-      Messages::CreateService.call(
-        user_id: current_user.id,
-        body: body,
-        type: Message.types[:notice],
-        channel: @channel,
-        allow_broadcast_new_message: true
-      )
+      create_message(@channel, @form)
 
       Channels::UpdateJob.perform_later(channel: @channel, type: params[:type].presence || 'update_name')
 
@@ -48,10 +40,11 @@ class ChannelsController < ApplicationController
         errors = @form.errors.full_messages
 
         format.turbo_stream { flash.now[:error] = errors }
-        format.json { render json: { errors: errors } }
+        format.json { render json: { errors: } }
       end
     end
   end
+  # rubocop:enable Metrics/MethodLength
 
   def read_message_notifications; end
 
@@ -62,10 +55,26 @@ class ChannelsController < ApplicationController
   private
 
   def set_channel
-    @channel =  Channel.find_by(id: params[:id])
+    @channel = Channel.find_by(id: params[:id])
   end
 
   def set_message_notifications_to_read
     MessageNotifications::ReadJob.perform_later(channel: @channel, user_id: current_user.id)
+  end
+
+  def create_message(channel, form)
+    body = if params[:type] == 'update_photo'
+             "#{current_user.name} changed the channel photo"
+           else
+             "#{current_user.name} changed the channel name to #{form.name}"
+           end
+
+    Messages::CreateService.call(
+      user_id: current_user.id,
+      body:,
+      type: Message.types[:notice],
+      channel:,
+      allow_broadcast_new_message: true
+    )
   end
 end

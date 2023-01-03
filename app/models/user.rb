@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: users
@@ -8,7 +10,7 @@
 #  confirmed_at           :datetime
 #  email                  :string           default(""), not null
 #  encrypted_password     :string           default(""), not null
-#  name                   :string           not null
+#  name                   :string           default("name"), not null
 #  remember_created_at    :datetime
 #  reset_password_sent_at :datetime
 #  reset_password_token   :string
@@ -22,6 +24,8 @@
 #  index_users_on_email                 (email) UNIQUE
 #  index_users_on_reset_password_token  (reset_password_token) UNIQUE
 #
+
+# This is your user model
 class User < ApplicationRecord
   include Filterable
 
@@ -40,13 +44,15 @@ class User < ApplicationRecord
   has_many :message_notifications, dependent: :destroy
   has_many :joinables, dependent: :destroy
   has_many :joined_channels, through: :joinables, source: :channel
-  has_many :admin_channels, class_name: 'Channel', foreign_key: :creator_id
+  # rubocop:disable Rails/HasManyOrHasOneDependent
+  has_many :admin_channels, class_name: 'Channel', foreign_key: :creator_id, inverse_of: :creator
+  # rubocop:enable Rails/HasManyOrHasOneDependent
 
   validates :avatar, attached: true, content_type: %w[image/png image/jpeg image/gif image/jpg]
   validates :name, presence: true
 
-  after_update_commit :broadcast_update_user_status, if: :has_status_changes?
-  # after_update_commit :broadcast_append_users, if: -> { is_confirmed? && !not_broadcast }
+  after_update_commit :broadcast_update_user_status, if: :status_changes?
+  # after_update_commit :broadcast_append_users, if: -> { email_confirmed? && !not_broadcast }
   # after_destroy_commit :broadcast_remove_user
 
   scope :all_except, ->(ids) { where.not(id: ids) }
@@ -67,11 +73,11 @@ class User < ApplicationRecord
 
   private
 
-  def has_status_changes?
+  def status_changes?
     previous_changes['status'].present?
   end
 
-  def is_confirmed?
+  def email_confirmed?
     previous_changes['confirmed_at'].present?
   end
 end

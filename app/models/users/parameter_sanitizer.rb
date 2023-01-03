@@ -1,4 +1,7 @@
+# frozen_string_literal: true
+
 module Users
+  # This is your users/parameter_sanitizer
   class ParameterSanitizer < Devise::ParameterSanitizer
     # https://github.com/heartcombo/devise/tree/v4.8.0#strong-parameters
     def initialize(resource_class, resource_name, params)

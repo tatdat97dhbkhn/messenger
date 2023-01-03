@@ -1,6 +1,9 @@
+# frozen_string_literal: true
+
+# This is your users controller
 class UsersController < ApplicationController
   def index
-    @users = Users::FilterService.call(params: params, users: user_scope)
+    @users = Users::FilterService.call(params:, users: user_scope)
                                  .users
                                  .decorate
   end

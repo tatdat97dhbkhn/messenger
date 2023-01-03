@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 # == Schema Information
 #
 # Table name: messages
@@ -27,6 +29,7 @@
 
 require 'open-uri'
 
+# This is your message model
 class Message < ApplicationRecord
   self.inheritance_column = :_sti_disabled
 
@@ -34,8 +37,8 @@ class Message < ApplicationRecord
 
   belongs_to :user
   belongs_to :channel
-  belongs_to :parent, class_name: self.name, optional: true
-  has_many :children, class_name: self.name, foreign_key: 'parent_id'
+  belongs_to :parent, class_name: name, optional: true
+  has_many :children, class_name: name, foreign_key: 'parent_id', inverse_of: :parent, dependent: :destroy
   has_many :message_reactions, dependent: :destroy
   has_many :message_notifications, dependent: :destroy
   has_many_attached :attachments, dependent: :destroy
@@ -44,39 +47,34 @@ class Message < ApplicationRecord
        _suffix: true,
        _default: :plain_text_or_attachment
 
-  before_save :attach_gif
   after_create_commit do
+    attach_gif if gif_url.present?
     message_broadcast if allow_broadcast_new_message
     create_message_notifications
     update_channel_last_message_sent_at
   end
 
-  scope :previous_from_the_same_user, ->(id, user_id) {
-    where('id < ?', id).where(user_id: user_id).order('id DESC').first || last
+  scope :previous_from_the_same_user, lambda { |id, user_id|
+    where('id < ?', id).where(user_id:).order('id DESC').first || last
   }
 
-  def is_message_sent_immediately_after_last_message_from_the_same_user?
+  def message_sent_immediately_after_last_message_from_the_same_user?
     message_previous = channel.messages.order('id DESC').first
     return if message_previous.blank?
 
-    message_previous.user_id == self.user_id && message_previous.created_at >= Time.current - 3.minutes &&
+    message_previous.user_id == user_id && message_previous.created_at >= 3.minutes.ago &&
       !message_previous.notice_type?
   end
 
   def attach_gif
-    return if gif_url.blank?
-
-    filename = File.basename(URI.parse(gif_url).path)
-    file = URI.open(gif_url)
-
-    self.attachments.attach(io: file, filename: filename)
+    Messages::AttachGifJob.perform_later(message: self, gif_url:)
   end
 
   private
 
   def message_broadcast
     MessageBroadcastJob.perform_now(
-      channel: channel,
+      channel:,
       messages: [self],
       message_reaction_form: MessageReactionForm.new,
       current_user: Current&.user
@@ -88,13 +86,13 @@ class Message < ApplicationRecord
 
     Channels::UpdateJob.perform_later(
       sender_id: Current&.user&.id,
-      channel: channel,
+      channel:,
       message: self,
       type: 'update_latest_message'
     )
   end
 
   def create_message_notifications
-    MessageNotifications::CreateJob.perform_later(not_user_id: user_id, message: self, channel: channel)
+    MessageNotifications::CreateJob.perform_later(not_user_id: user_id, message: self, channel:)
   end
 end

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your migration file.
 class AddTypeToMessages < ActiveRecord::Migration[7.0]
   def up
     add_column :messages, :type, :string

@@ -1,3 +1,6 @@
+# frozen_string_literal: true
+
+# This is your channel decorator
 class ChannelDecorator < ApplicationDecorator
   def latest_message
     @latest_message ||= object.latest_message

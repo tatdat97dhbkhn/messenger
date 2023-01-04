@@ -115,6 +115,30 @@ group :development, :test do
 
   # A RuboCop plugin for Rake. [https://github.com/rubocop/rubocop-rake]
   gem 'rubocop-rake', require: false
+
+  # Database Cleaner is a set of gems containing strategies for cleaning your database in Ruby.
+  # [https://github.com/DatabaseCleaner/database_cleaner]
+  gem 'database_cleaner'
+
+  # factory_bot_rails provides integration between factory_bot and rails 5.0 or newer
+  # [https://github.com/thoughtbot/factory_bot_rails]
+  gem 'factory_bot_rails'
+
+  # Faker, a port of Data::Faker from Perl, is used to easily generate fake data: names, addresses, phone numbers, etc.
+  # [https://rubygems.org/gems/faker]
+  gem 'faker'
+
+  # rspec-rails brings the RSpec testing framework to Ruby on Rails as a drop-in alternative
+  # to its default testing framework, Minitest. [https://github.com/rspec/rspec-rails]
+  gem 'rspec-rails'
+
+  # Shoulda helps you write more understandable, maintainable Rails-specific tests under Minitest and Test::Unit.
+  # [https://github.com/thoughtbot/shoulda]
+  gem 'shoulda'
+
+  # Code coverage for Ruby with a powerful configuration library and automatic merging of coverage across test suites
+  # [https://github.com/simplecov-ruby/simplecov]
+  gem 'simplecov', require: false
 end
 
 group :development do

@@ -12,6 +12,7 @@ https://user-images.githubusercontent.com/27503213/207297619-b7bbbcb0-0983-45f2-
 - [Start server in dev mode (live reload)](#start-server-in-dev-mode-live-reload)
 - [Access Website](#access-website)
 - [Env variables](#env-variables)
+- [Running tests](#running-tests)
 - [Database migrations](./doc/database-migrations.md)
 - [Screenshot](#screenshot)
 ## Requirements
@@ -41,6 +42,17 @@ https://user-images.githubusercontent.com/27503213/207297619-b7bbbcb0-0983-45f2-
 - `PG_USER` - specify Database user
 - `PG_PASSWORD` - specify Database user password
 - `REDIS_URL` - specify Redis url
+
+### Running Tests
+
+Run `bundle exec rspec`
+
+If you wish to assess code coverage (using SimpleCov), run the following (which will incur a minor decrease in testing speed):
+
+```
+ENABLE_COVERAGE=true bundle exec rspec
+open coverage/index.html
+```
 
 ## Screenshot
 

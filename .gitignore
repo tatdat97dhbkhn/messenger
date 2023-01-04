@@ -40,3 +40,10 @@
 .idea
 
 /config/credentials/production.key
+
+# Ignore temporary testing files
+
+/spec/support/uploads/tmp
+
+# Ignore code coverage files
+coverage

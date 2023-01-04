@@ -168,6 +168,9 @@ group :development do
   # [https://github.com/civisanalytics/ruby_audit]
   gem 'ruby_audit'
 
+  # Utility to install, configure, and extend Git hooks [https://github.com/sds/overcommit]
+  gem 'overcommit'
+
   # Add speed badges [https://github.com/MiniProfiler/rack-mini-profiler]
   # gem "rack-mini-profiler"
 

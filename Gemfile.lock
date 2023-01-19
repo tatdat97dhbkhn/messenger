@@ -174,7 +174,7 @@ GEM
     faraday_middleware (1.2.0)
       faraday (~> 1.0)
     ffi (1.15.5)
-    globalid (1.0.0)
+    globalid (1.0.1)
       activesupport (>= 5.0)
     http-accept (1.7.0)
     http-cookie (1.0.5)

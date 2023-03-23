@@ -193,4 +193,7 @@ group :test do
   # Run Selenium tests more easily with automatic installation and updates for all supported webdrivers.
   # [https://github.com/titusfortner/webdrivers]
   gem 'webdrivers'
+
+  # Library for stubbing and setting expectations on HTTP requests in Ruby. [https://github.com/bblimke/webmock]
+  gem 'webmock'
 end
